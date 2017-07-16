@@ -1,2 +1,2 @@
 # supic
-an image processing toolkit based on the latest DNN papers
+DNN-based image processing desktop app built with Electron
