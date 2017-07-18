@@ -4,12 +4,22 @@ import { Link } from 'react-router-dom';
 import styles from './Gallery.css';
 
 class Gallery extends Component {
-  props: {
-    decrement: () => void
+
+  decrement = () => {
+    console.log(123);
   };
 
   dropFile = (e) => {
     e.preventDefault();
+    console.log(123);
+    client.invoke('calc', '1 + 1', (error, res) => {
+      if (error) {
+        console.error(error);
+      } else {
+        const result = document.querySelector('#py-result');
+        result.textContent = res;
+      }
+    });
     for (let f of e.dataTransfer.files) {
       console.log('File(s) you dragged here: ', f.path);
     }
@@ -17,7 +27,6 @@ class Gallery extends Component {
   };
 
   render() {
-    const { decrement } = this.props;
     return (
       <div>
         <div className={styles.backButton} data-tid="backButton">
@@ -35,7 +44,7 @@ class Gallery extends Component {
           <button className={styles.btn} data-tclass="btn">
             <i className="fa fa-plus" />
           </button>
-          <button className={styles.btn} onClick={decrement} data-tclass="btn">
+          <button className={styles.btn} onClick={this.decrement} data-tclass="btn">
             <i className="fa fa-minus" />
           </button>
         </div>
@@ -51,15 +60,3 @@ const zerorpc = require('zerorpc');
 const client = new zerorpc.Client();
 client.connect('tcp://127.0.0.1:4242');
 
-const drop = document.querySelector('#drop-file');
-const result = document.querySelector('#py-result');
-drop.addEventListener('drop', () => {
-  client.invoke('calc', '1 + 1', (error, res) => {
-    if (error) {
-      console.error(error);
-    } else {
-      result.textContent = res;
-    }
-  });
-});
-drop.dispatchEvent(new Event('drop'));
