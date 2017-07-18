@@ -13,6 +13,8 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
+const path = require('path');
+
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -22,7 +24,6 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
   require('electron-debug')();
-  const path = require('path');
   const p = path.join(__dirname, '..', 'app', 'node_modules');
   require('module').globalPaths.push(p);
 }
@@ -67,8 +68,6 @@ app.on('ready', async () => {
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
-  // @TODO: Use 'ready-to-show' event
-  //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
@@ -84,3 +83,31 @@ app.on('ready', async () => {
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 });
+
+// Spawn python child process
+
+let pyProc = null;
+let pyPort = null;
+
+const selectPort = () => {
+  pyPort = 4242;
+  return pyPort;
+};
+
+const createPyProc = () => {
+  const port = selectPort().toString();
+  const script = path.join(__dirname, 'pycalc', 'api.py');
+  pyProc = require('child_process').spawn('python', [script, port]);
+  if (pyProc != null) {
+    console.log('child process success');
+  }
+};
+
+const exitPyProc = () => {
+  pyProc.kill();
+  pyProc = null;
+  pyPort = null;
+};
+
+app.on('ready', createPyProc);
+app.on('will-quit', exitPyProc);

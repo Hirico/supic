@@ -9,7 +9,8 @@ export default class Home extends Component {
       <div>
         <div className={styles.container} data-tid="container">
           <h2>Supic Demo</h2>
-          <Link to="/counter">this is a Link</Link>
+          <Link to="/counter">Counter</Link><br />
+          <Link to="/gallery">Gallery</Link>
         </div>
       </div>
     );
