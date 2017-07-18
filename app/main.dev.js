@@ -28,18 +28,18 @@ if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true')
   require('module').globalPaths.push(p);
 }
 
-const installExtensions = async () => {
-  const installer = require('electron-devtools-installer');
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = [
-    'REACT_DEVELOPER_TOOLS',
-    'REDUX_DEVTOOLS'
-  ];
+// const installExtensions = async () => {
+//   const installer = require('electron-devtools-installer');
+//   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+//   const extensions = [
+//     'REACT_DEVELOPER_TOOLS',
+//     'REDUX_DEVTOOLS'
+//   ];
 
-  return Promise
-    .all(extensions.map(name => installer.default(installer[name], forceDownload)))
-    .catch(console.log);
-};
+//   return Promise
+//     .all(extensions.map(name => installer.default(installer[name], forceDownload)))
+//     .catch(console.log);
+// };
 
 
 /**
@@ -57,7 +57,8 @@ app.on('window-all-closed', () => {
 
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
-    await installExtensions();
+    // can't download extensions due to firewall
+    // await installExtensions();
   }
 
   mainWindow = new BrowserWindow({
@@ -98,9 +99,6 @@ const createPyProc = () => {
   const port = selectPort().toString();
   const script = path.join(__dirname, '..', 'pycalc', 'api.py');
   pyProc = require('child_process').spawn('python', [script, port]);
-  if (pyProc != null) {
-    console.log(`child process success, ${port}`);
-  }
 };
 
 const exitPyProc = () => {
