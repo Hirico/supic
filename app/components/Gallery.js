@@ -20,9 +20,9 @@ class Gallery extends Component {
         result.textContent = res;
       }
     });
-    for (let f of e.dataTransfer.files) {
+    e.dataTransfer.files.forEach(f => {
       console.log('File(s) you dragged here: ', f.path);
-    }
+    });
     return false;
   };
 
