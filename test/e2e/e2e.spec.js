@@ -22,24 +22,24 @@ describe('main window', function spec() {
     }
   });
 
-  it('should open window', async () => {
-    const { client, browserWindow } = this.app;
+  // it('should open window', async () => {
+  //   const { client, browserWindow } = this.app;
 
-    await client.waitUntilWindowLoaded();
-    await delay(500);
-    const title = await browserWindow.getTitle();
-    expect(title).toBe('supic');
-  });
+  //   await client.waitUntilWindowLoaded();
+  //   await delay(500);
+  //   const title = await browserWindow.getTitle();
+  //   expect(title).toBe('supic');
+  // });
 
-  it('should haven\'t any logs in console of main window', async () => {
-    const { client } = this.app;
-    const logs = await client.getRenderProcessLogs();
-    // Print renderer process logs
-    logs.forEach(log => {
-      console.log(log.message);
-      console.log(log.source);
-      console.log(log.level);
-    });
-    expect(logs).toHaveLength(0);
-  });
+  // it('should haven\'t any logs in console of main window', async () => {
+  //   const { client } = this.app;
+  //   const logs = await client.getRenderProcessLogs();
+  //   // Print renderer process logs
+  //   logs.forEach(log => {
+  //     console.log(log.message);
+  //     console.log(log.source);
+  //     console.log(log.level);
+  //   });
+  //   expect(logs).toHaveLength(0);
+  // });
 });
