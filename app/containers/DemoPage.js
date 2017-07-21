@@ -51,7 +51,7 @@ class App extends Component {
             <Tooltip placement="top" title={'open'}><Icon className={styles.trigger} type="plus" /></Tooltip>
             <Tooltip placement="top" title={'clean'}><Icon className={styles.trigger} type="delete" /></Tooltip>
             <Tooltip placement="top" title={'save'}><Icon className={styles.trigger} type="save" /></Tooltip>
-            <UpMenuSlider min={100} max={400} value={100} icon={['picture', 'picture']} />
+            <Col span={1}><UpMenuSlider min={100} max={400} value={100} icon={['picture', 'picture']} /></Col>
             <Tooltip placement="top" title={'more info'}><Icon className={styles.info} type="info-circle" /></Tooltip>
           </Header>
 
