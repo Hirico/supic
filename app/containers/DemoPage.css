@@ -1,20 +1,36 @@
-/*@import '../../node_modules/antd/dist/antd.css';*/
+@import '../../node_modules/antd/dist/antd.css';
 
 .trigger {
   font-size: 18px;
   line-height: 64px;
   padding: 0 16px;
   cursor: pointer;
-  transition: color .3s;
+  transition: color 0.3s;
 }
 
 .trigger:hover {
   color: #108ee9;
+  font-size: 20px;
+}
+
+.info {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 20px;
+  line-height: 64px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.info:hover {
+  color: #108ee9;
+  font-size: 20px;
 }
 
 .logo {
   height: 32px;
-  background: #333;
   border-radius: 6px;
   margin: 16px;
 }
@@ -24,28 +40,78 @@
 }
 
 .middle_layout {
-  background: #f5f5f5;
-  padding: 0
+  background: #1e1e1e;
+  padding: 0;
 }
 
-.middle_layout .header{
-  background: #fff;
-  padding: 0
+.middle_layout .header {
+  background: #0c0c0c;
+  padding: 0;
+  color: #fff;
 }
 
-.middle_layout .middle_picture{
+.middle_layout .middle_picture {
   margin: 2.075% 2.075%;
   height: 450px;
 }
 
-.middle_layout .right_list{
+.middle_layout .right_list {
   margin: 2.075% 0%;
-  background: #fff;
+  background: #1e1e1e;
   height: 450px;
+  color: #fff;
 }
 
-.middle_layout .footer{
-  background: #fff;
+.middle_layout .footer {
+  background: #1e1e1e;
   padding: 0;
-  height: 50px;
+  height: 70px;
+}
+/*some common properties in footer */
+.middle_layout .footer .footer_icon {
+  font-size: 30px;
+  color: #d9d9d9;
+}
+.middle_layout .footer .footer_icon:hover {
+  color: #108ee9;
+  font-size: 38px;
+}
+.middle_layout .footer .note {
+  font-size: 15px;
+  color: #d9d9d9;
+}
+
+/*footer icon*/
+.middle_layout .footer .zoom {
+  position: absolute;
+  right: 90px;
+  top: 10px;
+}
+
+.middle_layout .footer .check {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+/*footer note*/
+.note_label_reso {
+  position: absolute;
+  top: 44px;
+  left: 80px;
+}
+
+.note_label_zoom {
+  position: absolute;
+  top: 44px;
+  right: 70px;
+}
+
+.note_label_check {
+  position: absolute;
+  top: 44px;
+  right: 10px;
+}
+
+#try{
+
 }

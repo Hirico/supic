@@ -1,0 +1,34 @@
+.icon_wrapper {
+  position: absolute;
+  padding: 0;
+  left: 390px;
+  top: 18px;
+  height: 40px;
+  width: 140px;
+}
+
+.icon_wrapper .anticon {
+  position: absolute;
+  top: -5px;
+  left: 28px;
+  width: 90px;
+  height: 16px;
+  line-height: 1;
+  font-size: 16px;
+}
+
+.icon_wrapper .anticon1 {
+  position: absolute;
+  left: 0px;
+  top: 5px;
+}
+
+.icon_wrapper .anticon2 {
+  position: absolute;
+  left: 130px;
+  top: 5px;
+}
+
+.anticon.anticon_highlight {
+  color: #666;
+}

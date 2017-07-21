@@ -38,12 +38,13 @@ class RightMenuList extends Component {
   render() {
     return (
       <Menu
+        theme="dark"
         mode="inline"
-        openKeys={this.state.openKeys}
         selectedKeys={[this.state.current]}
-        style={{ width: 'auto' }}
+        style={{ width: 'auto', background: '#1e1e1e' }}
         onOpenChange={this.onOpenChange}
         onClick={this.handleClick}
+        inlineIndent="10"
       >
         <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Resolution</span></span>}>
           <Menu.Item key="1">Single Super</Menu.Item>

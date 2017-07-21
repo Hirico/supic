@@ -1,0 +1,43 @@
+.SR_icon_wrapper {
+  position: absolute;
+  padding: 0;
+  left: 40px;
+  top: 15px;
+  height: 40px;
+  width: 200px;
+  color: #fff;
+}
+
+.SR_icon_wrapper .anticon {
+  position: absolute;
+  top: -5px;
+  width: 200px;
+  height: 16px;
+  line-height: 1;
+  font-size: 16px;
+  /*color: @disabled-color;*/
+}
+
+.SR_icon_wrapper .anticon1{
+  position: absolute;
+  left: -20px;
+  top: 7px;
+  color: #d9d9d9;
+}
+
+.SR_icon_wrapper .anticon2{
+  position: absolute;
+  left: 220px;
+  top: 7px;
+  color: #d9d9d9;
+}
+
+.anticon.anticon_highlight {
+  color: #666;
+}
+
+.slider {
+  position: absolute;
+  left: 400px;
+  top: 10px;
+}
