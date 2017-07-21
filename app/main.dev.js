@@ -98,7 +98,7 @@ const selectPort = () => {
 const createPyProc = () => {
   const port = selectPort().toString();
   const script = path.join(__dirname, '..', 'pycalc', 'api.py');
-  pyProc = require('child_process').spawn('python', [script, port]);
+  pyProc = require('child_process').spawn('python3', [script, port]);
 };
 
 const exitPyProc = () => {
@@ -109,3 +109,22 @@ const exitPyProc = () => {
 
 app.on('ready', createPyProc);
 app.on('will-quit', exitPyProc);
+
+// init resource
+
+const Resource = require('./utils/resourceResolver');
+
+const tempDir = `${app.getPath('userData')}/supic_temp`;
+
+const resource = new Resource(tempDir);
+
+resource.init();
+app.on('will-quit', resource.dispose);
+
+const ipcMain = require('electron').ipcMain;
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  if (arg === 'get-temp-dir') {
+    event.returnValue = tempDir;
+  }
+});

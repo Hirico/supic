@@ -1,29 +1,25 @@
 // @flow
+import { resolve } from 'path';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Gallery.css';
+import { tempSr } from '../utils/pyCommunicator';
 
 class Gallery extends Component {
 
+  // sr api(tempSr) sample, click the second circle, wait a while and
+  // the console should print the output file path
   decrement = () => {
-    console.log(123);
+    const printFunction = (message) => {
+      console.log(message);
+    };
+
+    tempSr(resolve('./resources/icon.png'), 512, 512, printFunction);
   };
 
   dropFile = (e) => {
     e.preventDefault();
     console.log(123);
-    client.invoke('calc', '1 + 1', (error, res) => {
-      if (error) {
-        console.error(error);
-      } else {
-        const result = document.querySelector('#py-result');
-        result.textContent = res;
-      }
-    });
-    e.dataTransfer.files.forEach(f => {
-      console.log('File(s) you dragged here: ', f.path);
-    });
-    return false;
   };
 
   render() {
@@ -54,9 +50,4 @@ class Gallery extends Component {
 }
 
 export default Gallery;
-
-const zerorpc = require('zerorpc');
-
-const client = new zerorpc.Client();
-client.connect('tcp://127.0.0.1:4242');
 
