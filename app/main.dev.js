@@ -11,7 +11,9 @@
  * @flow
  */
 import { app, BrowserWindow } from 'electron';
+import { resolve } from 'path';
 import MenuBuilder from './menu';
+
 
 const path = require('path');
 
@@ -95,10 +97,12 @@ const selectPort = () => {
   return pyPort;
 };
 
+const pyCalcPath = (resolve('./pycalc/'));
+
 const createPyProc = () => {
   const port = selectPort().toString();
   const script = path.join(__dirname, '..', 'pycalc', 'api.py');
-  pyProc = require('child_process').spawn('python3', [script, port]);
+  pyProc = require('child_process').spawn('python3', [script, port, pyCalcPath]);
 };
 
 const exitPyProc = () => {

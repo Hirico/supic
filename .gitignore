@@ -53,3 +53,6 @@ npm-debug.log.*
 
 # VS code
 .vscode/*
+
+# python pyc
+*.pyc

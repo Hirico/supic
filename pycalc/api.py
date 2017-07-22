@@ -4,6 +4,7 @@ from calc import calc as real_calc
 from inference import predict_SR as real_predict_sr
 import sys
 import zerorpc
+import argument
 
 class PredictApi(object):
 
@@ -33,8 +34,17 @@ def parse_port():
         pass
     return '{}'.format(port)
 
+def parse_path():
+    path = "./"
+    try:
+        path = str(sys.argv[2])
+    except Exception as e:
+        pass
+    argument.options.save_path = path
+
 def main():
     addr = 'tcp://127.0.0.1:' + parse_port()
+    parse_path()
     s = zerorpc.Server(PredictApi())
     s.bind(addr)
     #print('start running on {}'.format(addr))

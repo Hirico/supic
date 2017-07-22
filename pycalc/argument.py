@@ -24,11 +24,14 @@ class Argument():
         self.train_data_path = "./dataset/BSDS300/images/train"  #训练集文件夹的位置
         self.validation_data_path = "./dataset/BSDS300/images/validation"  # 验证集文件夹的位置
         self.test_data_path = "./dataset/BSDS300/images/test"  # 测试集文件夹的位置
-        self.save_path = "/home/hirico/supic/pycalc/"   #保存模型参数的地方
+        self.save_path = "./"   #保存模型参数的地方
         self.model_name = "testModel"  #训练模型的名字
 
     def predict(self,batchsize):
         self.batch_size = batchsize
+
+    def locate_save_path(self, path):
+        self.save_path = path
 
 
 
