@@ -44,4 +44,6 @@ script:
   - yarn test-e2e
 
  notifications:
-    slack: njuinsight:rIgIPCazIYbPtapxzv9qyDnk
+   slack:
+     njuinsight: rIgIPCazIYbPtapxzv9qyDnk
+     on_success: never
