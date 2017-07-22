@@ -43,7 +43,7 @@ script:
   - yarn test
   - yarn test-e2e
 
- notifications:
-   slack:
-     njuinsight: rIgIPCazIYbPtapxzv9qyDnk
-     on_success: never
+notifications:
+  slack:
+    njuinsight: rIgIPCazIYbPtapxzv9qyDnk
+    on_success: never
