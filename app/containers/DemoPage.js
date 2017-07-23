@@ -42,19 +42,20 @@ class App extends Component {
     this.setState({
       fileUrl: files[0].path
     });
-    let img = new Image();
-    img.src = files[0].path + '?' + Date.parse(new Date());
-    img.onload = function () {
-      alert('width:' + img.width + ',height:' + img.height);
-    };
+    // let img = new Image();
+    // img.src = files[0].path + '?' + Date.parse(new Date());
+    // img.onload = function () {
+    //   alert('width:' + img.width + ',height:' + img.height);
+    // };
     // console.log('Received files: ', files[0]);
     // console.log(this.state.fileUrl);
   };
 
-  // iniImg = () =>{
-  //   this.state.imageWidth = iw;
-  //   this.state.imageHeight = ih;
-  // }
+  iniImg = () => {
+    this.state.imageWidth = document.getElementById('middle_img').clientWidth;
+    this.state.imageHeight = document.getElementById('middle_img').clientHeight;
+    // alert('width:' + this.state.imageWidth + ',height:' + this.state.imageHeight);
+  }
 
 
   render() {
@@ -98,7 +99,8 @@ class App extends Component {
                   {this.state.fileUrl === '' ? null :
                     <div className={styles.imageDropZone}>
                       <p>{this.state.fileUrl}</p>
-                      <img style={{ margin: 0, height: '100%' }} src={this.state.fileUrl} onLoad={this.iniImg}/>
+                      <img id="middle_img" style={{ margin: 0, height: '100%' }} src={this.state.fileUrl}
+                           onLoad={this.iniImg}/>
                     </div>}
                 </Dropzone>
               </Col>
