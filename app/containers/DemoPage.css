@@ -15,11 +15,9 @@
 
 .info {
   position: absolute;
-  right: 20px;
+  right: 30px;
   top: 20px;
   font-size: 20px;
-  line-height: 64px;
-  padding: 0 16px;
   cursor: pointer;
   transition: color 0.3s;
 }
@@ -98,7 +96,7 @@
 .note_label_reso {
   position: absolute;
   top: 44px;
-  left: 80px;
+  left: 60px;
 }
 
 .note_label_zoom {

@@ -2,28 +2,40 @@
  * Created by lu on 2017/7/20.
  */
 import React, { Component } from 'react';
-import { Slider, Icon } from 'antd';
+import { Slider, Icon, InputNumber } from 'antd';
 import styles from './SRSlider.css';
 
 class SRSlider extends Component {
   constructor(props) {
     super(props);
-    const { max, min } = props;
-    const mid = ((max - min) / 2).toFixed(5);
     this.state = {
-      nextIconClass: this.props.value >= mid ? '' : 'styles.anticon_highlight',
-      preIconClass: this.props.value >= mid ? 'styles.anticon_highlight' : '',
-      mid,
+      cHeight: this.props.pre_height,
       sliderValue: this.props.value,
+      cWidth: this.props.pre_width,
     };
   }
   handleChange = (v) => {
     this.setState({
-      nextIconClass: v >= this.state.mid ? '' : 'styles.anticon_highlight',
-      preIconClass: v >= this.state.mid ? 'styles.anticon_highlight' : '',
+      cWidth: v * this.props.pre_width,
       sliderValue: v,
+      cHeight: v * this.props.pre_height,
     });
   }
+  handleWidthChange=(v) => {
+    this.setState({
+      cWidth: v,
+      sliderValue: (v / this.props.pre_width),
+      cHeight: ((v / this.props.pre_width) * this.props.pre_height),
+    });
+  }
+  handleHeightChange=(v) => {
+    this.setState({
+      cHeight: v,
+      sliderValue: (v / this.props.pre_height),
+      cWidth: ((v / this.props.pre_height) * this.props.pre_width),
+    });
+  }
+
   render() {
     return (
       <div className={styles.SR_icon_wrapper}>
@@ -32,10 +44,33 @@ class SRSlider extends Component {
           {...this.props}
           className={styles.anticon}
           tipFormatter={formatter}
-          onChange={this.handleChange}
           value={this.state.sliderValue}
+          onChange={this.handleChange}
+          step={0.1}
         />
         <Icon className={styles.anticon2} type="plus-circle" />
+        <InputNumber
+          {...this.props}
+          style={{ width: '55' }}
+          className={styles.inputWidth}
+          min={this.props.pre_width}
+          max={this.props.pre_height * 8}
+          value={this.state.cWidth}
+          onChange={this.handleWidthChange}
+        />
+        <InputNumber
+          {...this.props}
+          style={{ width: '55', top: '-28' }}
+          className={styles.inputHeight}
+          min={this.props.pre_height}
+          max={this.props.pre_height * 8}
+          value={this.state.cHeight}
+          onChange={this.handleHeightChange}
+        />
+        <label className={`${styles.note_label} ${styles.px1_label}`} htmlFor={`${styles.try}`} >px</label>
+        <label className={`${styles.note_label} ${styles.width_label}`} htmlFor={`${styles.try}`} >width</label>
+        <label className={`${styles.note_label} ${styles.height_label}`} htmlFor={`${styles.try}`} >height</label>
+        <label className={`${styles.note_label} ${styles.px2_label}`} htmlFor={`${styles.try}`} >px</label>
       </div>
     );
   }
@@ -46,7 +81,7 @@ function formatter(value) {
 
 export default SRSlider;
 SRSlider.propTypes = {
-  max: React.PropTypes.number.isRequired,
-  min: React.PropTypes.number.isRequired,
+  pre_width: React.PropTypes.number.isRequired,
+  pre_height: React.PropTypes.number.isRequired,
   value: React.PropTypes.number.isRequired
 };

@@ -68,7 +68,7 @@ class App extends Component {
           <Footer>
             <Row>
               <Col span={19} className={styles.footer}>
-                <SRSlider min={2} max={16} value={8} /><label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_reso}`}>Resize Resolution</label>
+                <SRSlider min={1} max={8} value={1} pre_width={32} pre_height={16} /><label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_reso}`}>Resize Resolution</label>
                 <Icon className={`${styles.zoom} ${styles.footer_icon}`} type="search" /><label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_zoom}`}>Magnifier</label>
                 <Icon className={`${styles.check} ${styles.footer_icon}`} type="check-circle" /><label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_check}`}>check</label>
 

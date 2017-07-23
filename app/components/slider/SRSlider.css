@@ -4,31 +4,30 @@
   left: 40px;
   top: 15px;
   height: 40px;
-  width: 200px;
+  width: 100px;
   color: #fff;
 }
 
 .SR_icon_wrapper .anticon {
   position: absolute;
   top: -5px;
-  width: 200px;
+  width: 150px;
   height: 16px;
   line-height: 1;
   font-size: 16px;
-  /*color: @disabled-color;*/
 }
 
 .SR_icon_wrapper .anticon1{
   position: absolute;
-  left: -20px;
-  top: 7px;
+  left: -10px;
+  top: 5px;
   color: #d9d9d9;
 }
 
 .SR_icon_wrapper .anticon2{
   position: absolute;
-  left: 220px;
-  top: 7px;
+  left: 160px;
+  top: 5px;
   color: #d9d9d9;
 }
 
@@ -41,3 +40,41 @@
   left: 400px;
   top: 10px;
 }
+
+.inputWidth{
+  position: absolute;
+  left: 190px;
+  top:1px;
+  width: 55px;
+}
+.inputHeight{
+  position: absolute;
+  left: 270px;
+  top:1px;
+  width:55px;
+}
+.note_label{
+  font-size: 13px;
+  color: #dddddd;
+}
+.px1_label{
+  position: absolute;
+  left: 246px;
+  top:2px;
+}
+.width_label{
+  position: absolute;
+  left: 197px;
+  top: 32px;
+}
+.height_label{
+  position: absolute;
+  left: 278px;
+  top: 32px;
+}
+.px2_label{
+  position: absolute;
+  left: 326px;
+  top:2px;
+}
+
