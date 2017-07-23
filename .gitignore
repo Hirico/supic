@@ -54,5 +54,5 @@ npm-debug.log.*
 # VS code
 .vscode/*
 
-# python pyc
-*.pyc
+# python cache
+pycalc/__pycache__/*

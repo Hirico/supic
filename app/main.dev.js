@@ -97,12 +97,36 @@ const selectPort = () => {
   return pyPort;
 };
 
+// Package code
+// const PY_DIST_FOLDER = '../pycalcdist';
+// const PY_FOLDER = '../pycalc';
+// const PY_MODULE = 'api'; // without .py suffix
+
+// const guessPackaged = () => {
+//   const fullPath = path.join(__dirname, PY_DIST_FOLDER);
+//   return require('fs').existsSync(fullPath);
+// };
+
+// const getScriptPath = () => {
+//   if (!guessPackaged()) {
+//     return path.join(__dirname, PY_FOLDER, `${PY_MODULE}.py`);
+//   }
+//   if (process.platform === 'win32') {
+//     return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, `${PY_MODULE}.exe`);
+//   }
+//   return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE);
+// };
+
 const pyCalcPath = (resolve('./pycalc/'));
 
 const createPyProc = () => {
   const port = selectPort().toString();
-  const script = path.join(__dirname, '..', 'pycalc', 'api.py');
-  pyProc = require('child_process').spawn('python3', [script, port, pyCalcPath]);
+  const script = getScriptPath();
+  if (guessPackaged()) {
+    pyProc = require('child_process').execFile(script, [port, pyCalcPath]);
+  } else {
+    pyProc = require('child_process').spawn('python3', [script, port, pyCalcPath]);
+  }
 };
 
 const exitPyProc = () => {
@@ -118,12 +142,12 @@ app.on('will-quit', exitPyProc);
 
 const Resource = require('./utils/resourceResolver');
 
-const tempDir = `${app.getPath('userData')}/supic_temp`;
+const tempDir = `${app.getPath('userData')}/pic_temp`;
 
 const resource = new Resource(tempDir);
 
 resource.init();
-app.on('will-quit', resource.dispose);
+app.on('quit', resource.dispose);
 
 const ipcMain = require('electron').ipcMain;
 

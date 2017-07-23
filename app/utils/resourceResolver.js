@@ -1,12 +1,12 @@
 // @flow
-import fs from 'fs';
+import fs from 'fs-extra';
 
 export default class Resource {
 
   constructor(dir) {
     this.tempDir = dir;
     this.dispose = () => {
-      fs.rmdirSync(this.tempDir);
+      fs.removeSync(this.tempDir);
     };
   }
 

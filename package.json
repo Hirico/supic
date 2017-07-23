@@ -3,6 +3,13 @@
   "productName": "supic",
   "version": "0.1.0",
   "description": "Image toolkit",
+  "version-string":{
+    "CompanyName": "Insight",
+    "FileDescription": "Supic",
+    "OriginalFilename": "SupicDesktop",
+    "ProductName": "Supic",
+    "InternalName": "SupicDesktop"
+  },
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
