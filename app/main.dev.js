@@ -121,12 +121,8 @@ const pyCalcPath = (resolve('./pycalc/'));
 
 const createPyProc = () => {
   const port = selectPort().toString();
-  const script = getScriptPath();
-  if (guessPackaged()) {
-    pyProc = require('child_process').execFile(script, [port, pyCalcPath]);
-  } else {
-    pyProc = require('child_process').spawn('python3', [script, port, pyCalcPath]);
-  }
+  const script = path.join(__dirname, '..', 'pycalc', 'api.py');
+  pyProc = require('child_process').spawn('python3', [script, port, pyCalcPath]);
 };
 
 const exitPyProc = () => {

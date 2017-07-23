@@ -80,3 +80,5 @@ def predict_SR(input_path, output_dir, out_width, out_height):
             return '!ERROR:model error: ' + str(err)
 
 #print (predict_SR('/home/hirico/supic/resources/icon.png', '/home/hirico/supic_back', 512, 512))
+
+#print (predict_SR('/home/hirico/supic/resources/icon.png', '/home/hirico/supic_back', 512, 512))

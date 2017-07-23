@@ -144,7 +144,3 @@ def single_inference(input_file_path, output_dir_path, scale, out_height, out_wi
             hr_img = sess.run(hr_predict)
             save_image(hr_img,output_dir_path)
             return output_dir_path
-
-
-
-

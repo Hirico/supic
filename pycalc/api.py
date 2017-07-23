@@ -5,6 +5,7 @@ from inference import predict_SR as real_predict_sr
 import sys
 import zerorpc
 import argument
+import tensorflow as tf
 
 class PredictApi(object):
 
@@ -22,7 +23,9 @@ class PredictApi(object):
     def predict_sr(self, input_path, output_dir, out_width, out_height):
         """ render and store temp sr images in output_dir """
         try:
-            return real_predict_sr(input_path, output_dir, int(out_width), int(out_height))
+            result = real_predict_sr(input_path, output_dir, int(out_width), int(out_height))
+            tf.reset_default_graph()
+            return result
         except Exception as e:
             return '!ERROR' + str(e)
 
