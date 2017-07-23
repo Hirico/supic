@@ -111,6 +111,15 @@
   right: 10px;
 }
 
+
+.imageDropZone{
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow:hidden;
+  text-align: center;
+}
+
 #try{
 
 }
