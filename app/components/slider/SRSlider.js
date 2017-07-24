@@ -20,6 +20,7 @@ class SRSlider extends Component {
       sliderValue: v,
       cHeight: v * this.props.pre_height,
     });
+    this.props.handleSlider(this.state.cWidth,this.state.cHeight);
   }
   handleWidthChange=(v) => {
     this.setState({
@@ -27,6 +28,7 @@ class SRSlider extends Component {
       sliderValue: (v / this.props.pre_width),
       cHeight: ((v / this.props.pre_width) * this.props.pre_height),
     });
+    this.props.handleSlider(this.state.cWidth,this.state.cHeight);
   }
   handleHeightChange=(v) => {
     this.setState({
@@ -34,6 +36,7 @@ class SRSlider extends Component {
       sliderValue: (v / this.props.pre_height),
       cWidth: ((v / this.props.pre_height) * this.props.pre_width),
     });
+    this.props.handleSlider(this.state.cWidth,this.state.cHeight);
   }
 
   render() {
