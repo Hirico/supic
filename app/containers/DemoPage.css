@@ -49,94 +49,11 @@
   color: #fff;
 }
 
-.middle_layout .middle_picture {
-  margin: 2.075% 2.075%;
-  height: 450px;
-  width: 700px;
-}
-
 .middle_layout .right_list {
-  margin: 2.075% 0%;
+  position: absolute;
+  right: 0px;
+  top: 80px;
   background: #1e1e1e;
   height: 450px;
   color: #fff;
-}
-
-.middle_layout .footer {
-  background: #1e1e1e;
-  padding: 0;
-  height: 70px;
-}
-/*some common properties in footer */
-.middle_layout .footer .footer_icon {
-  font-size: 30px;
-  color: #d9d9d9;
-}
-.middle_layout .footer .footer_icon:hover {
-  color: #108ee9;
-  font-size: 38px;
-}
-.middle_layout .footer .note {
-  font-size: 15px;
-  color: #d9d9d9;
-}
-
-/*footer icon*/
-.middle_layout .footer .zoom {
-  position: absolute;
-  right: 90px;
-  top: 10px;
-}
-
-.middle_layout .footer .check_btn {
-  position: absolute;
-  right: 18px;
-  top: 10px;
-}
-
-.middle_layout .footer .check_btn:hover {
-  background: #108ee9;
-  top: 6px;
-  right: 15px;
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  font-size: 26px;
-}
-
-/*.middle_layout .footer .check {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-}*/
-/*footer note*/
-.note_label_reso {
-  position: absolute;
-  top: 44px;
-  left: 60px;
-}
-
-.note_label_zoom {
-  position: absolute;
-  top: 44px;
-  right: 70px;
-}
-
-.note_label_check {
-  position: absolute;
-  top: 44px;
-  right: 10px;
-}
-
-
-.imageDropZone {
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  text-align: center;
-}
-
-#try{
-
 }

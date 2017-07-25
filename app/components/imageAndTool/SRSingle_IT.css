@@ -1,0 +1,83 @@
+.middle_picture {
+  margin: 2.075% 2.075%;
+  height: 450px;
+}
+
+ .footer {
+  background: #1e1e1e;
+  padding: 0;
+  height: 70px;
+}
+/*some common properties in footer */
+ .footer .footer_icon {
+  font-size: 30px;
+  color: #d9d9d9;
+}
+.footer .footer_icon:hover {
+  color: #108ee9;
+  font-size: 38px;
+}
+ .footer .note {
+  font-size: 15px;
+  color: #d9d9d9;
+}
+
+/*footer icon*/
+ .footer .zoom {
+  position: absolute;
+  right: 90px;
+  top: 10px;
+}
+
+ .footer .check_btn {
+  position: absolute;
+  right: 18px;
+  top: 10px;
+}
+
+ .footer .check_btn:hover {
+  background: #108ee9;
+  top: 6px;
+  right: 15px;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  font-size: 26px;
+}
+
+/*.middle_layout .footer .check {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}*/
+/*footer note*/
+.note_label_reso {
+  position: absolute;
+  top: 44px;
+  left: 60px;
+}
+
+.note_label_zoom {
+  position: absolute;
+  top: 44px;
+  right: 70px;
+}
+
+.note_label_check {
+  position: absolute;
+  top: 44px;
+  right: 10px;
+}
+
+
+.imageDropZone {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+#try{
+
+}

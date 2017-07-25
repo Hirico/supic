@@ -1,0 +1,61 @@
+.middle_picture {
+  margin: 2.075% 2.075%;
+  height: 450px; 
+}
+
+.footer {
+  background: #1e1e1e;
+  padding: 0;
+  height: 70px;
+}
+
+.imageDropZone {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+#try{
+
+}
+.footer .note{
+  font-size: 15px;
+  color:#fff;
+}
+.footer .focalSlider{
+  position: absolute;
+  left: 0px;
+  top:30px;
+  width: 250px;
+}
+.footer .focalInputNumber{
+  position: absolute;
+  left: 200px;
+  top:0px;
+  width: 60px;
+}
+.footer .focalLabel{
+  position: absolute;
+  left: 0px;
+  top:0px;
+}
+
+.footer .blurSlider{
+  position: absolute;
+  left: 360px;
+  top:30px;
+  width: 250px;
+}
+.footer .blurInputNumber{
+  position: absolute;
+  left: 560px;
+  top:0px;
+  width: 60px;
+}
+.footer .blurLabel{
+  position: absolute;
+  left: 360px;
+  top:0px;
+}
