@@ -23,6 +23,7 @@ class UpMenuSlider extends Component {
       preIconClass: v >= this.state.mid ? 'styles.anticon_highlight' : '',
       sliderValue: v,
     });
+    this.props.handleUpSlider(this.state.sliderValue);
   }
   render() {
     return (
