@@ -147,8 +147,8 @@ app.on('quit', resource.dispose);
 
 const ipcMain = require('electron').ipcMain;
 
-ipcMain.on('synchronous-message', (event, arg) => {
+ipcMain.on('asynchronous-message', (event, arg) => {
   if (arg === 'get-temp-dir') {
-    event.returnValue = tempDir;
+    event.sender.send('asynchronous-reply', tempDir);
   }
 });

@@ -1,22 +1,16 @@
 # This python file need to be run on the zerorpc server. Call the member method through zerorpc
 from __future__ import print_function
-from calc import calc as real_calc
-from inference import predict_SR as real_predict_sr
+from inference_sr import predict_SR as real_predict_sr
 import sys
 import zerorpc
-import argument
-import tensorflow as tf
+import argument_sr
+from monodepth_inference import args as args_monodepth
+from monodepth_inference import predict_disparity as real_predict_disparity
+from tensorflow import reset_default_graph
 
 class PredictApi(object):
 
     # member method (API to be used by other language)
-    def calc(self, text):
-        """based on the input text, return the int result"""
-        try:
-            return real_calc(text)
-        except Exception as e:
-            return 0.0
-
     def batch_sr(self, input_file_paths, output_dir_paths, scale_list):
         """ render and store sr images in output_dir_paths """
 
@@ -24,7 +18,16 @@ class PredictApi(object):
         """ render and store temp sr images in output_dir """
         try:
             result = real_predict_sr(input_path, output_dir, int(out_width), int(out_height))
-            tf.reset_default_graph()
+            reset_default_graph()
+            return result
+        except Exception as e:
+            return '!ERROR' + str(e)
+
+    def predict_disparity(self, input_path, output_dir):
+        """ render and store temp disparity image in output_dir """
+        try:
+            result = real_predict_disparity(input_path, output_dir)
+            reset_default_graph()
             return result
         except Exception as e:
             return '!ERROR' + str(e)
@@ -38,12 +41,13 @@ def parse_port():
     return '{}'.format(port)
 
 def parse_path():
-    path = "./"
+    path = './'
     try:
         path = str(sys.argv[2])
     except Exception as e:
         pass
-    argument.options.save_path = path
+    argument_sr.options.save_path = path + 'sr/'
+    args_monodepth.checkpoint_path = path + 'depth/monodepth'
 
 def main():
     addr = 'tcp://127.0.0.1:' + parse_port()
