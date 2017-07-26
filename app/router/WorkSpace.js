@@ -6,7 +6,7 @@ import Lens_IT from '../components/imageAndTool/Lens_IT';
 const WorkSpace = () => (
   <main>
     <Switch>
-      <Route exact path='/demo/' component={SRSingle_IT}/>
+      <Route exact path='/' component={SRSingle_IT}/>
       <Route path='/demo/DepthNormal' component={Lens_IT}/>
     </Switch>
   </main>

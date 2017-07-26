@@ -50,7 +50,7 @@ class RightMenuList extends Component {
         inlineIndent="10"
       >
         <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Resolution</span></span>}>
-          <Menu.Item key="1"><Link to="/demo/">Single Super</Link></Menu.Item>
+          <Menu.Item key="1"><Link to="/">Single Super</Link></Menu.Item>
           <Menu.Item key="2">Multiple Super</Menu.Item>
         </SubMenu>
         <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>FocusDepth&nbsp;&nbsp;&nbsp;&nbsp;</span></span>}>
@@ -61,7 +61,7 @@ class RightMenuList extends Component {
           <Menu.Item key="5">Stylize Export</Menu.Item>
         </SubMenu>
       </Menu>
-      </div> 
+      </div>
     );
   }
 }
