@@ -16,6 +16,7 @@
 .footer .footer_icon:hover {
   color: #108ee9;
   font-size: 38px;
+  top:-5px;
 }
  .footer .note {
   font-size: 15px;
@@ -26,18 +27,18 @@
  .footer .zoom {
   position: absolute;
   right: 90px;
-  top: 10px;
+  top: 0px;
 }
 
  .footer .check_btn {
   position: absolute;
   right: 18px;
-  top: 10px;
+  top: 0px;
 }
 
  .footer .check_btn:hover {
   background: #108ee9;
-  top: 6px;
+  top: -5px;
   right: 15px;
   color: #fff;
   width: 40px;
@@ -53,19 +54,19 @@
 /*footer note*/
 .note_label_reso {
   position: absolute;
-  top: 44px;
+  top: 28px;
   left: 60px;
 }
 
 .note_label_zoom {
   position: absolute;
-  top: 44px;
+  top: 30px;
   right: 70px;
 }
 
 .note_label_check {
   position: absolute;
-  top: 44px;
+  top: 30px;
   right: 10px;
 }
 

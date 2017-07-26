@@ -48,12 +48,3 @@
   padding: 0;
   color: #fff;
 }
-
-.middle_layout .right_list {
-  position: absolute;
-  right: 0px;
-  top: 80px;
-  background: #1e1e1e;
-  height: 450px;
-  color: #fff;
-}

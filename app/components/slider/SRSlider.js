@@ -54,7 +54,6 @@ class SRSlider extends Component {
         <Icon className={styles.anticon2} type="plus-circle" />
         <InputNumber
           {...this.props}
-          style={{ width: '55' }}
           className={styles.inputWidth}
           min={this.props.pre_width}
           max={this.props.pre_height * 8}
@@ -63,7 +62,6 @@ class SRSlider extends Component {
         />
         <InputNumber
           {...this.props}
-          style={{ width: '55', top: '-28' }}
           className={styles.inputHeight}
           min={this.props.pre_height}
           max={this.props.pre_height * 8}

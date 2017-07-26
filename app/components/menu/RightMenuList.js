@@ -3,6 +3,8 @@
  */
 import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom'
+import styles from './RightMenuList.css';
 
 const SubMenu = Menu.SubMenu;
 
@@ -37,6 +39,7 @@ class RightMenuList extends Component {
   }
   render() {
     return (
+      <div className={styles.right_list}>
       <Menu
         theme="dark"
         mode="inline"
@@ -47,17 +50,18 @@ class RightMenuList extends Component {
         inlineIndent="10"
       >
         <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Resolution</span></span>}>
-          <Menu.Item key="1">Single Super</Menu.Item>
+          <Menu.Item key="1"><Link to="/demo/">Single Super</Link></Menu.Item>
           <Menu.Item key="2">Multiple Super</Menu.Item>
         </SubMenu>
         <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>FocusDepth&nbsp;&nbsp;&nbsp;&nbsp;</span></span>}>
-          <Menu.Item key="3">For Normal</Menu.Item>
+          <Menu.Item key="3"><Link to= "/demo/DepthNormal">Normal</Link></Menu.Item>
           <Menu.Item key="4">For Expert</Menu.Item>
         </SubMenu>
         <SubMenu key="sub3" title={<span><Icon type="setting" /><span>Stylize&nbsp;</span></span>}>
           <Menu.Item key="5">Stylize Export</Menu.Item>
         </SubMenu>
       </Menu>
+      </div> 
     );
   }
 }

@@ -2,7 +2,7 @@
   position: absolute;
   padding: 0;
   left: 40px;
-  top: 15px;
+  top: 0px;
   height: 40px;
   width: 100px;
   color: #fff;
@@ -35,46 +35,46 @@
   color: #666;
 }
 
-.slider {
+.SR_icon_wrapper .slider {
   position: absolute;
   left: 400px;
   top: 10px;
 }
 
-.inputWidth{
+.SR_icon_wrapper .inputWidth{
   position: absolute;
   left: 190px;
   top:1px;
   width: 55px;
 }
-.inputHeight{
+.SR_icon_wrapper .inputHeight{
   position: absolute;
   left: 270px;
   top:1px;
   width:55px;
 }
-.note_label{
+.SR_icon_wrapper .note_label{
   font-size: 13px;
   color: #dddddd;
 }
-.px1_label{
+.SR_icon_wrapper .px1_label{
   position: absolute;
   left: 246px;
   top:2px;
 }
-.width_label{
+.SR_icon_wrapper .width_label{
   position: absolute;
   left: 197px;
   top: 32px;
 }
-.height_label{
+.SR_icon_wrapper .height_label{
   position: absolute;
   left: 278px;
   top: 32px;
 }
-.px2_label{
+.SR_icon_wrapper .px2_label{
   position: absolute;
-  left: 326px;
+  left: 330px;
   top:2px;
 }
 
