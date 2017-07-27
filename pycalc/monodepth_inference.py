@@ -88,15 +88,18 @@ def test_simple(params, image_path, out_dir_path):
     disp = sess.run(model.disp_left_est[0], feed_dict={left: input_images})
     disp_pp = post_process_disparity(disp.squeeze()).astype(np.float32)
 
+    depth = params.focal_length * params.baseline / disp_pp
+    depth = depth / np.amax(depth)
+
     output_name = os.path.splitext(os.path.basename(args.image_path))[0]
 
-    disp_to_img = scipy.misc.imresize(disp_pp.squeeze(), [original_height, original_width])
-    output_path = os.path.join(out_dir_path, "{}_disp.png".format(output_name))
-    plt.imsave(output_path, disp_to_img, cmap='gray')
+    depth_to_img = scipy.misc.imresize(depth, [original_height, original_width])
+    output_path = os.path.join(out_dir_path, "{}_depth.png".format(output_name))
+    plt.imsave(output_path, depth_to_img, cmap='gray')
 
     return output_path
 
-def predict_disparity(input_path, out_dir_path):
+def predict_depth(input_path, out_dir_path):
 
     params = monodepth_parameters(
         encoder=args.encoder,
@@ -111,11 +114,14 @@ def predict_disparity(input_path, out_dir_path):
         alpha_image_loss=0,
         disp_gradient_loss_weight=0,
         lr_loss_weight=0,
-        full_summary=False
+        full_summary=False,
+        focal_length=30,
+        baseline=22
         )
 
     args.image_path = input_path
     return test_simple(params, input_path, out_dir_path)
 
 if __name__ == '__main__':
-    predict_disparity('./test512.jpg', './')
+    args.checkpoint_path = './depth/monodepth'
+    predict_depth('./test512.jpg', './')

@@ -5,7 +5,7 @@ import sys
 import zerorpc
 import argument_sr
 from monodepth_inference import args as args_monodepth
-from monodepth_inference import predict_disparity as real_predict_disparity
+from monodepth_inference import predict_depth as real_predict_depth
 from tensorflow import reset_default_graph
 
 class PredictApi(object):
@@ -23,10 +23,10 @@ class PredictApi(object):
         except Exception as e:
             return '!ERROR' + str(e)
 
-    def predict_disparity(self, input_path, output_dir):
-        """ render and store temp disparity image in output_dir """
+    def predict_depth(self, input_path, output_dir):
+        """ render and store temp depth image in output_dir """
         try:
-            result = real_predict_disparity(input_path, output_dir)
+            result = real_predict_depth(input_path, output_dir)
             reset_default_graph()
             return result
         except Exception as e:

@@ -66,16 +66,15 @@ export default function batchSr(images, outDir, outWidths, outHeights, callback)
 // mono-depth
 
 /**
- * Assume the given image is a left view image, obtain its corresponding
- * disparity image. After the result is generated,
+ * Obtain the depth image of the given image. After the result is generated,
  * a string of the result file path is passed to the specific callback function
  * @param {String} inputFilePath - absolute image file path
  * @param {Function} callback - the callback that handles the response
  */
-export function getDisparity(inputFilePath, callback) {
+export function getDepth(inputFilePath, callback) {
   ipcRenderer.on('asynchronous-reply', (event, arg) => {
     const tempDir = arg;
-    client.invoke('predict_disparity', inputFilePath, tempDir, (error, res) => {
+    client.invoke('predict_depth', inputFilePath, tempDir, (error, res) => {
       callback(res);
     });
   });
