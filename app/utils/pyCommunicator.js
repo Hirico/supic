@@ -39,6 +39,8 @@ export function tempSr(inputFilePath, outWidth, outHeight, callback) {
   ipcRenderer.once('asynchronous-reply', (event, arg) => {
     const tempDir = arg;
     client.invoke('predict_sr', inputFilePath, tempDir, outWidth, outHeight, (error, res) => {
+      console.log(res);
+      console.log(`err: ${error}`);
       callback(res);
     });
   });

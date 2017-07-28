@@ -7,7 +7,7 @@
     "stage-0",
     "react"
   ],
-  "plugins": ["typecheck", "syntax-flow","transform-flow-strip-types", "add-module-exports", "syntax-decorators", "transform-decorators-legacy", "dynamic-import-webpack"],
+  "plugins": ["syntax-flow","transform-flow-strip-types", "add-module-exports",  "dynamic-import-webpack"],
   "env": {
     "production": {
       "presets": ["react-optimize"],

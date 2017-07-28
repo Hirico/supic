@@ -117,7 +117,7 @@ const selectPort = () => {
 //   return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE);
 // };
 
-const pyCalcPath = `path=${(resolve('./pycalc/'))}`;
+const pyCalcPath = `--path=${(resolve('./pycalc/'))}`;
 
 const createPyProc = () => {
   const port = `--port=${selectPort().toString()}`;

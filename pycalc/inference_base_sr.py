@@ -126,8 +126,7 @@ def single_inference(input_file_path, output_dir_path, scale, out_height, out_wi
     """
     save_path = join(argument_sr.options.save_path, argument_sr.options.model_name + ".ckpt")
     if not is_already_Save(save_path):
-        print("no model please train a model first")
-        return
+        return "!ERROR: no model please train a model first"
 
     input_images,height,width = change_to_image(input_file_path)
     hr_predict = predict_single(input_images, input_file_path, scale, out_height, out_width)
