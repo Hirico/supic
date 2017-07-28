@@ -32,6 +32,8 @@ parser.add_argument('--image_path',       type=str,   help='path to the image')
 parser.add_argument('--checkpoint_path',  type=str,   help='path to a specific checkpoint to load')
 parser.add_argument('--input_height',     type=int,   help='input height', default=256)
 parser.add_argument('--input_width',      type=int,   help='input width', default=512)
+parser.add_argument('--port', type=int, help='zerorpc listening port')
+parser.add_argument('--path', type=str, help='zerorpc listening port')
 
 args = parser.parse_args()
 

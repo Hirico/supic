@@ -18,6 +18,7 @@ class PredictApi(object):
 
     def predict_sr(self, input_path, output_dir, out_width, out_height):
         """ render and store temp sr images in output_dir """
+        return "success"
         try:
             result = real_predict_sr(input_path, output_dir, int(out_width), int(out_height))
             reset_default_graph()
@@ -50,7 +51,7 @@ class PredictApi(object):
 def parse_port():
     port = 4242
     try:
-        port = int(sys.argv[1])
+        port = args_monodepth.port
     except Exception as e:
         pass
     return '{}'.format(port)
@@ -58,7 +59,7 @@ def parse_port():
 def parse_path():
     path = './'
     try:
-        path = str(sys.argv[2])
+        path = args_monodepth.path
     except Exception as e:
         pass
     argument_sr.options.save_path = path + 'sr/'
@@ -69,7 +70,9 @@ def main():
     parse_path()
     s = zerorpc.Server(PredictApi())
     s.bind(addr)
-    #print('start running on {}'.format(addr))
+    im = Image.open('/home/hirico/test.jpg')
+    im.save('/home/hirico/test2.jpg')
+    print('start running on {}'.format(addr))
     s.run()
 
 if __name__ == '__main__':

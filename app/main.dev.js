@@ -117,10 +117,10 @@ const selectPort = () => {
 //   return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE);
 // };
 
-const pyCalcPath = (resolve('./pycalc/'));
+const pyCalcPath = `path=${(resolve('./pycalc/'))}`;
 
 const createPyProc = () => {
-  const port = selectPort().toString();
+  const port = `--port=${selectPort().toString()}`;
   const script = path.join(__dirname, '..', 'pycalc', 'api.py');
   pyProc = require('child_process').spawn('python3', [script, port, pyCalcPath]);
 };
