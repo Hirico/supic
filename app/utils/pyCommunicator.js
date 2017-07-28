@@ -6,9 +6,10 @@ const ipcRenderer = require('electron').ipcRenderer;
 const client = new zerorpc.Client();
 client.connect('tcp://127.0.0.1:4242');
 
-// This file is nodejs side machine learning inference api
+// This file is nodejs side machine learning inference api, mixed with python image API
 
 // general helper function
+
 /**
  * Save the input file to the output location, change format if neccessary.
  * Target format is inferred from the file extension name
@@ -24,7 +25,7 @@ export function saveResult(inputFilePath, outputFilePath, callback) {
 }
 
 
-// single image super-resolution
+// image super-resolution
 
 /**
  * SR a given image file to outWidth * outHeight, after the result is generated,
@@ -35,7 +36,7 @@ export function saveResult(inputFilePath, outputFilePath, callback) {
  * @param {Function} callback - the callback that handles the response
  */
 export function tempSr(inputFilePath, outWidth, outHeight, callback) {
-  ipcRenderer.on('asynchronous-reply', (event, arg) => {
+  ipcRenderer.once('asynchronous-reply', (event, arg) => {
     const tempDir = arg;
     client.invoke('predict_sr', inputFilePath, tempDir, outWidth, outHeight, (error, res) => {
       callback(res);
@@ -83,11 +84,41 @@ export default function batchSr(images, outDir, outWidths, outHeights, callback)
  * @param {Function} callback - the callback that handles the response
  */
 export function getDepth(inputFilePath, callback) {
-  ipcRenderer.on('asynchronous-reply', (event, arg) => {
+  ipcRenderer.once('asynchronous-reply', (event, arg) => {
     const tempDir = arg;
     client.invoke('predict_depth', inputFilePath, tempDir, (error, res) => {
       callback(res);
     });
+  });
+  ipcRenderer.send('asynchronous-message', 'get-temp-dir');
+}
+
+/**
+ * Apply a simulated "lens blur" filter to the given image, the blur amount
+ * is gradient according to the distance to the focal plane([minFocalDepth,
+ * maxFocalDepth]). The transition plane is blurred less obviously than out-of
+ * -focus area.
+ * After the result is generated,
+ * a string of the result file path is passed to the specific callback function
+ * @param {String} inputFilePath - absolute image file path
+ * @param {String} depthMapPath - absolute depth map file path
+ * @param {Number} minFocalDepth- [0,255] integer, the closest focal distance
+ * @param {Number} maxFocalDepth - [0,255] interger, the farthest focal distance
+ * @param {Number} transition - [0,255] integer, the transition part distance
+ * (symmetrically closer than minFocal and farther than maxFocal)
+ * @param {Number} radius - [0,50] integer, blur amount(boken radius)
+ * @param {Number} brightness - [-1,1] float, boken brightness
+ * @param {Number} angle - [-180,180] float, boken angle
+ * @param {Function} callback - the callback that handles the response
+ */
+export function lensBlur(inputFilePath, depthMapPath, minFocalDepth, maxFocalDepth,
+  transition, radius, brightness, angle, callback) {
+  ipcRenderer.once('asynchronous-reply', (event, arg) => {
+    const tempDir = arg;
+    client.invoke('lens_blur', inputFilePath, depthMapPath, minFocalDepth, maxFocalDepth,
+      transition, radius, brightness, angle, tempDir, (error, res) => {
+        callback(res);
+      });
   });
   ipcRenderer.send('asynchronous-message', 'get-temp-dir');
 }

@@ -8,6 +8,7 @@ from monodepth_inference import args as args_monodepth
 from monodepth_inference import predict_depth as real_predict_depth
 from tensorflow import reset_default_graph
 from PIL import Image
+import imageFilter
 
 class PredictApi(object):
 
@@ -41,6 +42,10 @@ class PredictApi(object):
             return output_path
         except Exception as e:
             return '!ERROR' + str(e)
+
+    def lens_blur(self, input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, angle, output_dir):
+        """ lens blur """
+        return imageFilter.lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, angle, output_dir)
 
 def parse_port():
     port = 4242
