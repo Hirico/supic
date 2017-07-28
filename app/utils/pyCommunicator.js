@@ -8,6 +8,22 @@ client.connect('tcp://127.0.0.1:4242');
 
 // This file is nodejs side machine learning inference api
 
+// general helper function
+/**
+ * Save the input file to the output location, change format if neccessary.
+ * Target format is inferred from the file extension name
+ * @param {String} inputFilePath - absolute image file path with extension name
+ * @param {String} outputFilePath - absolute image file path with extension name
+ * @param {Function} callback - the callback that handles the response, if response
+ * begins with '!ERROR', then it's error info, else succeed
+ */
+export function saveResult(inputFilePath, outputFilePath, callback) {
+  client.invoke('save_file', inputFilePath, outputFilePath, (error, res) => {
+    callback(res);
+  });
+}
+
+
 // single image super-resolution
 
 /**
@@ -26,11 +42,6 @@ export function tempSr(inputFilePath, outWidth, outHeight, callback) {
     });
   });
   ipcRenderer.send('asynchronous-message', 'get-temp-dir');
-}
-
-export function saveResult() {
-  // TODO args: tempFilePath, savePath
-  return 'haha';
 }
 
 /**

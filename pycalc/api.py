@@ -7,6 +7,7 @@ import argument_sr
 from monodepth_inference import args as args_monodepth
 from monodepth_inference import predict_depth as real_predict_depth
 from tensorflow import reset_default_graph
+from PIL import Image
 
 class PredictApi(object):
 
@@ -29,6 +30,15 @@ class PredictApi(object):
             result = real_predict_depth(input_path, output_dir)
             reset_default_graph()
             return result
+        except Exception as e:
+            return '!ERROR' + str(e)
+
+    def save_file(self, input_path, output_path):
+        """ rename and save file to output_path """
+        try:
+            im = Image.open(input_path)
+            im.save(output_path)
+            return output_path
         except Exception as e:
             return '!ERROR' + str(e)
 
