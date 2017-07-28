@@ -11,7 +11,7 @@
 const {Header, Sider, Content, Footer} = Layout;
 
  class SRSingle_IT extends Component{
- 	state = {
+  state = {
     fileUrl: '',
     imageWidth: 20,
     imageHeight: 20,
@@ -23,12 +23,11 @@ const {Header, Sider, Content, Footer} = Layout;
   decrement = () => {
     const printFunction = (message) => {
       console.log(message);
+      this.props.getImgSrc('/Users/yilu/Desktop/before.jpg');
+      alert('New picture save in '+message+ ' temporarily. Click SAVE BUTTON to designated route if you like it.');
     };
 
     tempSr(this.state.fileUrl, this.state.out_width, this.state.out_height, printFunction);
-    const ipcRenderer = require('electron').ipcRenderer;
-    const tempDir = ipcRenderer.sendSync('synchronous-message', 'get-temp-dir');
-    alert('Please check ' +tempDir + ' later');
   };
 
   dropFile = (files) => {
@@ -55,11 +54,11 @@ const {Header, Sider, Content, Footer} = Layout;
 
   }
 
- 	render(){
- 		return(
- 			<div>
- 			<Content>
-            <Row type="flex" justify="start">
+  render(){
+      return(
+        <div>
+            <Content>
+              <Row type="flex" justify="start">
               <Col span={19} className={styles.middle_picture}>
                 <Dropzone style={{ margin: 0, height: '100%', width: '100%' }}
                           onDrop={this.dropFile.bind(this)}
@@ -92,7 +91,7 @@ const {Header, Sider, Content, Footer} = Layout;
           </Footer>
           </div>
 
- 		);
- 	}
+       );
+    }
  }
  export default SRSingle_IT;

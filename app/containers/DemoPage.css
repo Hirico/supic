@@ -3,9 +3,10 @@
 .trigger {
   font-size: 18px;
   line-height: 64px;
-  padding: 0 16px;
+  padding: 0 14px;
   cursor: pointer;
   transition: color 0.3s;
+  color: #fff;
 }
 
 .trigger:hover {
@@ -47,4 +48,18 @@
   background: #0c0c0c;
   padding: 0;
   color: #fff;
+}
+
+.middle_layout .header .btn{
+  background: #0c0c0c;
+  text-align: center;
+  border:0;
+}
+.middle_layout .header .btn:hover{
+  background:#0c0c0c;
+  border:0;
+}
+.middle_layout .header .btn:focus{
+  background:#0c0c0c;
+  border:0;
 }

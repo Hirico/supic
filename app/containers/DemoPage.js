@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Layout, Icon, Col, Tooltip} from 'antd';
+import {Layout, Icon, Col, Tooltip, Button} from 'antd';
 import {HashRouter} from 'react-router-dom';
 import LeftMenuList from '../components/menu/LeftMenuList';
 import RightMenuList from '../components/menu/RightMenuList';
@@ -15,6 +15,7 @@ import RightRouter from '../router/RightRouter';
 import SRSingle_IT from "../components/imageAndTool/SRSingle_IT";
 import Lens_IT from "../components/imageAndTool/Lens_IT";
 
+import {saveResult} from '../utils/pyCommunicator';
 
 const {Header, Sider} = Layout;
 
@@ -24,6 +25,7 @@ class App extends Component {
     resolutionSelected: true,
     depthSelected: false,
     styleSelected: false,
+    imageSrc: 'Not designed',
   };
 
   selectMode = (var1) => {
@@ -54,6 +56,27 @@ class App extends Component {
     });
   }
 
+  getImgSrc=(val)=>{
+    this.setState({
+      imageSrc: val,
+    });
+  }
+
+  savePicture=()=>{
+    console.log('savePicture');
+    const dialog = require('electron').remote.dialog;
+    const options = {
+        title: 'Save an Image',
+        filters: [
+            { name: 'Images', extensions: ['jpg', 'png', 'gif','ico','icns'] }
+        ]
+    }
+    self=this;
+    dialog.showSaveDialog(options, function (filename) {
+       saveResult(self.state.imageSrc, filename);
+    })
+  }
+
   render() {
     return (
       <Layout>
@@ -79,13 +102,15 @@ class App extends Component {
               /></Tooltip>
             <Tooltip placement="top" title={'open'}><Icon className={styles.trigger} type="plus"/></Tooltip>
             <Tooltip placement="top" title={'clean'}><Icon className={styles.trigger} type="delete"/></Tooltip>
-            <Tooltip placement="top" title={'save'}><Icon className={styles.trigger} type="save"/></Tooltip>
+            <Button onClick={this.savePicture} className={styles.btn}>
+                <Tooltip placement="top" title={'save'}><Icon type="save" className={styles.trigger} /> </Tooltip>
+            </Button>
             <Col span={1}><UpMenuSlider min={100} max={400} value={100} icon={['picture', 'picture']}/></Col>
             <Tooltip placement="top" title={'more info'}><Icon className={styles.info} type="info-circle"/></Tooltip>
           </Header>
 
-          <RightMenuList selectMode={this.selectMode.bind(this)}/>
-          {this.state.resolutionSelected ? <SRSingle_IT/> : this.state.depthSelected ? <Lens_IT/> : null}
+          <RightMenuList selectMode={this.selectMode.bind(this)} />
+          {this.state.resolutionSelected ? <SRSingle_IT getImgSrc={this.getImgSrc.bind(this)} /> : this.state.depthSelected ? <Lens_IT/> : null}
           {/* <HashRouter> */}
           {/* <RightRouter /> */}
           {/* </HashRouter> */}
