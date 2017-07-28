@@ -18,7 +18,6 @@ class PredictApi(object):
 
     def predict_sr(self, input_path, output_dir, out_width, out_height):
         """ render and store temp sr images in output_dir """
-        return "success"
         try:
             result = real_predict_sr(input_path, output_dir, int(out_width), int(out_height))
             reset_default_graph()
@@ -70,8 +69,6 @@ def main():
     parse_path()
     s = zerorpc.Server(PredictApi())
     s.bind(addr)
-    im = Image.open('/home/hirico/test.jpg')
-    im.save('/home/hirico/test2.jpg')
     print('start running on {}'.format(addr))
     s.run()
 
