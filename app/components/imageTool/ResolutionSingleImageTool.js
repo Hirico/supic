@@ -18,10 +18,9 @@ class ResolutionSingleImageTool extends Component {
     out_height: 16,
   };
 
-  decrement = () => {
+  getSrPicture = () => {
     const printFunction = (message) => {
-      console.log(message);
-      this.props.getImgSrc('/Users/yilu/Desktop/before.jpg');
+      this.props.getImgSrc(message);
       alert(`New picture save in ${message} temporarily. Click SAVE BUTTON to designated route if you like it.`);
     };
 
@@ -32,6 +31,7 @@ class ResolutionSingleImageTool extends Component {
     this.setState({
       fileUrl: files[0].path,
     });
+    this.props.getImgSrc('Not designed');
     const img = new Image();
     img.src = files[0].path;
     // img.onload = function () {
@@ -98,7 +98,7 @@ class ResolutionSingleImageTool extends Component {
               <Icon className={`${styles.zoom} ${styles.footer_icon}`} type="search" />
               <label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_zoom}`}>Magnifier</label>
               <Button
-                onClick={this.decrement}
+                onClick={this.getSrPicture}
                 data-tclass="btn"
                 shape="circle"
                 className={`${styles.check_btn}`}
