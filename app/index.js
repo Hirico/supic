@@ -4,7 +4,7 @@ import Root from './containers/DemoPage';
 import './app.global.css';
 
 ReactDOM.render(
-  <Root/>,
+  <Root />,
   document.getElementById('root')
 );
 

@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Slider, Icon, InputNumber } from 'antd';
-import styles from './SRSlider.css';
+import styles from './SuperResolutionSlider.css';
 
 class SRSlider extends Component {
   constructor(props) {
@@ -84,5 +84,6 @@ export default SRSlider;
 SRSlider.propTypes = {
   pre_width: React.PropTypes.number.isRequired,
   pre_height: React.PropTypes.number.isRequired,
-  value: React.PropTypes.number.isRequired
+  value: React.PropTypes.number.isRequired,
+  handleSlider: React.PropTypes.func.isRequired,
 };

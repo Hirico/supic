@@ -1,6 +1,7 @@
 .middle_picture {
-  margin: 2.075% 2.075%;
+  margin: 2% 3%;
   height: 450px;
+  max-width: 720px;
 }
 
  .footer {
@@ -75,7 +76,7 @@
   margin: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
   text-align: center;
 }
 
