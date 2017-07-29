@@ -69,13 +69,26 @@ class App extends Component {
     });
   }
 
-  savePicture = () => {
-    console.log('savePicture');
-    const self = this;
-    dialog.showSaveDialog(options, (filename) => {
-      saveResult(self.state.imageSrc, filename);
-    });
+  savePicture=() => {
+    const printFunction = (res) => {
+      alert('Save in ', res);
+    };
+    if (this.state.imageSrc === 'Not designed') {
+      alert('No image source. Please create a SR image first.');
+    } else {
+      const self = this;
+      dialog.showSaveDialog(options, (filename) => {
+        if (self.state.imageSrc === ' Not designed') {
+          alert('No image source. Please create a SR image first.');
+        } else if (filename === undefined) {
+          alert('No designed path. Please choose a path to save.');
+        } else {
+          saveResult(self.state.imageSrc, filename, printFunction);
+        }
+      });
+    }
   }
+
 
   changeUpSlider = (v) => {
     this.setState({
