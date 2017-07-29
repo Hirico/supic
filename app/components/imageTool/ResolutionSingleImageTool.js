@@ -56,18 +56,17 @@ class ResolutionSingleImageTool extends Component {
       <div>
         <Content>
           <Row type="flex" justify="start">
-            <Col span={19} className={styles.middle_picture}>
+            <Col span={9} className={styles.middle_picture}>
               <Dropzone
                 style={{ margin: 0, height: '100%', width: '100%' }}
                 onDrop={this.dropFile.bind(this)}
                 multiple={false}
                 accept="image/*"
               >
-                <div style={{ color: '#d9d9d9', fontSize: '15px' }}>Drop an image or click to select a file to upload.
-                </div>
+                {this.state.fileUrl !== '' ? null :
+                <div style={{ color: '#d9d9d9', fontSize: '15px' }}>Drop or click to upload.</div>}
                 {this.state.fileUrl === '' ? null :
                 <div className={styles.imageDropZone}>
-                  <p>{this.state.fileUrl}</p>
                   <img
                     id="middle_img"
                     style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
@@ -77,7 +76,14 @@ class ResolutionSingleImageTool extends Component {
                 </div>}
               </Dropzone>
             </Col>
-
+            <Col span={9} className={styles.middle_picture}>
+              <img
+                id="middle_img"
+                style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
+                src={this.state.fileUrl}
+                alt="没有图片"
+              />
+            </Col>
           </Row>
         </Content>
         <Footer>
