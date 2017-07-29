@@ -61,8 +61,8 @@ def parse_path():
         path = args_monodepth.path
     except Exception as e:
         pass
-    argument_sr.options.save_path = path + 'sr/'
-    args_monodepth.checkpoint_path = path + 'depth/monodepth'
+    argument_sr.options.save_path = path + '/sr/'
+    args_monodepth.checkpoint_path = path + '/depth/monodepth'
 
 def main():
     addr = 'tcp://127.0.0.1:' + parse_port()
