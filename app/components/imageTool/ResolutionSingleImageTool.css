@@ -4,6 +4,24 @@
   max-width: 720px;
 }
 
+::-webkit-scrollbar {
+  background-color: #1b1b1b;
+  width: .8em;
+}
+
+::-webkit-scrollbar:horizontal {
+  background-color: #1b1b1b;
+  height: .8em;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background:  #6d6d6d
+}
+
+::-webkit-scrollbar-corner {
+  background-color: inherit;
+}
+
  .footer {
   background: #1e1e1e;
   padding: 0;
