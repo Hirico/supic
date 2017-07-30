@@ -10,8 +10,6 @@ const pic2 = '/Users/wshwbluebird/ML/supic/app/asset/picture/water.jpg';
 const pic3 = '/Users/wshwbluebird/ML/supic/app/asset/picture/beach.jpg';
 const pic1 = '/Users/wshwbluebird/ML/supic/app/asset/picture/city.jpg';
 
-
-
 class LeftMenuList extends Component {
 
   constructor(props) {
