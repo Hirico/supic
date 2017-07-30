@@ -1,0 +1,15 @@
+.trigger {
+  font-size: 18px;
+  line-height: 18px;
+  padding: 0 44px;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: #fff;
+}
+
+.trigger:hover {
+  color: #108ee9;
+  font-size: 20px;
+}
+
+
