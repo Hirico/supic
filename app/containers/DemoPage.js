@@ -40,7 +40,8 @@ class App extends Component {
     rawImageSrc: '', // 原图像的路径
     imageSrc: 'Not designed', // 产出结果图像的路径
     resizeNum: 4,
-    images: [pic1, pic2, pic3]
+    images: [pic1, pic2, pic3], // images in left menu
+    selectedIndex: 0          // selected index in left menu
   };
 
   selectMode = (var1) => {
@@ -110,6 +111,8 @@ class App extends Component {
   clearAll= () => {
     this.setState({
       images: [],
+      rawImageSrc: null,
+      selectedIndex: 0
     });
   }
 
@@ -134,7 +137,9 @@ class App extends Component {
     // add a new item in the array
     list.push(imageURL);
     // reset the props state
-    this.setState({ images: list });
+    this.setState({ images: list,
+      selectedIndex: list.length - 1
+    });
   }
   /**
    * show a picture in the drop zone when user select in the left
@@ -167,6 +172,7 @@ class App extends Component {
             images={this.state.images}
             delete={this.deleteItem}
             showImage={this.changeShowImage}
+            selectedIndex={this.state.selectedIndex}
           />
         </Sider>
         <Layout className={styles.middle_layout} style={{ background: '#1e1e1e' }}>

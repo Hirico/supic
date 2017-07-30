@@ -21,7 +21,7 @@ class LeftMenuList extends Component {
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={[this.props.selectedIndex.toString()]}
         style={{ background: '#292929' }}
         onClick={this.handleClick}
       >
@@ -45,5 +45,6 @@ LeftMenuList.propTypes = {
   images: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   delete: React.PropTypes.func.isRequired,
   // show selected image
-  showImage: React.PropTypes.func.isRequired
+  showImage: React.PropTypes.func.isRequired,
+  selectedIndex: React.PropTypes.number.isRequired
 };

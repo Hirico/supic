@@ -20,6 +20,8 @@ class DepthNormalImageTool extends Component {
     this.props.getRawImgSrc(files[0].path);
     const img = new Image();
     img.src = files[0].path;
+    // add image
+    this.props.addLeftItem(img.src);
     this.state.imageWidth = img.width;
     this.state.imageHeight = img.height;
   };
@@ -112,4 +114,6 @@ DepthNormalImageTool.propTypes = {
   resizeNum: React.PropTypes.number.isRequired,
   rawImageSrc: React.PropTypes.number.isRequired,
   getRawImgSrc: React.PropTypes.func.isRequired,
+  // {callback} add a small item in left menu when drop a file in drop zone
+  addLeftItem: React.PropTypes.func.isRequired
 };
