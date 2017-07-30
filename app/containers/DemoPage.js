@@ -136,7 +136,12 @@ class App extends Component {
     // reset the props state
     this.setState({ images: list });
   }
+  /**
+   * show a picture in the drop zone when user select in the left
+   * @param index
+   */
   changeShowImage = (index) => {
+    index = index < this.state.images.length ? index : this.state.images.length - 1;
     this.setState({ rawImageSrc: this.state.images[index] });
   }
   changeUpSlider = (v) => {

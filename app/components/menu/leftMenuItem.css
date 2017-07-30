@@ -1,8 +1,9 @@
 .trigger {
   font-size: 18px;
   line-height: 18px;
-  padding: 0 44px;
+  padding: 0 5px;
   cursor: pointer;
+  margin-left: 38px;
   transition: color 0.3s;
   color: #fff;
 }
