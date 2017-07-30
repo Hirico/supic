@@ -10,7 +10,6 @@ const { Content, Footer } = Layout;
 
 class ResolutionSingleImageTool extends Component {
   state = {
-    fileUrl: '',
     imageWidth: 20,
     imageHeight: 20,
     slider: 1,
@@ -35,14 +34,12 @@ class ResolutionSingleImageTool extends Component {
   };
 
   dropFile = (files) => {
-    this.setState({
-      fileUrl: files[0].path,
-    });
+    this.props.getRawImgSrc(files[0].path);
     this.props.getImgSrc('Not designed');
     const img = new Image();
     img.src = files[0].path;
     // img.onload = function () {
-    this.state.imageWidth = img.width;
+    this.state.imageWidth = img.width;//同步问题没有处理好
     this.state.imageHeight = img.height;
     // alert('width:' + img.width + ',height:' + img.height);
     // };
@@ -70,14 +67,14 @@ class ResolutionSingleImageTool extends Component {
                 multiple={false}
                 accept="image/*"
               >
-                {this.state.fileUrl !== '' ? null :
+                {this.props.rawImageSrc !== '' ? null :
                 <div style={{ color: '#d9d9d9', fontSize: '15px' }}>Drop or click to upload.</div>}
-                {this.state.fileUrl === '' ? null :
+                {this.props.rawImageSrc === '' ? null :
                 <div className={styles.imageDropZone}>
                   <img
                     id="middle_img"
                     style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
-                    src={this.state.fileUrl}
+                    src={this.props.rawImageSrc}
                     alt="没有图片"
                   />
                 </div>}
@@ -131,6 +128,8 @@ class ResolutionSingleImageTool extends Component {
 
 export default ResolutionSingleImageTool;
 ResolutionSingleImageTool.propTypes = {
+  rawImageSrc: React.PropTypes.number.isRequired,
   resizeNum: React.PropTypes.number.isRequired,
   getImgSrc: React.PropTypes.func.isRequired,
+  getRawImgSrc: React.PropTypes.func.isRequired,
 };

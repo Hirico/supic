@@ -1,7 +1,6 @@
 .middle_picture {
   margin: 2% 3%;
   height: 450px;
-  /*max-width: 360px;*/
   overflow: auto;
   text-align: center;
 }

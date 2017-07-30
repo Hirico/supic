@@ -10,7 +10,6 @@ const { Content, Footer } = Layout;
 
 class DepthNormalImageTool extends Component {
   state = {
-    fileUrl: '',
     imageWidth: 20,
     imageHeight: 20,
     focalSliderValue: 1,
@@ -18,9 +17,7 @@ class DepthNormalImageTool extends Component {
   };
 
   dropFile = (files) => {
-    this.setState({
-      fileUrl: files[0].path,
-    });
+    this.props.getRawImgSrc(files[0].path);
     const img = new Image();
     img.src = files[0].path;
     this.state.imageWidth = img.width;
@@ -51,14 +48,13 @@ class DepthNormalImageTool extends Component {
                 multiple={false}
                 accept="image/*"
               >
-                <div style={{ color: '#d9d9d9', fontSize: '15px' }}>Drop an image or click to select a file to upload.</div>
-                {this.state.fileUrl === '' ? null :
+                {this.props.rawImageSrc  === '' ? null :
                 <div className={styles.imageDropZone}>
                   <p>{this.state.fileUrl}</p>
                   <img
                     id="middle_img"
-                    style={{ margin: 0, height: '100%' }}
-                    src={this.state.fileUrl}
+                    style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4)}}
+                    src={this.props.rawImageSrc }
                     alt="没有图片"
                   />
                 </div>}
@@ -112,4 +108,8 @@ class DepthNormalImageTool extends Component {
   }
 }
 export default DepthNormalImageTool;
-
+DepthNormalImageTool.propTypes = {
+  resizeNum: React.PropTypes.number.isRequired,
+  rawImageSrc: React.PropTypes.number.isRequired,
+  getRawImgSrc: React.PropTypes.func.isRequired,
+};
