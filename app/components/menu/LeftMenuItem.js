@@ -2,6 +2,8 @@
 /**
  * Created by wshwbluebird on 2017/7/29.
  */
+
+// TODO delete-icon's width is not well
 import React, { Component } from 'react';
 import { Tooltip, Icon } from 'antd';
 // import {Image} from 'antd';

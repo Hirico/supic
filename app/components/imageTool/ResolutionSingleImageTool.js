@@ -33,14 +33,17 @@ class ResolutionSingleImageTool extends Component {
     //   ' left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
   };
 
+
   dropFile = (files) => {
     this.props.getRawImgSrc(files[0].path);
     this.props.getImgSrc('Not designed');
     const img = new Image();
     img.src = files[0].path;
     // img.onload = function () {
-    this.state.imageWidth = img.width;//同步问题没有处理好
+    this.state.imageWidth = img.width;// 同步问题没有处理好
     this.state.imageHeight = img.height;
+    // callback add by wsw
+    this.props.addLeftItem(img.src);
     // alert('width:' + img.width + ',height:' + img.height);
     // };
     // console.log(‘Received files: ‘, files[0]);
@@ -132,4 +135,6 @@ ResolutionSingleImageTool.propTypes = {
   resizeNum: React.PropTypes.number.isRequired,
   getImgSrc: React.PropTypes.func.isRequired,
   getRawImgSrc: React.PropTypes.func.isRequired,
+  // {callback} add a small item in left menu when drop a file in drop zone
+  addLeftItem: React.PropTypes.func.isRequired
 };

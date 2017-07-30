@@ -8,14 +8,23 @@ import LeftMenuItem from './LeftMenuItem';
 
 
 class LeftMenuList extends Component {
-
-  // constructor(props) {
-  //   super(props);
-  // }
+  /**
+   * callback show image when user select an item
+   * @param e selected index
+   */
+  handleClick = (e) => {
+    this.props.showImage(e.key);
+  }
 
   render() {
     return (
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} style={{ background: '#292929' }}>
+      <Menu
+        theme="dark"
+        mode="inline"
+        defaultSelectedKeys={['1']}
+        style={{ background: '#292929' }}
+        onClick={this.handleClick}
+      >
         {
           // lambda to get all element in list
           this.props.images.map((item, i) => (
@@ -34,5 +43,7 @@ export default LeftMenuList;
 
 LeftMenuList.propTypes = {
   images: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  delete: React.PropTypes.func.isRequired
+  delete: React.PropTypes.func.isRequired,
+  // show selected image
+  showImage: React.PropTypes.func.isRequired
 };

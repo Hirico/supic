@@ -2,8 +2,8 @@
  * Created by apple on 2017/7/20.
  */
 
-import React, {Component} from 'react';
-import {Layout, Icon, Col, Tooltip, Button} from 'antd';
+import React, { Component } from 'react';
+import { Layout, Icon, Col, Tooltip, Button } from 'antd';
 import LeftMenuList from '../components/menu/LeftMenuList';
 import RightMenuList from '../components/menu/RightMenuList';
 import UpMenuSlider from '../components/slider/UpMenuSlider';
@@ -13,9 +13,9 @@ import styles from './DemoPage.css';
 import ResolutionSingleImageTool from '../components/imageTool/ResolutionSingleImageTool';
 import DepthNormalImageTool from '../components/imageTool/DepthNormalImageTool';
 
-import {saveResult} from '../utils/pyCommunicator';
+import { saveResult } from '../utils/pyCommunicator';
 
-const {Header, Sider} = Layout;
+const { Header, Sider } = Layout;
 const dialog = require('electron').remote.dialog;
 
 // add by wsw for current test
@@ -27,7 +27,7 @@ const pic1 = '/Users/wshwbluebird/ML/supic/app/asset/picture/city.jpg';
 const options = {
   title: 'Save an Image',
   filters: [
-    {name: 'Images', extensions: ['jpg', 'png', 'gif', 'ico', 'icns']}
+    { name: 'Images', extensions: ['jpg', 'png', 'gif', 'ico', 'icns'] }
   ]
 };
 
@@ -37,8 +37,8 @@ class App extends Component {
     resolutionSelected: true,
     depthSelected: false,
     styleSelected: false,
-    rawImageSrc: '',//原图像的路径
-    imageSrc: 'Not designed',//产出结果图像的路径
+    rawImageSrc: '', // 原图像的路径
+    imageSrc: 'Not designed', // 产出结果图像的路径
     resizeNum: 4,
     images: [pic1, pic2, pic3]
   };
@@ -105,6 +105,7 @@ class App extends Component {
 
   /**
    * delete all pictures in left menu
+   * @author wsw
    */
   clearAll= () => {
     this.setState({
@@ -114,6 +115,8 @@ class App extends Component {
 
   /**
    * delete the selected picture in left menu
+   * @param index the index of the selected picture in the array
+   * @author wsw
    */
   deleteItem = (index) => {
     const list = this.state.images;
@@ -122,7 +125,20 @@ class App extends Component {
     // reset the props state
     this.setState({ images: list });
   }
-
+  /**
+   * add a new picture item in left menu list
+   * @param imageURL  the image user put into the zone
+   */
+  addItem = (imageURL) => {
+    const list = this.state.images;
+    // add a new item in the array
+    list.push(imageURL);
+    // reset the props state
+    this.setState({ images: list });
+  }
+  changeShowImage = (index) => {
+    this.setState({ rawImageSrc: this.state.images[index] });
+  }
   changeUpSlider = (v) => {
     this.setState({
       resizeNum: v,
@@ -137,14 +153,18 @@ class App extends Component {
           collapsible
           collapsed={this.state.collapsed}
           width="150"
-          style={{background: '#292929'}}
+          style={{ background: '#292929' }}
         >
           <div className={styles.logo}>
-            <span><img src={appLogo} width={35} height={35} alt="老掉牙的打字机"/></span>
+            <span><img src={appLogo} width={35} height={35} alt="老掉牙的打字机" /></span>
           </div>
-          <LeftMenuList images={this.state.images} delete={this.deleteItem} />
+          <LeftMenuList
+            images={this.state.images}
+            delete={this.deleteItem}
+            showImage={this.changeShowImage}
+          />
         </Sider>
-        <Layout className={styles.middle_layout} style={{background: '#1e1e1e'}}>
+        <Layout className={styles.middle_layout} style={{ background: '#1e1e1e' }}>
           <Header className={styles.header}>
             <Tooltip placement="top" title={'slide'}>
               <Icon
@@ -161,7 +181,7 @@ class App extends Component {
               />
             </Tooltip>
             <Button onClick={this.savePicture} className={styles.btn}>
-              <Tooltip placement="top" title={'save'}><Icon type="save" className={styles.trigger}/> </Tooltip>
+              <Tooltip placement="top" title={'save'}><Icon type="save" className={styles.trigger} /> </Tooltip>
             </Button>
             <Col span={1}><UpMenuSlider
               changeUpSlider={this.changeUpSlider.bind(this)}
@@ -170,21 +190,23 @@ class App extends Component {
               value={4}
               icon={['picture', 'picture']}
             /></Col>
-            <Tooltip placement="top" title={'more info'}><Icon className={styles.info} type="info-circle"/></Tooltip>
+            <Tooltip placement="top" title={'more info'}><Icon className={styles.info} type="info-circle" /></Tooltip>
           </Header>
 
-          <RightMenuList selectMode={this.selectMode.bind(this)}/>
+          <RightMenuList selectMode={this.selectMode.bind(this)} />
 
           {this.state.resolutionSelected ? <ResolutionSingleImageTool
             resizeNum={this.state.resizeNum}
             getImgSrc={this.getImgSrc.bind(this)}
             getRawImgSrc={this.getRawImgSrc.bind(this)}
             rawImageSrc={this.state.rawImageSrc}
+            addLeftItem={this.addItem.bind(this)}
           /> : null}
           {this.state.depthSelected ? <DepthNormalImageTool
             resizeNum={this.state.resizeNum}
             getRawImgSrc={this.getRawImgSrc.bind(this)}
             rawImageSrc={this.state.rawImageSrc}
+            addLeftItem={this.addItem.bind(this)}
           /> : null}
 
         </Layout>
