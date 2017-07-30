@@ -23,7 +23,7 @@ class LeftMenuItem extends Component {
   }
 
   /**
-   * retuen
+   * return
    * @returns {XML}
    */
   render() {
