@@ -1,9 +1,9 @@
+import time
 from PIL import Image
 from PIL import ImageFilter
 from PIL import ImageEnhance
-import time
 
-def lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, angle, output_dir, speed=1):
+def lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, output_dir, speed=1):
     """ lens blur """
     im = Image.open(input_path)
     im.load()
@@ -15,7 +15,6 @@ def lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radiu
     speed = int(min(speed, im.width, im.height))
 
     # prepare gradient filters and filtered images
-    out_of_focus_filter = ImageFilter.GaussianBlur(radius)
     gradient_filters = []
     filtered_images = []
     copy_box = (0, 0, im.width, im.height)
@@ -49,4 +48,4 @@ def lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radiu
     return path
 
 if __name__ == '__main__':
-    lens_blur('./test.jpg', './Flowers-depthmap.jpg', 10, 150, 20, 2, -1, 0, '.', 4)
+    lens_blur('./test.jpg', './Flowers-depthmap.jpg', 10, 150, 20, 2, -1, '.', 4)

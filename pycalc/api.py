@@ -43,9 +43,9 @@ class PredictApi(object):
         except Exception as e:
             return '!ERROR' + str(e)
 
-    def lens_blur(self, input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, angle, output_dir, speed):
+    def lens_blur(self, input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, output_dir, speed):
         """ lens blur """
-        return imageFilter.lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, angle, output_dir, speed)
+        return imageFilter.lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, output_dir, speed)
 
 def parse_port():
     port = 4242
