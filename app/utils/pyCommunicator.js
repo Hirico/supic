@@ -111,14 +111,15 @@ export function getDepth(inputFilePath, callback) {
  * @param {Number} radius - [0,50] integer, blur amount(boken radius)
  * @param {Number} brightness - [-1,1] float, boken brightness
  * @param {Number} angle - [-180,180] float, boken angle
+ * @param {Number} speed - [1,10] int, the smaller, the slower and the more accurate
  * @param {Function} callback - the callback that handles the response
  */
 export function lensBlur(inputFilePath, depthMapPath, minFocalDepth, maxFocalDepth,
-  transition, radius, brightness, angle, callback) {
+  transition, radius, brightness, angle, speed, callback) {
   ipcRenderer.once('asynchronous-reply', (event, arg) => {
     const tempDir = arg;
     client.invoke('lens_blur', inputFilePath, depthMapPath, minFocalDepth, maxFocalDepth,
-      transition, radius, brightness, angle, tempDir, (error, res) => {
+      transition, radius, brightness, angle, tempDir, speed, (error, res) => {
         callback(res);
       });
   });
