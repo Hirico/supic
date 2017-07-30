@@ -158,8 +158,8 @@ class App extends Component {
             </Button>
             <Col span={1}><UpMenuSlider
               changeUpSlider={this.changeUpSlider.bind(this)}
-              min={1}
-              max={16}
+              min={2}
+              max={8}
               value={4}
               icon={['picture', 'picture']}
             /></Col>

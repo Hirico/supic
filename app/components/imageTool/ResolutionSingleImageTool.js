@@ -16,15 +16,22 @@ class ResolutionSingleImageTool extends Component {
     slider: 1,
     out_width: 32,
     out_height: 16,
+    resultFileUrl: '',
   };
 
   getSrPicture = () => {
     const printFunction = (message) => {
       this.props.getImgSrc(message);
+      this.setState({
+        resultFileUrl: message,
+      });
       alert(`New picture save in ${message} temporarily. Click SAVE BUTTON to designated route if you like it.`);
     };
 
     tempSr(this.state.fileUrl, this.state.out_width, this.state.out_height, printFunction);
+
+    // const OpenWindow = window.open('', '处理进度', 'height=100, width=400, top=0,' +
+    //   ' left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
   };
 
   dropFile = (files) => {
@@ -56,7 +63,7 @@ class ResolutionSingleImageTool extends Component {
       <div>
         <Content>
           <Row type="flex" justify="start">
-            <Col span={9} className={styles.middle_picture}>
+            <Col span={this.state.resultFileUrl === '' ? 19 : 9} className={styles.middle_picture}>
               <Dropzone
                 style={{ margin: 0, height: '100%', width: '100%' }}
                 onDrop={this.dropFile.bind(this)}
@@ -76,14 +83,16 @@ class ResolutionSingleImageTool extends Component {
                 </div>}
               </Dropzone>
             </Col>
+
+            {this.state.resultFileUrl === '' ? null :
             <Col span={9} className={styles.middle_picture}>
               <img
                 id="middle_img"
                 style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
-                src={this.state.fileUrl}
+                src={this.state.resultFileUrl}
                 alt="没有图片"
               />
-            </Col>
+            </Col>}
           </Row>
         </Content>
         <Footer>
