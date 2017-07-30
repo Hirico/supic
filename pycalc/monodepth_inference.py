@@ -57,7 +57,11 @@ def test_simple(params, image_path, out_dir_path):
 
     input_image = scipy.misc.imread(args.image_path)
 
-    original_height, original_width, num_channels = input_image.shape
+    try:
+        original_height, original_width, num_channels = input_image.shape
+    except ValueError as e:
+        original_height, original_width = input_image.shape
+        num_channels = 1
 
     left  = tf.placeholder(tf.float32, [2, args.input_height, args.input_width, 3])
     model = MonodepthModel(params, "test", left, None)
@@ -126,4 +130,4 @@ def predict_depth(input_path, out_dir_path):
 
 if __name__ == '__main__':
     args.checkpoint_path = './depth/monodepth'
-    predict_depth('./test512.jpg', './')
+    predict_depth('./1.jpg', './')
