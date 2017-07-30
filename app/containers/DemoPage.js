@@ -18,6 +18,12 @@ import { saveResult } from '../utils/pyCommunicator';
 const { Header, Sider } = Layout;
 const dialog = require('electron').remote.dialog;
 
+// add by wsw for current test
+// TODO will delete before construct
+const pic2 = '/Users/wshwbluebird/ML/supic/app/asset/picture/water.jpg';
+const pic3 = '/Users/wshwbluebird/ML/supic/app/asset/picture/beach.jpg';
+const pic1 = '/Users/wshwbluebird/ML/supic/app/asset/picture/city.jpg';
+
 const options = {
   title: 'Save an Image',
   filters: [
@@ -33,6 +39,7 @@ class App extends Component {
     styleSelected: false,
     imageSrc: 'Not designed',
     resizeNum: 4,
+    images: [pic1, pic2, pic3]
   };
 
   selectMode = (var1) => {
@@ -89,6 +96,25 @@ class App extends Component {
     }
   }
 
+  /**
+   * delete all pictures in left menu
+   */
+  clearAll= () => {
+    this.setState({
+      images: [],
+    });
+  }
+
+  /**
+   * delete the selected picture in left menu
+   */
+  deleteItem = (index) => {
+    const list = this.state.images;
+    // delete the index element in the array
+    list.splice(index, 1);
+    // reset the props state
+    this.setState({ images: list });
+  }
 
   changeUpSlider = (v) => {
     this.setState({
@@ -109,7 +135,7 @@ class App extends Component {
           <div className={styles.logo}>
             <span><img src={appLogo} width={35} height={35} alt="老掉牙的打字机" /></span>
           </div>
-          <LeftMenuList />
+          <LeftMenuList images={this.state.images} delete={this.deleteItem} />
         </Sider>
         <Layout className={styles.middle_layout} style={{ background: '#1e1e1e' }}>
           <Header className={styles.header}>
@@ -120,7 +146,13 @@ class App extends Component {
                 onClick={this.toggle}
               /></Tooltip>
             <Tooltip placement="top" title={'open'}><Icon className={styles.trigger} type="plus" /></Tooltip>
-            <Tooltip placement="top" title={'clean'}><Icon className={styles.trigger} type="delete" /></Tooltip>
+            <Tooltip placement="top" title={'clean'}>
+              <Icon
+                className={styles.trigger}
+                type="delete"
+                onClick={this.clearAll}
+              />
+            </Tooltip>
             <Button onClick={this.savePicture} className={styles.btn}>
               <Tooltip placement="top" title={'save'}><Icon type="save" className={styles.trigger} /> </Tooltip>
             </Button>
