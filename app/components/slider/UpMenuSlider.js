@@ -23,7 +23,7 @@ class UpMenuSlider extends Component {
       preIconClass: v >= this.state.mid ? 'styles.anticon_highlight' : '',
       sliderValue: v,
     });
-    this.props.changeUpSlider(v);
+    this.props.changeImageViewSize(v);
   }
   render() {
     return (
@@ -51,5 +51,5 @@ UpMenuSlider.propTypes = {
   max: React.PropTypes.number.isRequired,
   min: React.PropTypes.number.isRequired,
   value: React.PropTypes.number.isRequired,
-  changeUpSlider: React.PropTypes.func.isRequired,
+  changeImageViewSize: React.PropTypes.func.isRequired,
 };

@@ -35,26 +35,30 @@ class App extends Component {
     depthSelected: false,
     styleSelected: false,
     rawImageSrc: '', // 原图像的路径
-    imageSrc: 'Not designed', // 产出结果图像的路径
+    resultImageSrc: 'Not designed', // 产出结果图像的路径
     resizeNum: 4,
     images: [pic1, pic2, pic3], // images in left menu
     selectedIndex: 0          // selected index in left menu
   };
 
-  selectMode = (var1) => {
-    if (var1 === 1) {
+  /**
+   * switch the resolution/depth/style mode
+   * @param modeIndex
+   */
+  selectMode = (modeIndex) => {
+    if (modeIndex === 1) {
       this.setState({
         resolutionSelected: true,
         depthSelected: false,
         styleSelected: false,
       });
-    } else if (var1 === 2) {
+    } else if (modeIndex === 2) {
       this.setState({
         resolutionSelected: false,
         depthSelected: true,
         styleSelected: false,
       });
-    } else if (var1 === 3) {
+    } else if (modeIndex === 3) {
       this.setState({
         resolutionSelected: false,
         depthSelected: false,
@@ -63,6 +67,9 @@ class App extends Component {
     }
   }
 
+  /**
+   * collapse or stretch left menu
+   */
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed,
@@ -71,7 +78,7 @@ class App extends Component {
 
   setResultImgSrc = (val) => {
     this.setState({
-      imageSrc: val,
+      resultImageSrc: val,
     });
   }
 
@@ -81,21 +88,24 @@ class App extends Component {
     });
   }
 
+  /**
+   * save the result image
+   */
   savePicture = () => {
     const printFunction = (res) => {
       alert(`Save in ${res}`);
     };
-    if (this.state.imageSrc === 'Not designed') {
+    if (this.state.resultImageSrc === 'Not designed') {
       alert('No image source. Please create a SR image first.');
     } else {
       const self = this;
       dialog.showSaveDialog(options, (filename) => {
-        if (self.state.imageSrc === 'Not designed') {
+        if (self.state.resultImageSrc === 'Not designed') {
           alert('No image source. Please create a SR image first.');
         } else if (filename === undefined) {
           alert('No designed path. Please choose a path to save.');
         } else {
-          saveResult(self.state.imageSrc, filename, printFunction);
+          saveResult(self.state.resultImageSrc, filename, printFunction);
         }
       });
     }
@@ -125,6 +135,7 @@ class App extends Component {
     // reset the props state
     this.setState({ images: list });
   }
+
   /**
    * add a new picture item in left menu list
    * @param imageURL  the image user put into the zone
@@ -138,6 +149,7 @@ class App extends Component {
       selectedIndex: list.length - 1
     });
   }
+
   /**
    * show a picture in the drop zone when user select in the left
    * @param index
@@ -147,9 +159,14 @@ class App extends Component {
     this.setState({ rawImageSrc: this.state.images[index],
       selectedIndex: index });
   }
-  changeUpSlider = (v) => {
+
+  /**
+   * change the image size in the screen
+   * @param resize number
+   */
+  changeImageViewSize = (resize) => {
     this.setState({
-      resizeNum: v,
+      resizeNum: resize,
     });
   }
 
@@ -193,7 +210,7 @@ class App extends Component {
               <Tooltip placement="top" title={'save'}><Icon type="save" className={styles.trigger} /> </Tooltip>
             </Button>
             <Col span={1}><UpMenuSlider
-              changeUpSlider={this.changeUpSlider.bind(this)}
+              changeImageViewSize={this.changeImageViewSize.bind(this)}
               min={2}
               max={8}
               value={4}
