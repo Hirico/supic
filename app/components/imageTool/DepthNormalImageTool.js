@@ -50,13 +50,13 @@ class DepthNormalImageTool extends Component {
                 multiple={false}
                 accept="image/*"
               >
-                {this.props.rawImageSrc  === '' ? null :
+                {this.props.rawImageSrc === '' ? null :
                 <div className={styles.imageDropZone}>
                   <p>{this.state.fileUrl}</p>
                   <img
                     id="middle_img"
-                    style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4)}}
-                    src={this.props.rawImageSrc }
+                    style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
+                    src={this.props.rawImageSrc}
                     alt="没有图片"
                   />
                 </div>}
