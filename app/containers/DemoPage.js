@@ -12,17 +12,14 @@ import styles from './DemoPage.css';
 
 import ResolutionSingleImageTool from '../components/imageTool/ResolutionSingleImageTool';
 import DepthNormalImageTool from '../components/imageTool/DepthNormalImageTool';
-
+import pic1 from '../asset/picture/beach.jpg';
+import pic2 from '../asset/picture/city.jpg';
+import pic3 from '../asset/picture/water.jpg';
 import { saveResult } from '../utils/pyCommunicator';
 
 const { Header, Sider } = Layout;
 const dialog = require('electron').remote.dialog;
 
-// add by wsw for current test
-// TODO will delete before construct
-const pic2 = '/Users/wshwbluebird/ML/supic/app/asset/picture/water.jpg';
-const pic3 = '/Users/wshwbluebird/ML/supic/app/asset/picture/beach.jpg';
-const pic1 = '/Users/wshwbluebird/ML/supic/app/asset/picture/city.jpg';
 
 const options = {
   title: 'Save an Image',
