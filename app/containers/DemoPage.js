@@ -147,7 +147,8 @@ class App extends Component {
    */
   changeShowImage = (index) => {
     index = index < this.state.images.length ? index : this.state.images.length - 1;
-    this.setState({ rawImageSrc: this.state.images[index] });
+    this.setState({ rawImageSrc: this.state.images[index],
+      selectedIndex: index });
   }
   changeUpSlider = (v) => {
     this.setState({

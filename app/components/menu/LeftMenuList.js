@@ -21,7 +21,7 @@ class LeftMenuList extends Component {
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={[this.props.selectedIndex.toString()]}
+        selectedKeys={[this.props.selectedIndex.toString()]}
         style={{ background: '#292929' }}
         onClick={this.handleClick}
       >
