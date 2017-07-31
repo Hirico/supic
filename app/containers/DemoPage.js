@@ -219,6 +219,7 @@ class App extends Component {
             getRawImgSrc={this.getRawImgSrc.bind(this)}
             rawImageSrc={this.state.rawImageSrc}
             addLeftItem={this.addItem.bind(this)}
+            getImgSrc={this.getImgSrc.bind(this)}
           /> : null}
 
         </Layout>

@@ -8,7 +8,8 @@
 .footer {
   background: #1e1e1e;
   padding: 0;
-  height: 70px;
+  height: 120px;
+  top: 30px;
 }
 
 .imageDropZone {
@@ -19,45 +20,156 @@
   text-align: center;
 }
 
-#try{
-
-}
-.footer .note{
-  font-size: 15px;
-  color:#dddddd;
-}
-.footer .focalSlider{
-  position: absolute;
-  left: 0px;
-  top:30px;
-  width: 250px;
-}
-.footer .focalInputNumber{
-  position: absolute;
-  left: 200px;
-  top:0px;
-  width: 60px;
-}
-.footer .focalLabel{
-  position: absolute;
-  left: 0px;
-  top:0px;
+#try {
 }
 
-.footer .blurSlider{
-  position: absolute;
-  left: 360px;
-  top:30px;
-  width: 250px;
+/* tool area */
+.footer {
+  height: 120px;
+  color: #fff;
 }
-.footer .blurInputNumber{
+
+/* css of minFocalDepth and maxFocalDepth */
+
+/* range slider with min and maxFocalDepth */
+.minMaxSlider {
   position: absolute;
-  left: 560px;
-  top:0px;
-  width: 60px;
+  left: -5px;
+  top:-10px;
+  width: 265px;
 }
-.footer .blurLabel{
+
+.footer .minFocalDepthLabel {
   position: absolute;
-  left: 360px;
-  top:0px;
+  left: 0px;
+  top: 40px;
+  font-size: 12px;
+  color: #f6f6f6;
+}
+
+.footer .minFocalDepthInput {
+  position: absolute;
+  left: 0;
+  width: 55px;
+  top: 12px;
+}
+
+.footer .maxFocalDepthInput {
+  position: absolute;
+  top: 12px;
+  left: 205px;
+  width: 55px;
+}
+.footer .maxFocalDepthLabel {
+  position: absolute;
+  left: 160px;
+  top: 40px;
+  font-size: 12px;
+  color: #f6f6f6;
+}
+
+/* css of transition Slider/InputNumber component/Label */
+.footer .transitionSlider {
+  position: absolute;
+  left: 70px;
+  top: 60px;
+  width: 120px;
+}
+
+.footer .transitionInput {
+  position: absolute;
+  top: 58px;
+  left: 205px;
+  width: 55px;
+}
+
+.footer .transitionLabel {
+  position: absolute;
+  left: 0px;
+  top: 63px;
+  font-size: 14px;
+  color: #f6f6f6;
+}
+
+/* css of radius Slider/InputNumber component/Label */
+.footer .radiusSlider {
+  position: absolute;
+  left: 75px;
+  top: -10px;
+  width: 150px;
+}
+
+.footer .radiusInput {
+  position: absolute;
+  left: 240px;
+  width: 55px;
+  top: -10px;
+}
+
+.footer .radiusLabel {
+  position: absolute;
+  left: 0px;
+  top: -7px;
+  font-size: 14px;
+  color: #f6f6f6;
+}
+
+/* css of brightness Slider/InputNumber component/Label */
+.footer .brightnessSlider {
+  position: absolute;
+  left: 75px;
+  top: 24px;
+  width: 150px;
+}
+
+.footer .brightnessInput {
+  position: absolute;
+  top: 24px;
+  left: 240px;
+  width: 55px;
+}
+
+.footer .brightnessLabel {
+  position: absolute;
+  left: 0px;
+  top: 27px;
+  font-size: 14px;
+  color: #f6f6f6;
+}
+
+/* css of speed Slider/InputNumber component/Label */
+.footer .speedSlider {
+  position: absolute;
+  left: 75px;
+  top: 58px;
+  width: 150px;
+}
+
+.footer .speedInput {
+  position: absolute;
+  top: 58px;
+  left: 240px;
+  width: 55px;
+}
+
+.footer .speedLabel {
+  position: absolute;
+  left: 0px;
+  top: 60px;
+  font-size: 14px;
+  color: #f6f6f6;
+}
+
+/* css of loading icon when stop loading, set loading icon invisible */
+.footer .loadingStop {
+  font-size: 0px;
+}
+
+/* css of loading icon when loading, set loading icon visible */
+.footer .loadingStart {
+  position: absolute;
+  left: 30px;
+  top: 10px;
+  font-size: 28px;
+  color: #108ee9;
 }
