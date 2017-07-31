@@ -30,7 +30,7 @@ class DepthNormalImageTool extends Component {
    *  function load picture to middle area
    */
   dropFile = (files) => {
-    this.props.getRawImgSrc(files[0].path);
+    this.props.setRawImgSrc(files[0].path);
     const printFunction = (res) => {
       this.setState({
         depthMapPath: res, /* refresh depth map file path */
@@ -50,7 +50,7 @@ class DepthNormalImageTool extends Component {
       loading: true,
       working: true,
     });
-    this.props.getImgSrc('Not designed');  /* save function, pass parameter to parent component */
+    this.props.setResultImgSrc('Not designed');  /* save function, pass parameter to parent component */
     const img = new Image();
     img.src = files[0].path;
     // add image
@@ -69,7 +69,7 @@ class DepthNormalImageTool extends Component {
       this.setState({
         fileUrl: res,              /* refresh img src in middle area */
       });
-      this.props.getImgSrc(res);
+      this.props.setResultImgSrc(res);
     }
     this.setState({
       working: false,              /* set slider to workable */
@@ -360,9 +360,9 @@ class DepthNormalImageTool extends Component {
 export default DepthNormalImageTool;
 DepthNormalImageTool.propTypes = {
   resizeNum: React.PropTypes.number.isRequired,
-  rawImageSrc: React.PropTypes.func.isRequired,
-  getRawImgSrc: React.PropTypes.func.isRequired,
-  getImgSrc: React.PropTypes.func.isRequired,
+  rawImageSrc: React.PropTypes.string.isRequired,
+  setRawImgSrc: React.PropTypes.func.isRequired,
+  setResultImgSrc: React.PropTypes.func.isRequired,
   // {callback} add a small item in left menu when drop a file in drop zone
   addLeftItem: React.PropTypes.func.isRequired
 };

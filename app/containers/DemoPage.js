@@ -69,13 +69,13 @@ class App extends Component {
     });
   }
 
-  getImgSrc = (val) => {
+  setResultImgSrc = (val) => {
     this.setState({
       imageSrc: val,
     });
   }
 
-  getRawImgSrc = (val) => {
+  setRawImgSrc = (val) => {
     this.setState({
       rawImageSrc: val,
     });
@@ -206,17 +206,17 @@ class App extends Component {
 
           {this.state.resolutionSelected ? <ResolutionSingleImageTool
             resizeNum={this.state.resizeNum}
-            getImgSrc={this.getImgSrc.bind(this)}
-            getRawImgSrc={this.getRawImgSrc.bind(this)}
+            setResultImgSrc={this.setResultImgSrc.bind(this)}
+            setRawImgSrc={this.setRawImgSrc.bind(this)}
             rawImageSrc={this.state.rawImageSrc}
             addLeftItem={this.addItem.bind(this)}
           /> : null}
           {this.state.depthSelected ? <DepthNormalImageTool
             resizeNum={this.state.resizeNum}
-            getRawImgSrc={this.getRawImgSrc.bind(this)}
+            setRawImgSrc={this.setRawImgSrc.bind(this)}
             rawImageSrc={this.state.rawImageSrc}
             addLeftItem={this.addItem.bind(this)}
-            getImgSrc={this.getImgSrc.bind(this)}
+            setResultImgSrc={this.setResultImgSrc.bind(this)}
           /> : null}
 
         </Layout>

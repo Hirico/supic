@@ -20,14 +20,14 @@ class ResolutionSingleImageTool extends Component {
 
   getSrPicture = () => {
     const printFunction = (message) => {
-      this.props.getImgSrc(message);
+      this.props.setResultImgSrc(message);
       this.setState({
         resultFileUrl: message,
       });
       alert(`New picture save in ${message} temporarily. Click SAVE BUTTON to designated route if you like it.`);
     };
 
-    tempSr(this.state.fileUrl, this.state.out_width, this.state.out_height, printFunction);
+    tempSr(this.props.rawImageSrc, this.state.out_width, this.state.out_height, printFunction);
 
     // const OpenWindow = window.open('', '处理进度', 'height=100, width=400, top=0,' +
     //   ' left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
@@ -35,8 +35,8 @@ class ResolutionSingleImageTool extends Component {
 
 
   dropFile = (files) => {
-    this.props.getRawImgSrc(files[0].path);
-    this.props.getImgSrc('Not designed');
+    this.props.setRawImgSrc(files[0].path);
+    this.props.setResultImgSrc('Not designed');
     const img = new Image();
     img.src = files[0].path;
     // img.onload = function () {
@@ -131,10 +131,10 @@ class ResolutionSingleImageTool extends Component {
 
 export default ResolutionSingleImageTool;
 ResolutionSingleImageTool.propTypes = {
-  rawImageSrc: React.PropTypes.number.isRequired,
+  rawImageSrc: React.PropTypes.string.isRequired,
   resizeNum: React.PropTypes.number.isRequired,
-  getImgSrc: React.PropTypes.func.isRequired,
-  getRawImgSrc: React.PropTypes.func.isRequired,
+  setResultImgSrc: React.PropTypes.func.isRequired,
+  setRawImgSrc: React.PropTypes.func.isRequired,
   // {callback} add a small item in left menu when drop a file in drop zone
   addLeftItem: React.PropTypes.func.isRequired
 };
