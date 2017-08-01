@@ -7,56 +7,57 @@
 
 ::-webkit-scrollbar {
   background-color: #1b1b1b;
-  width: .8em;
+  width: 0.8em;
 }
 
 ::-webkit-scrollbar:horizontal {
   background-color: #1b1b1b;
-  height: .8em;
+  height: 0.8em;
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-  background:  #6d6d6d
+  background: #6d6d6d;
 }
 
 ::-webkit-scrollbar-corner {
   background-color: inherit;
 }
 
- .footer {
+.footer {
   background: #1e1e1e;
   padding: 0;
   height: 70px;
 }
-/*some common properties in footer */
- .footer .footer_icon {
+
+.footer .footer_icon {
   font-size: 30px;
   color: #d9d9d9;
 }
+
 .footer .footer_icon:hover {
   color: #108ee9;
   font-size: 38px;
-  top:-5px;
+  top: -5px;
 }
- .footer .note {
+
+.footer .note {
   font-size: 15px;
   color: #d9d9d9;
 }
 
-/*footer icon*/
- .footer .zoom {
+.footer .zoom {
   position: absolute;
   right: 90px;
-  top: 0px;
+  top: 0;
 }
 
- .footer .check_btn {
+.footer .check_btn {
   position: absolute;
   right: 18px;
-  top: 0px;
+  top: 0;
 }
 
- .footer .check_btn:hover {
+.footer .check_btn:hover {
   background: #108ee9;
   top: -5px;
   right: 15px;
@@ -66,12 +67,6 @@
   font-size: 26px;
 }
 
-/*.middle_layout .footer .check {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-}*/
-/*footer note*/
 .note_label_reso {
   position: absolute;
   top: 28px;
@@ -90,7 +85,6 @@
   right: 10px;
 }
 
-
 .imageDropZone {
   margin: 0;
   height: 100%;
@@ -99,6 +93,16 @@
   text-align: center;
 }
 
-#try{
+/* css of loading icon when stop loading, set loading icon invisible */
+.footer .loadingStop {
+  font-size: 0;
+}
 
+/* css of loading icon when loading, set loading icon visible */
+.footer .loadingStart {
+  position: absolute;
+  left: 30px;
+  top: 2px;
+  font-size: 28px;
+  color: #108ee9;
 }

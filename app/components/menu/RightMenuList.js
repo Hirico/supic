@@ -12,18 +12,23 @@ class RightMenuList extends Component {
     current: '1',
     openKeys: [],
   }
+
+  /**
+   * modified by wsw, add selectMode Param(sunMenu Index)
+   * @param e which is selected
+   */
   handleClick = (e) => {
     // alert("hello" + e.key);
     if (e.key === '1') {
-      this.props.selectMode(1);
+      this.props.selectMode(1, 1);
     } else if (e.key === '2') {
-      this.props.selectMode(1);
+      this.props.selectMode(1, 2);
     } else if (e.key === '3') {
-      this.props.selectMode(2);
+      this.props.selectMode(2, 1);
     } else if (e.key === '4') {
-      this.props.selectMode(2);
+      this.props.selectMode(2, 2);
     } else if (e.key === '5') {
-      this.props.selectMode(3);
+      this.props.selectMode(3, 1);
     }
     console.log('Hello Clicked: ', e);
     this.setState({ current: e.key });

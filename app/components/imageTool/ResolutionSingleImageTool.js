@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import SuperResolutionSlider from '../slider/SuperResolutionSlider';
 import { tempSr } from '../../utils/pyCommunicator';
 import styles from './ResolutionSingleImageTool.css';
+import MutipleSelector from './MutipleSelector';
 
 
 const { Content, Footer } = Layout;
@@ -16,6 +17,7 @@ class ResolutionSingleImageTool extends Component {
     out_width: 32,
     out_height: 16,
     resultFileUrl: '',
+    loading: false,
   };
 
   getSrPicture = () => {
@@ -23,10 +25,13 @@ class ResolutionSingleImageTool extends Component {
       this.props.setResultImgSrc(message);
       this.setState({
         resultFileUrl: message,
+        loading: false,
       });
       alert(`New picture save in ${message} temporarily. Click SAVE BUTTON to designated route if you like it.`);
     };
-
+    this.setState({
+      loading: true,
+    });
     tempSr(this.props.rawImageSrc, this.state.out_width, this.state.out_height, printFunction);
 
     // const OpenWindow = window.open('', '处理进度', 'height=100, width=400, top=0,' +
@@ -59,6 +64,12 @@ class ResolutionSingleImageTool extends Component {
   }
 
   render() {
+    // if user select multiple SR change layout totally
+    if (this.props.modeSelect === 2) {
+      return (
+        <MutipleSelector />
+      );
+    }
     return (
       <div style={{ height: 'calc(100vh - 64px)' }}>
         <Content style={{ height: 'calc(100% - 118px)' }}>
@@ -101,7 +112,8 @@ class ResolutionSingleImageTool extends Component {
               <SuperResolutionSlider
                 handleSlider={this.handleSlider.bind(this)}
                 min={1}
-                max={8}
+                max={2}
+                step={0.1}
                 value={1}
                 pre_width={this.state.imageWidth}
                 pre_height={this.state.imageHeight}
@@ -121,6 +133,9 @@ class ResolutionSingleImageTool extends Component {
               />
               /<label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_check}`}>check</label>
             </Col>
+            <Col span={2} className={styles.footer}>
+              <Icon type="loading" className={this.state.loading ? styles.loadingStart : styles.loadingStop} spin={this.state.loading} />
+            </Col>
           </Row>
         </Footer>
       </div>
@@ -136,5 +151,7 @@ ResolutionSingleImageTool.propTypes = {
   setResultImgSrc: React.PropTypes.func.isRequired,
   setRawImgSrc: React.PropTypes.func.isRequired,
   // {callback} add a small item in left menu when drop a file in drop zone
-  addLeftItem: React.PropTypes.func.isRequired
+  addLeftItem: React.PropTypes.func.isRequired,
+  // the select mode in SR mutiple or single
+  modeSelect: React.PropTypes.number.isRequired
 };
