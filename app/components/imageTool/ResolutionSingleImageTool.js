@@ -60,8 +60,8 @@ class ResolutionSingleImageTool extends Component {
 
   render() {
     return (
-      <div>
-        <Content>
+      <div style={{ height: 'calc(100vh - 64px)' }}>
+        <Content style={{ height: 'calc(100% - 118px)' }}>
           <Row type="flex" justify="start">
             <Col span={this.state.resultFileUrl === '' ? 19 : 9} className={styles.middle_picture}>
               <Dropzone

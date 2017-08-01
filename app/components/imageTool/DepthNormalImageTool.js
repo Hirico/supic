@@ -198,9 +198,9 @@ class DepthNormalImageTool extends Component {
    */
   render() {
     return (
-      <div>
+      <div style={{ height: 'calc(100vh - 64px)' }}>
         {/* middle img area */}
-        <Content>
+        <Content style={{ height: 'calc(100% - 118px)' }}>
           <Row type="flex" justify="start">
             <Col span={19} className={styles.middle_picture}>
               <Dropzone

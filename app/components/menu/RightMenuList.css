@@ -3,6 +3,6 @@
   right: 0px;
   top: 80px;
   background: #1e1e1e;
-  height: 450px;
+  height: calc(100vh - 80px);
   color: #fff;
 }

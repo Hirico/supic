@@ -1,5 +1,9 @@
 @import '../../node_modules/antd/dist/antd.css';
 
+body {
+  height: 100%;
+}
+
 .trigger {
   font-size: 18px;
   line-height: 64px;
@@ -58,9 +62,18 @@
   text-align: center;
 }
 
+.ant-layout-sider {
+  height: 100vh;
+}
+
+.ant-row-flex.ant-row-flex-start {
+  height: 100%;
+}
+
 .middle_layout {
   background: #1e1e1e;
   padding: 0;
+  height: 100vh;
 }
 
 .middle_layout .header {
