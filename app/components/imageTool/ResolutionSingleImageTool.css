@@ -67,6 +67,13 @@
   font-size: 26px;
 }
 
+.selectCategory {
+  position: absolute;
+  top: 0;
+  right: 70px;
+  width: 100px;
+}
+
 .note_label_reso {
   position: absolute;
   top: 28px;

@@ -35,13 +35,13 @@
 .minMaxSlider {
   position: absolute;
   left: -5px;
-  top:-10px;
+  top: -10px;
   width: 265px;
 }
 
 .footer .minFocalDepthLabel {
   position: absolute;
-  left: 0px;
+  left: 0;
   top: 40px;
   font-size: 12px;
   color: #f6f6f6;
@@ -85,7 +85,7 @@
 
 .footer .transitionLabel {
   position: absolute;
-  left: 0px;
+  left: 0;
   top: 63px;
   font-size: 14px;
   color: #f6f6f6;
@@ -108,7 +108,7 @@
 
 .footer .radiusLabel {
   position: absolute;
-  left: 0px;
+  left: 0;
   top: -7px;
   font-size: 14px;
   color: #f6f6f6;
@@ -131,7 +131,7 @@
 
 .footer .brightnessLabel {
   position: absolute;
-  left: 0px;
+  left: 0;
   top: 27px;
   font-size: 14px;
   color: #f6f6f6;

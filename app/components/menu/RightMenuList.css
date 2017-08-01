@@ -1,6 +1,6 @@
 .right_list {
   position: absolute;
-  right: 0px;
+  right: 0;
   top: 80px;
   background: #1e1e1e;
   height: calc(100vh - 80px);

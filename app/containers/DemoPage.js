@@ -232,6 +232,7 @@ class App extends Component {
             rawImageSrc={this.state.rawImageSrc}
             addLeftItem={this.addItem.bind(this)}
             modeSelect={this.state.rightChildSelect}
+            collapsed={this.state.collapsed}
           /> : null}
           {this.state.depthSelected ? <DepthNormalImageTool
             resizeNum={this.state.resizeNum}

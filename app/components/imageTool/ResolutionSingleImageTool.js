@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Row, Col, Button } from 'antd';
+import { Layout, Icon, Row, Col, Button, Select } from 'antd';
 import Dropzone from 'react-dropzone';
 import SuperResolutionSlider from '../slider/SuperResolutionSlider';
 import { tempSr } from '../../utils/pyCommunicator';
@@ -8,6 +8,7 @@ import MutipleSelector from './MutipleSelector';
 
 
 const { Content, Footer } = Layout;
+const Option = Select.Option;
 
 class ResolutionSingleImageTool extends Component {
   state = {
@@ -65,10 +66,12 @@ class ResolutionSingleImageTool extends Component {
       );
     }
     return (
-      <div style={{ height: 'calc(100vh - 64px)' }}>
+      <div style={this.props.collapsed ? { height: 'calc(100vh - 64px)',
+        width: 'calc(100vw - 250px)' } : { height: 'calc(100vh - 64px)', width: 'calc(100vw - 320px)' }}
+      >
         <Content style={{ height: 'calc(100% - 118px)' }}>
           <Row type="flex" justify="start" style={{ height: '100%' }}>
-            <Col span={this.state.resultFileUrl === '' ? 19 : 9} className={styles.middle_picture} style={{ height: '100%' }}>
+            <Col span={this.state.resultFileUrl === '' ? 24 : 12} className={styles.middle_picture} style={{ height: '100%' }}>
               <Dropzone
                 style={{ margin: 0, height: '100%', width: '100%' }}
                 onDrop={this.dropFile.bind(this)}
@@ -90,7 +93,7 @@ class ResolutionSingleImageTool extends Component {
             </Col>
 
             {this.state.resultFileUrl === '' ? null :
-            <Col span={9} className={styles.middle_picture} style={{ height: '100%' }}>
+            <Col span={12} className={styles.middle_picture} style={{ height: '100%' }}>
               <img
                 id="middle_img"
                 style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
@@ -102,7 +105,7 @@ class ResolutionSingleImageTool extends Component {
         </Content>
         <Footer>
           <Row>
-            <Col span={21} className={styles.footer}>
+            <Col span={23} className={styles.footer}>
               <SuperResolutionSlider
                 handleSlider={this.handleSlider.bind(this)}
                 min={1}
@@ -123,9 +126,14 @@ class ResolutionSingleImageTool extends Component {
                 className={`${styles.check_btn}`}
                 icon="check"
               />
-              /<label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_check}`}>check</label>
+              <label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_check}`}>check</label>
+              <Select defaultValue="TEXT" className={`${styles.selectCategory}`}>
+                <Option value="ANIME">ANIME</Option>
+                <Option value="TEXT">TEXT</Option>
+                <Option value="PORTRAIT">PORTRAIT</Option>
+              </Select>
             </Col>
-            <Col span={2} className={styles.footer}>
+            <Col span={1} className={styles.footer}>
               <Icon type="loading" className={this.state.loading ? styles.loadingStart : styles.loadingStop} spin={this.state.loading} />
             </Col>
           </Row>
@@ -145,5 +153,6 @@ ResolutionSingleImageTool.propTypes = {
   // {callback} add a small item in left menu when drop a file in drop zone
   addLeftItem: React.PropTypes.func.isRequired,
   // the select mode in SR mutiple or single
-  modeSelect: React.PropTypes.number.isRequired
+  modeSelect: React.PropTypes.number.isRequired,
+  collapsed: React.PropTypes.bool.isRequired,
 };
