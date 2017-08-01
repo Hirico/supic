@@ -48,7 +48,7 @@ def _check_parameter(input_path, output_dir, out_height, out_width):
     return [scale, output_path]
 
 
-def predict_SR(input_path, output_dir, out_width, out_height):
+def predict_SR(input_path, output_dir, out_width, out_height, pic_type):
     """
     API
 
@@ -57,6 +57,7 @@ def predict_SR(input_path, output_dir, out_width, out_height):
         output_dir: {String}    保存图片的文件夹
         out_width:  {Number}    处理后图片的宽度
         out_height: {Number}    处理后图片的高
+        pic_type: {Number}      图片类型
 
     Returns:
         {String}
@@ -112,6 +113,6 @@ def predict_PIL(input_path, output_dir, out_width, out_height):
         return res[1]
 
 if __name__ == '__main__':
-    print( 'our::   '+predict_SR('./q.png','./',1200,1200))
-    #print(' pil::   ' + predict_PIL('./q.png', './', 720, 720))
-    # print(predict_SR('./psnr/eer.png', './psnr/', 640, 360))
+    print( 'our::   '+predict_SR('./q.png','./',1200,1200,0))
+    #print(' pil::   ' + predict_PIL('./q.png', './', 720, 720,0))
+    # print(predict_SR('./psnr/eer.png', './psnr/', 640, 360,0))

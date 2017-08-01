@@ -33,12 +33,13 @@ export function saveResult(inputFilePath, outputFilePath, callback) {
  * @param {String} inputFilePath - absolute image file path
  * @param {Number} outWidth - better be int
  * @param {Number} outHeight - better be int
+ * @param {Number} picType - one value of PicType
  * @param {Function} callback - the callback that handles the response
  */
-export function tempSr(inputFilePath, outWidth, outHeight, callback) {
+export function tempSr(inputFilePath, outWidth, outHeight, picType, callback) {
   ipcRenderer.once('asynchronous-reply', (event, arg) => {
     const tempDir = arg;
-    client.invoke('predict_sr', inputFilePath, tempDir, outWidth, outHeight, (error, res) => {
+    client.invoke('predict_sr', inputFilePath, tempDir, outWidth, outHeight, picType, (error, res) => {
       console.log(res);
       console.log(`err: ${error}`);
       callback(res);
@@ -54,11 +55,12 @@ export function tempSr(inputFilePath, outWidth, outHeight, callback) {
  * a finished number, a total number will be passed to the specific callback function
  * @param {Array} images - absolute image file paths
  * @param {String} outDir - absolute save directory path
- * @param {Number} outWidths - better be int
- * @param {Number} outHeights - better be int
+ * @param {Array} outWidths - better be int
+ * @param {Array} outHeights - better be int
+ * @param {Array} picTypes - number values from PicType
  * @param {Function} callback - the callback that handles the response
  */
-export default function batchSr(images, outDir, outWidths, outHeights, callback) {
+export default function batchSr(images, outDir, outWidths, outHeights, picTypes, callback) {
   const totalNum = images.length;
   let finishedNum = 0;
 
@@ -72,7 +74,7 @@ export default function batchSr(images, outDir, outWidths, outHeights, callback)
   };
 
   for (let i = 0; i < totalNum; i += 1) {
-    client.invoke('predict_sr', images[i], outDir, outWidths[i], outHeights[i], response);
+    client.invoke('predict_sr', images[i], outDir, outWidths[i], outHeights[i], picTypes[i], response);
   }
 }
 

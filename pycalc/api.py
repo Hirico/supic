@@ -13,13 +13,10 @@ import imageFilter
 class PredictApi(object):
 
     # member method (API to be used by other language)
-    def batch_sr(self, input_file_paths, output_dir_paths, scale_list):
-        """ render and store sr images in output_dir_paths """
-
-    def predict_sr(self, input_path, output_dir, out_width, out_height):
+    def predict_sr(self, input_path, output_dir, out_width, out_height, pic_type):
         """ render and store temp sr images in output_dir """
         try:
-            result = real_predict_sr(input_path, output_dir, int(out_width), int(out_height))
+            result = real_predict_sr(input_path, output_dir, int(out_width), int(out_height), pic_type)
             reset_default_graph()
             return result
         except Exception as e:
