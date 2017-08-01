@@ -56,16 +56,16 @@ class SRSlider extends Component {
           {...this.props}
           className={styles.inputWidth}
           min={this.props.pre_width}
-          max={this.props.pre_height * 8}
-          value={this.state.cWidth}
+          max={this.props.pre_width * 2}
+          value={this.state.sliderValue * this.props.pre_width}
           onChange={this.handleWidthChange}
         />
         <InputNumber
           {...this.props}
           className={styles.inputHeight}
           min={this.props.pre_height}
-          max={this.props.pre_height * 8}
-          value={this.state.cHeight}
+          max={this.props.pre_height * 2}
+          value={this.state.sliderValue * this.props.pre_height}
           onChange={this.handleHeightChange}
         />
         <label className={`${styles.note_label} ${styles.px1_label}`} htmlFor={`${styles.try}`} >px</label>

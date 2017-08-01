@@ -67,8 +67,8 @@ class ResolutionSingleImageTool extends Component {
     return (
       <div style={{ height: 'calc(100vh - 64px)' }}>
         <Content style={{ height: 'calc(100% - 118px)' }}>
-          <Row type="flex" justify="start">
-            <Col span={this.state.resultFileUrl === '' ? 19 : 9} className={styles.middle_picture}>
+          <Row type="flex" justify="start" style={{ height: '100%' }}>
+            <Col span={this.state.resultFileUrl === '' ? 19 : 9} className={styles.middle_picture} style={{ height: '100%' }}>
               <Dropzone
                 style={{ margin: 0, height: '100%', width: '100%' }}
                 onDrop={this.dropFile.bind(this)}
@@ -90,7 +90,7 @@ class ResolutionSingleImageTool extends Component {
             </Col>
 
             {this.state.resultFileUrl === '' ? null :
-            <Col span={9} className={styles.middle_picture}>
+            <Col span={9} className={styles.middle_picture} style={{ height: '100%' }}>
               <img
                 id="middle_img"
                 style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
@@ -102,7 +102,7 @@ class ResolutionSingleImageTool extends Component {
         </Content>
         <Footer>
           <Row>
-            <Col span={19} className={styles.footer}>
+            <Col span={21} className={styles.footer}>
               <SuperResolutionSlider
                 handleSlider={this.handleSlider.bind(this)}
                 min={1}
@@ -115,9 +115,7 @@ class ResolutionSingleImageTool extends Component {
                 htmlFor={`${styles.try}`}
                 className={`${styles.note} ${styles.note_label_reso}`}
               >Resize
-              Resolution</label>
-              <Icon className={`${styles.zoom} ${styles.footer_icon}`} type="search" />
-              <label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_zoom}`}>Magnifier</label>
+              Rate</label>
               <Button
                 onClick={this.getSrPicture}
                 data-tclass="btn"
