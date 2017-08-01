@@ -16,6 +16,7 @@ class ResolutionSingleImageTool extends Component {
     out_width: 32,
     out_height: 16,
     resultFileUrl: '',
+    loading: false,
   };
 
   getSrPicture = () => {
@@ -23,10 +24,13 @@ class ResolutionSingleImageTool extends Component {
       this.props.setResultImgSrc(message);
       this.setState({
         resultFileUrl: message,
+        loading: false,
       });
       alert(`New picture save in ${message} temporarily. Click SAVE BUTTON to designated route if you like it.`);
     };
-
+    this.setState({
+      loading: true,
+    });
     tempSr(this.props.rawImageSrc, this.state.out_width, this.state.out_height, printFunction);
 
     // const OpenWindow = window.open('', '处理进度', 'height=100, width=400, top=0,' +
@@ -101,7 +105,8 @@ class ResolutionSingleImageTool extends Component {
               <SuperResolutionSlider
                 handleSlider={this.handleSlider.bind(this)}
                 min={1}
-                max={8}
+                max={2}
+                step={0.1}
                 value={1}
                 pre_width={this.state.imageWidth}
                 pre_height={this.state.imageHeight}
@@ -120,6 +125,9 @@ class ResolutionSingleImageTool extends Component {
                 icon="check"
               />
               /<label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_check}`}>check</label>
+            </Col>
+            <Col span={2} className={styles.footer}>
+              <Icon type="loading" className={this.state.loading ? styles.loadingStart : styles.loadingStop} spin={this.state.loading} />
             </Col>
           </Row>
         </Footer>
