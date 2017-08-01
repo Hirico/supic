@@ -38,21 +38,15 @@ class ResolutionSingleImageTool extends Component {
     //   ' left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
   };
 
-
   dropFile = (files) => {
     this.props.setRawImgSrc(files[0].path);
     this.props.setResultImgSrc('Not designed');
     const img = new Image();
     img.src = files[0].path;
-    // img.onload = function () {
-    this.state.imageWidth = img.width;// 同步问题没有处理好
-    this.state.imageHeight = img.height;
-    // callback add by wsw
-    this.props.addLeftItem(img.src);
-    // alert('width:' + img.width + ',height:' + img.height);
-    // };
-    // console.log(‘Received files: ‘, files[0]);
-    // console.log(this.state.fileUrl);
+    img.onload = () => {
+      this.setState({ imageHeight: img.height, imageWidth: img.width });
+      this.props.addLeftItem(img.src);
+    };
   };
 
 
