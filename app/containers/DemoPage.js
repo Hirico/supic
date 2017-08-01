@@ -38,25 +38,29 @@ class App extends Component {
     resultImageSrc: 'Not designed', // 产出结果图像的路径
     resizeNum: 4,
     images: [pic1, pic2, pic3], // images in left menu
-    selectedIndex: 0          // selected index in left menu
+    selectedIndex: 0,          // selected index in left menu
+    rightChildSelect: 1    // right submenu index SR:Single:1,Multiple:2 FD:Normal:1,Expert:2
   };
 
   /**
-   * switch the resolution/depth/style mode
-   * @param modeIndex
+   * switch the resolution/depth/style mode and submenu mode
+   * @param modeIndex   menuIndex   SR:1 FD :2  Style:3
+   * @param subModeIndex  subMenuIndex SR:Single:1,Multiple:2 FD:Normal:1,Expert:2
    */
-  selectMode = (modeIndex) => {
+  selectMode = (modeIndex, subModeIndex) => {
     if (modeIndex === 1) {
       this.setState({
         resolutionSelected: true,
         depthSelected: false,
         styleSelected: false,
+        rightChildSelect: subModeIndex
       });
     } else if (modeIndex === 2) {
       this.setState({
         resolutionSelected: false,
         depthSelected: true,
         styleSelected: false,
+        rightChildSelect: subModeIndex
       });
     } else if (modeIndex === 3) {
       this.setState({
@@ -227,6 +231,7 @@ class App extends Component {
             setRawImgSrc={this.setRawImgSrc.bind(this)}
             rawImageSrc={this.state.rawImageSrc}
             addLeftItem={this.addItem.bind(this)}
+            modeSelect={this.state.rightChildSelect}
           /> : null}
           {this.state.depthSelected ? <DepthNormalImageTool
             resizeNum={this.state.resizeNum}

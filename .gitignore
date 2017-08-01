@@ -56,3 +56,7 @@ npm-debug.log.*
 
 # python cache
 pycalc/__pycache__/*
+
+#add by wsw refuse update modal
+sr/
+depth/

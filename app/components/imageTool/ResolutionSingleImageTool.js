@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import SuperResolutionSlider from '../slider/SuperResolutionSlider';
 import { tempSr } from '../../utils/pyCommunicator';
 import styles from './ResolutionSingleImageTool.css';
+import MutipleSelector from './MutipleSelector';
 
 
 const { Content, Footer } = Layout;
@@ -63,6 +64,12 @@ class ResolutionSingleImageTool extends Component {
   }
 
   render() {
+    // if user select multiple SR change layout totally
+    if (this.props.modeSelect === 2) {
+      return (
+        <MutipleSelector />
+      );
+    }
     return (
       <div>
         <Content>
@@ -144,5 +151,7 @@ ResolutionSingleImageTool.propTypes = {
   setResultImgSrc: React.PropTypes.func.isRequired,
   setRawImgSrc: React.PropTypes.func.isRequired,
   // {callback} add a small item in left menu when drop a file in drop zone
-  addLeftItem: React.PropTypes.func.isRequired
+  addLeftItem: React.PropTypes.func.isRequired,
+  // the select mode in SR mutiple or single
+  modeSelect: React.PropTypes.number.isRequired
 };
