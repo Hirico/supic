@@ -20,15 +20,14 @@ class MultipleSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image_urls: ['/Users/wshwbluebird/Desktop/test.png', '/Users/wshwbluebird/Desktop/test.png',
-        '/Users/wshwbluebird/Desktop/test.png'],
-      raw_heights: [50, 50, 50],
-      raw_widths: [50, 50, 50],
-      new_heights: [50, 50, 50],
-      new_widths: [50, 50, 50],
-      pictureType: [0, 0, 0],
-      dealState: ['no', 'no', 'no'],
-      backInfo: ['no', 'no', 'no'],
+      image_urls: [],
+      raw_heights: [],
+      raw_widths: [],
+      new_heights: [],
+      new_widths: [],
+      pictureType: [],
+      dealState: [],
+      backInfo: [],
       percent: 0,
       finish_number: 0, // complete number
       processing: false, // is python runtime on?

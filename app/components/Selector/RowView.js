@@ -65,7 +65,7 @@ class RowView extends Component {
         <Col span={2} offset={5}>
           <Select
             defaultValue={TypeName[0]}
-            style={{ width: 120 }}
+            className={styles.selector}
             onChange={this.handleChange.bind(this)}
           >
             {
