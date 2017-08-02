@@ -8,9 +8,13 @@ import styles from './MultipleSelector.css';
 import RowView from './RowView';
 import batchSr from '../../utils/testBatch';
 
+const assert = require('assert');
+
 const dialog = require('electron').remote.dialog;
 
 const { Content, Footer } = Layout;
+
+// TODO cannot prevent to open multiple dialog
 
 class MultipleSelector extends Component {
   constructor(props) {
@@ -26,7 +30,9 @@ class MultipleSelector extends Component {
       dealState: ['no', 'no', 'no'],
       backInfo: ['no', 'no', 'no'],
       percent: 0,
-      finish_number: 0 // complete number
+      finish_number: 0, // complete number
+      processing: false, // is python runtime on?
+      exporting: false   // is export dialog open
 
     };
   }
@@ -38,6 +44,7 @@ class MultipleSelector extends Component {
    * @param index
    */
   handleSlider = (valWidth, valHeight, index) => {
+    if (this.state.processing) return;
     this.state.new_heights[index] = valHeight;
     this.state.new_widths[index] = valWidth;
   }
@@ -48,6 +55,7 @@ class MultipleSelector extends Component {
    */
   // TODO reuse
   deleteItem = (index) => {
+    if (this.state.processing) return;
     this.setState({ image_urls: this.deleteOne(this.state.image_urls, index),
       raw_heights: this.deleteOne(this.state.raw_heights, index),
       raw_widths: this.deleteOne(this.state.raw_widths, index),
@@ -74,10 +82,25 @@ class MultipleSelector extends Component {
    * @param files
    */
   dropFile = (files) => {
+    // check is running
+    if (this.state.processing) return;
     // udpdate file list
+    this.clearAll();
     files.forEach(f => {
       this.addOne(f);
     });
+  }
+
+  /**
+   * clear all 'done' image when drag a file in zone
+   */
+  clearAll = () => {
+    for (let i = 0; i < this.state.image_urls.length; i += 1) {
+      if (this.state.dealState[i] === 'done') {
+        this.deleteItem(i);
+        i -= 1;
+      }
+    }
   }
 
   /**
@@ -132,6 +155,10 @@ class MultipleSelector extends Component {
    * select dir when click the choose button
    */
   exportAll= () => {
+    // check is running
+    if (this.state.exporting) return;
+    if (this.state.processing) return;
+    this.state.exporting = true;
     const chooseOption = {
       title: 'choose save path',
       properties: [
@@ -140,20 +167,33 @@ class MultipleSelector extends Component {
     };
     // select dir dialog
     dialog.showOpenDialog(chooseOption, (dir) => {
+      // reset the exporting
+      this.state.exporting = false;
+      // return if user click cancel
+      assert(dir.length > 0);
+      // transform the new height and width to interger
       const widths = this.state.new_widths.map(t => Math.round(t));
       const heights = this.state.new_heights.map(t => Math.round(t));
-// eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
       const list = this.state.dealState.map(t => 'waiting');
       list[0] = 'dealing';
       this.setState({
-        dealState: list
+        dealState: list,
+        processing: true
       });
       // call python interface
       batchSr(this.state.image_urls, dir, widths, heights, this.state.pictureType,
         (err, doc, finishNumber, totalNumber) => {
+          // get state and backlog from callabck
           const listState = this.state.dealState;
           const listMessage = this.state.backInfo;
-          listState[finishNumber] = 'dealing';
+          // update next next dealing mage
+          if (finishNumber !== totalNumber) { listState[finishNumber] = 'dealing'; } else {
+            this.setState({
+              processing: false
+            });
+          }
+          // update next finish image
           if (doc === null) {
             listState[finishNumber - 1] = 'fail';
             listMessage[finishNumber - 1] = err;
@@ -161,6 +201,7 @@ class MultipleSelector extends Component {
             listState[finishNumber - 1] = 'done';
             listMessage[finishNumber - 1] = doc;
           }
+          // update progressbar
           this.setState({
             percent: ((finishNumber * 100) / totalNumber),
             finish_number: finishNumber,
@@ -176,6 +217,7 @@ class MultipleSelector extends Component {
    * @param index  index of the list
    */
   selectChange = (value, index) => {
+    if (this.state.processing) return;
     this.state.pictureType[index] = value;
   }
 
@@ -187,7 +229,9 @@ class MultipleSelector extends Component {
       defaultFileList: [],
       showUploadList: false,
       multiple: true,
-      beforeUpload: this.beforeUpload
+      beforeUpload: this.beforeUpload,
+      disabled: this.state.processing
+
     };
     return (
       <div>
