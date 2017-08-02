@@ -1,15 +1,38 @@
 .middle_picture {
-  margin: 2% 3%;
+  margin: 1% 3%;
   height: 100%;
-  overflow: auto;
   text-align: center;
 }
 
-.footer {
-  background: #1e1e1e;
-  padding: 0;
-  height: 120px;
-  top: 30px;
+.middle_picture .plus {
+  position: absolute;
+  top: 40%;
+  left: 35%;
+  font-size: 10vw;
+  color: #d8d8d8;
+}
+
+.middle_picture .hide {
+  font-size: 0;
+}
+
+.depth_picture_col {
+  margin: 1% 0%;
+  height: 100%;
+  left: 0;
+  text-align: center;
+}
+
+.depth_picture_col .depthPicture {
+  border: dashed 1vw #d8d8d8;
+}
+
+.depth_picture_col .plus {
+  position: absolute;
+  top: 40%;
+  left: 35%;
+  font-size: 10vw;
+  color: #d8d8d8;
 }
 
 .imageDropZone {
@@ -25,8 +48,8 @@
 
 /* tool area */
 .footer {
-  height: 120px;
-  color: #fff;
+  height: 10vh;
+  color: #f6f6f6;
 }
 
 /* css of minFocalDepth and maxFocalDepth */
@@ -34,142 +57,140 @@
 /* range slider with min and maxFocalDepth */
 .minMaxSlider {
   position: absolute;
-  left: -5px;
-  top: -10px;
-  width: 265px;
+  left: 0;
+  top: -2vh;
+  width: 28vw;
 }
 
 .footer .minFocalDepthLabel {
   position: absolute;
   left: 0;
-  top: 40px;
-  font-size: 12px;
+  top: 5vh;
+  font-size: 1.2vw;
   color: #f6f6f6;
 }
 
 .footer .minFocalDepthInput {
   position: absolute;
-  left: 0;
-  width: 55px;
-  top: 12px;
+  left: 2vw;
+  width: 4.5vw;
+  top: 1vh;
 }
 
 .footer .maxFocalDepthInput {
   position: absolute;
-  top: 12px;
-  left: 205px;
-  width: 55px;
+  top: 1vh;
+  left: 20vw;
+  width: 4.5vw;
 }
+
 .footer .maxFocalDepthLabel {
   position: absolute;
-  left: 160px;
-  top: 40px;
-  font-size: 12px;
+  left: 18vw;
+  top: 5vh;
+  font-size: 1.2vw;
   color: #f6f6f6;
 }
 
 /* css of transition Slider/InputNumber component/Label */
 .footer .transitionSlider {
   position: absolute;
-  left: 70px;
-  top: 60px;
-  width: 120px;
+  left: 8vw;
+  top: 8.5vh;
+  width: 14vw;
 }
 
 .footer .transitionInput {
   position: absolute;
-  top: 58px;
-  left: 205px;
-  width: 55px;
+  top: 8.5vh;
+  left: 23vw;
+  width: 4.5vw;
 }
 
 .footer .transitionLabel {
   position: absolute;
   left: 0;
-  top: 63px;
-  font-size: 14px;
+  top: 9vh;
+  font-size: 1.2vw;
   color: #f6f6f6;
 }
 
 /* css of radius Slider/InputNumber component/Label */
 .footer .radiusSlider {
   position: absolute;
-  left: 75px;
-  top: -10px;
-  width: 150px;
+  top: -1.3vh;
+  left: 6vw;
+  width: 15vw;
 }
 
 .footer .radiusInput {
   position: absolute;
-  left: 240px;
-  width: 55px;
+  left: 23vw;
+  width: 4.5vw;
   top: -10px;
 }
 
 .footer .radiusLabel {
   position: absolute;
-  left: 0;
-  top: -7px;
-  font-size: 14px;
+  top: -1vh;
+  font-size: 1.2vw;
   color: #f6f6f6;
 }
 
 /* css of brightness Slider/InputNumber component/Label */
 .footer .brightnessSlider {
   position: absolute;
-  left: 75px;
-  top: 24px;
-  width: 150px;
+  left: 6vw;
+  top: 3.5vh;
+  width: 15vw;
 }
 
 .footer .brightnessInput {
   position: absolute;
-  top: 24px;
-  left: 240px;
-  width: 55px;
+  top: 3.5vh;
+  left: 23vw;
+  width: 4.5vw;
 }
 
 .footer .brightnessLabel {
   position: absolute;
-  left: 0;
-  top: 27px;
-  font-size: 14px;
+  top: 4.2vh;
+  font-size: 1.2vw;
   color: #f6f6f6;
 }
 
 /* css of speed Slider/InputNumber component/Label */
 .footer .speedSlider {
   position: absolute;
-  left: 75px;
-  top: 58px;
-  width: 150px;
+  left: 6vw;
+  top: 8vh;
+  width: 15vw;
 }
 
 .footer .speedInput {
   position: absolute;
-  top: 58px;
-  left: 240px;
-  width: 55px;
+  top: 8.5vh;
+  left: 23vw;
+  width: 4.5vw;
 }
 
 .footer .speedLabel {
   position: absolute;
-  left: 0;
-  top: 60px;
-  font-size: 14px;
+  top: 8.8vh;
+  font-size: 1.2vw;
   color: #f6f6f6;
 }
 
 /* css of loading icon when stop loading, set loading icon invisible */
-.footer .loadingStop {
+.depth_picture_col .hide {
   font-size: 0;
 }
 
 /* css of loading icon when loading, set loading icon visible */
-.footer .loadingStart {
+.depth_picture_col .loadingStart {
   position: absolute;
-  left: 30px;
-  top: 10px;
-  font-size: 28px;
+  top: 40%;
+  left: 35%;
+  font-size: 10vw;
   color: #108ee9;
 }
