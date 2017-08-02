@@ -26,13 +26,13 @@
 
 .middle_select {
   margin: 2% 3%;
-  height: 60vh;
+  height: 65vh;
   overflow: auto;
   text-align: center;
 }
 
 .Process_bar {
-  top: 8vh;
+  top: 5vh;
   color: #ddd;
 }
 

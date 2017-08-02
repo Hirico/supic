@@ -6,6 +6,7 @@ import { Col, Layout, Row, Upload, Button, Icon, Progress } from 'antd';
 import Dropzone from 'react-dropzone';
 import styles from './MultipleSelector.css';
 import RowView from './RowView';
+import batchSr from '../../utils/testBatch';
 
 const dialog = require('electron').remote.dialog;
 
@@ -22,7 +23,8 @@ class MultipleSelector extends Component {
       new_heights: [50, 50, 50],
       new_widths: [50, 50, 50],
       pictureType: [0, 0, 0],
-      out_dir: '',  // store all output images
+      dealState: ['no', 'no', 'no'],
+      backInfo: ['no', 'no', 'no'],
       percent: 0,
       finish_number: 0 // complete number
 
@@ -51,7 +53,9 @@ class MultipleSelector extends Component {
       raw_widths: this.deleteOne(this.state.raw_widths, index),
       new_heights: this.deleteOne(this.state.new_heights, index),
       new_widths: this.deleteOne(this.state.new_widths, index),
-      pictureType: this.deleteOne(this.state.pictureType, index) });
+      pictureType: this.deleteOne(this.state.pictureType, index),
+      dealState: this.deleteOne(this.state.dealState, index),
+      backInfo: this.deleteOne(this.state.backInfo, index) });
   }
 
   /**
@@ -76,6 +80,10 @@ class MultipleSelector extends Component {
     });
   }
 
+  /**
+   * add one file to the imageList
+   * @param file
+   */
   addOne = (file) => {
     const list1 = this.state.image_urls;
     const list2 = this.state.raw_widths;
@@ -83,6 +91,8 @@ class MultipleSelector extends Component {
     const list4 = this.state.new_widths;
     const list5 = this.state.new_heights;
     const list6 = this.state.pictureType;
+    const list7 = this.state.dealState;
+    const list8 = this.state.backInfo;
 
     const img = new Image();
     img.src = file.path;
@@ -91,7 +101,9 @@ class MultipleSelector extends Component {
     list3.push(img.height);
     list4.push(img.width);
     list5.push(img.height);
-    list6.push(0)
+    list6.push(0);
+    list7.push('no');
+    list8.push('no');
 
 
     this.setState({
@@ -100,7 +112,9 @@ class MultipleSelector extends Component {
       raw_widths: list2,
       new_heights: list5,
       new_widths: list4,
-      pictureType: list6
+      pictureType: list6,
+      dealState: list7,
+      backInfo: list8
     });
   }
   /**
@@ -117,19 +131,52 @@ class MultipleSelector extends Component {
   /**
    * select dir when click the choose button
    */
-  chooseDir= () => {
+  exportAll= () => {
     const chooseOption = {
       title: 'choose save path',
       properties: [
         'openDirectory'
       ]
     };
-
-    dialog.showOpenDialog(chooseOption, (files) => {
+    // select dir dialog
+    dialog.showOpenDialog(chooseOption, (dir) => {
+      const widths = this.state.new_widths.map(t => Math.round(t));
+      const heights = this.state.new_heights.map(t => Math.round(t));
+// eslint-disable-next-line no-unused-vars
+      const list = this.state.dealState.map(t => 'waiting');
+      list[0] = 'dealing';
       this.setState({
-        out_dir: files
+        dealState: list
       });
+      // call python interface
+      batchSr(this.state.image_urls, dir, widths, heights, this.state.pictureType,
+        (err, doc, finishNumber, totalNumber) => {
+          const listState = this.state.dealState;
+          const listMessage = this.state.backInfo;
+          listState[finishNumber] = 'dealing';
+          if (doc === null) {
+            listState[finishNumber - 1] = 'fail';
+            listMessage[finishNumber - 1] = err;
+          } else {
+            listState[finishNumber - 1] = 'done';
+            listMessage[finishNumber - 1] = doc;
+          }
+          this.setState({
+            percent: ((finishNumber * 100) / totalNumber),
+            finish_number: finishNumber,
+            dealState: listState,
+            backInfo: listMessage
+          });
+        });
     });
+  }
+  /**
+   * change the picture type of specific index
+   * @param value  select value
+   * @param index  index of the list
+   */
+  selectChange = (value, index) => {
+    this.state.pictureType[index] = value;
   }
 
   render() {
@@ -164,7 +211,10 @@ class MultipleSelector extends Component {
                         image_url={url}
                         handleSlider={this.handleSlider}
                         deleteItem={this.deleteItem}
+                        type_change={this.selectChange}
                         item_index={i}
+                        status={this.state.dealState[i]}
+                        message={this.state.backInfo[i]}
                       />
                     </div>
                   ))
@@ -186,7 +236,7 @@ class MultipleSelector extends Component {
             </Col>
             <Col span={3} offset={1}>
               <div>
-                <Button onClick={this.chooseDir.bind(this)}>
+                <Button onClick={this.exportAll.bind(this)}>
                   <Icon type="save" /> export
                 </Button>
               </div>
@@ -198,7 +248,7 @@ class MultipleSelector extends Component {
                 <Progress
                   className={styles.Process_bar}
                   percent={this.state.percent}
-                  format={() => this.state.finish_number}
+                  format={() => `${this.state.finish_number}/${this.state.image_urls.length}`}
                 />
               </div>
             </Col>

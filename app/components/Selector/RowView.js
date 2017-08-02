@@ -5,9 +5,14 @@
  * Created by wshwbluebird on 2017/8/1.
  */
 import React, { Component } from 'react';
-import { Row, Col, Icon, Tooltip } from 'antd';
+import { Row, Col, Icon, Tooltip, Select } from 'antd';
 import SuperResolutionSlider from '../slider/MultipleSelectionSlider';
 import styles from './RowView.css';
+import ProcessCircle from '../progressBar/ProgressCircle';
+import picType from '../../utils/PicType';
+
+const TypeName = Object.keys(picType);
+const Option = Select.Option;
 
 class RowView extends Component {
 
@@ -28,6 +33,14 @@ class RowView extends Component {
   }
 
   /**
+   * change the picture type when select
+   * @param value selected value
+   */
+  handleChange = (value) => {
+    this.props.type_change(value, this.props.item_index);
+  }
+
+  /**
    * retuen html parse
    * @returns {XML}
    */
@@ -35,7 +48,7 @@ class RowView extends Component {
     return (
 
       <Row align={'middle'} type={'flex'}>
-        <Col span={2} offset={2}>
+        <Col span={2} offset={1}>
           <img className={styles.pic} src={this.props.image_url} alt="NJU" />
         </Col>
         <Col span={7} >
@@ -50,9 +63,25 @@ class RowView extends Component {
           />
         </Col>
         <Col span={2} offset={5}>
+          <Select
+            defaultValue={TypeName[0]}
+            style={{ width: 120 }}
+            onChange={this.handleChange.bind(this)}
+          >
+            {
+              TypeName.map(key => (
+                <Option value={picType[key]}>{key}</Option>
+              ))
+            }
+          </Select>
+        </Col>
+        <Col span={2} offset={1}>
           <Tooltip placement="top" title={'clean'}>
             <Icon onClick={this.deletePicture.bind(this)} className={styles.trigger} type="delete" />
           </Tooltip>
+        </Col>
+        <Col span={1} offset={1}>
+          <ProcessCircle message={this.props.message} state={this.props.status} />
         </Col>
       </Row>
     );
@@ -66,6 +95,11 @@ RowView.propTypes = {
   image_url: React.PropTypes.string.isRequired,
   handleSlider: React.PropTypes.func.isRequired,
   deleteItem: React.PropTypes.func.isRequired,
-  item_index: React.PropTypes.number.isRequired
+  // index of the row
+  item_index: React.PropTypes.number.isRequired,
+  // callback when select a type
+  type_change: React.PropTypes.func.isRequired,
+  status: React.PropTypes.string.isRequired,
+  message: React.PropTypes.string.isRequired
 };
 
