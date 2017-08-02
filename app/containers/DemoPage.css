@@ -82,16 +82,18 @@ body {
   color: #fff;
 }
 
-.middle_layout .header .btn{
+.middle_layout .header .btn {
   background: #0c0c0c;
   text-align: center;
-  border:0;
+  border: 0;
 }
-.middle_layout .header .btn:hover{
-  background:#0c0c0c;
-  border:0;
+
+.middle_layout .header .btn:hover {
+  background: #0c0c0c;
+  border: 0;
 }
-.middle_layout .header .btn:focus{
-  background:#0c0c0c;
-  border:0;
+
+.middle_layout .header .btn:focus {
+  background: #0c0c0c;
+  border: 0;
 }

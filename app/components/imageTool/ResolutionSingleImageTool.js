@@ -19,7 +19,15 @@ class ResolutionSingleImageTool extends Component {
     out_height: 16,
     resultFileUrl: '',
     loading: false,
+    picType: '',
   };
+
+  selectPicType = (type) => {
+    this.setState({
+      picType: type,
+    });
+    alert(type);
+  }
 
   getSrPicture = () => {
     const printFunction = (message) => {
@@ -33,7 +41,8 @@ class ResolutionSingleImageTool extends Component {
     this.setState({
       loading: true,
     });
-    tempSr(this.props.rawImageSrc, this.state.out_width, this.state.out_height, printFunction);
+    tempSr(this.props.rawImageSrc, this.state.out_width, this.state.out_height, this.state.picType,
+      printFunction);
 
     // const OpenWindow = window.open('', '处理进度', 'height=100, width=400, top=0,' +
     //   ' left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
@@ -71,7 +80,7 @@ class ResolutionSingleImageTool extends Component {
       >
         <Content style={{ height: 'calc(100% - 118px)' }}>
           <Row type="flex" justify="start" style={{ height: '100%' }}>
-            <Col span={this.state.resultFileUrl === '' ? 24 : 12} className={styles.middle_picture} style={{ height: '100%' }}>
+            <Col span={this.state.resultFileUrl === '' ? 24 : 10} className={styles.middle_picture} style={{ height: '100%' }}>
               <Dropzone
                 style={{ margin: 0, height: '100%', width: '100%' }}
                 onDrop={this.dropFile.bind(this)}
@@ -93,7 +102,7 @@ class ResolutionSingleImageTool extends Component {
             </Col>
 
             {this.state.resultFileUrl === '' ? null :
-            <Col span={12} className={styles.middle_picture} style={{ height: '100%' }}>
+            <Col span={10} className={styles.middle_picture} style={{ height: '100%' }}>
               <img
                 id="middle_img"
                 style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
@@ -127,7 +136,7 @@ class ResolutionSingleImageTool extends Component {
                 icon="check"
               />
               <label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_check}`}>check</label>
-              <Select defaultValue="TEXT" className={`${styles.selectCategory}`}>
+              <Select defaultValue="TEXT" className={`${styles.selectCategory}`} onChange={this.selectPicType}>
                 <Option value="ANIME">ANIME</Option>
                 <Option value="TEXT">TEXT</Option>
                 <Option value="PORTRAIT">PORTRAIT</Option>

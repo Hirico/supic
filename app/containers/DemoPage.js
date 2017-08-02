@@ -28,6 +28,7 @@ const options = {
   ]
 };
 
+
 class App extends Component {
   state = {
     collapsed: false,
@@ -127,6 +128,17 @@ class App extends Component {
     });
   }
 
+  openFile = () => {
+    dialog.showOpenDialog({
+      properties: ['openFile']
+    }, (files) => {
+      this.addItem(files[0]);
+      this.setState({
+        rawImageSrc: files[0],
+      });
+    });
+  }
+
   /**
    * delete the selected picture in left menu
    * @param index the index of the selected picture in the array
@@ -202,13 +214,11 @@ class App extends Component {
                 type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                 onClick={this.toggle}
               /></Tooltip>
-            <Tooltip placement="top" title={'open'}><Icon className={styles.trigger} type="plus" /></Tooltip>
+            <Tooltip placement="top" title={'open'}>
+              <Icon className={styles.trigger} type="plus" onClick={this.openFile} />
+            </Tooltip>
             <Tooltip placement="top" title={'clean'}>
-              <Icon
-                className={styles.trigger}
-                type="delete"
-                onClick={this.clearAll}
-              />
+              <Icon className={styles.trigger} type="delete" onClick={this.clearAll} />
             </Tooltip>
             <Button onClick={this.savePicture} className={styles.btn}>
               <Tooltip placement="top" title={'save'}><Icon type="save" className={styles.trigger} /> </Tooltip>
