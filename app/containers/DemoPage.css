@@ -64,6 +64,7 @@ body {
 
 .ant-layout-sider {
   height: 100vh;
+  width: 12.5%;
 }
 
 .ant-row-flex.ant-row-flex-start {
@@ -97,3 +98,4 @@ body {
   background: #0c0c0c;
   border: 0;
 }
+

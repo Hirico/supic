@@ -1,0 +1,86 @@
+.SR_icon_wrapper {
+  position: relative;
+  padding: 0;
+  left: 40px;
+  top: 5px;
+  height: 40px;
+  color: #fff;
+}
+
+.SR_icon_wrapper .anticon {
+  position: relative;
+  top: -20px;
+  left: 15px;
+  width: 150px;
+  height: 16px;
+  line-height: 1;
+  font-size: 16px;
+}
+
+.SR_icon_wrapper .anticon1 {
+  position: relative;
+  top: 5px;
+  left: -123px;
+  color: #d9d9d9;
+}
+
+.SR_icon_wrapper .anticon2 {
+  position: relative;
+  left: 160px;
+  top: -53px;
+  color: #d9d9d9;
+}
+
+.anticon.anticon_highlight {
+  color: #666;
+}
+
+.SR_icon_wrapper .slider {
+  position: relative;
+  left: 400px;
+  top: 10px;
+}
+
+.SR_icon_wrapper .inputWidth {
+  position: relative;
+  left: 190px;
+  top: -55px;
+  width: 55px;
+}
+
+.SR_icon_wrapper .inputHeight {
+  position: relative;
+  left: 230px;
+  top: -55px;
+  width: 55px;
+}
+
+.SR_icon_wrapper .note_label {
+  font-size: 13px;
+  color: #ddd;
+}
+
+.SR_icon_wrapper .px1_label {
+  position: relative;
+  left: 140px;
+  top: -55px;
+}
+
+.SR_icon_wrapper .width_label {
+  position: relative;
+  left: 75px;
+  top: -30px;
+}
+
+.SR_icon_wrapper .height_label {
+  position: relative;
+  left: 135px;
+  top: -30px;
+}
+
+.SR_icon_wrapper .px2_label {
+  position: relative;
+  left: 150px;
+  top: -55px;
+}
+

@@ -1,0 +1,38 @@
+
+.row {
+  height: 50px;
+}
+
+.picture {
+  height: 80px;
+  width: 80px;
+  align-items: center;
+}
+
+.trigger {
+  font-size: 18px;
+  line-height: 18px;
+  padding: 0 5px;
+  cursor: pointer;
+  margin-left: 38px;
+  transition: color 0.3s;
+  color: #fff;
+}
+
+.trigger:hover {
+  color: #108ee9;
+  font-size: 20px;
+}
+
+.middle_select {
+  margin: 2% 3%;
+  height: 60vh;
+  overflow: auto;
+  text-align: center;
+}
+
+.Process_bar {
+  top: 8vh;
+  color: #ddd;
+}
+

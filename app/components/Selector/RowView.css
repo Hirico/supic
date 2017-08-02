@@ -1,0 +1,29 @@
+.Row_content {
+  height: 80px;
+  width: 500px;
+}
+
+.pic {
+  height: 12.5vh;
+  width: 12.5vh;
+}
+
+.slider {
+  height: 100px;
+  width: 280px;
+}
+
+.trigger {
+  font-size: 18px;
+  line-height: 18px;
+  padding: 0 5px;
+  cursor: pointer;
+  margin-left: 38px;
+  transition: color 0.3s;
+  color: #fff;
+}
+
+.trigger:hover {
+  color: #108ee9;
+  font-size: 20px;
+}

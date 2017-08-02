@@ -7,10 +7,3 @@
   transition: color 0.3s;
   color: #fff;
 }
-
-.trigger:hover {
-  color: #108ee9;
-  font-size: 20px;
-}
-
-

@@ -6,7 +6,6 @@
 // TODO delete-icon's width is not well
 import React, { Component } from 'react';
 import { Tooltip, Icon } from 'antd';
-// import {Image} from 'antd';
 import styles from './leftMenuItem.css';
 
 

@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import LeftMenuItem from './LeftMenuItem';
+import styles from './LeftMenuList.css';
 
 
 class LeftMenuList extends Component {
@@ -18,23 +19,25 @@ class LeftMenuList extends Component {
 
   render() {
     return (
-      <Menu
-        theme="dark"
-        mode="inline"
-        selectedKeys={[this.props.selectedIndex.toString()]}
-        style={{ background: '#292929' }}
-        onClick={this.handleClick}
-      >
-        {
-          // lambda to get all element in list
-          this.props.images.map((item, i) => (
-            <Menu.Item key={i.toString()}>
-              <Icon type="picture" />
-              <span><LeftMenuItem path={item} index={i} delete={this.props.delete} /></span>
-            </Menu.Item>
-          ))
-        }
-      </Menu>
+      <div className={styles.left_list}>
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={[this.props.selectedIndex.toString()]}
+          style={{ background: '#292929' }}
+          onClick={this.handleClick}
+        >
+          {
+            // lambda to get all element in list
+            this.props.images.map((item, i) => (
+              <Menu.Item key={i.toString()}>
+                <Icon type="picture" />
+                <span><LeftMenuItem path={item} index={i} delete={this.props.delete} /></span>
+              </Menu.Item>
+            ))
+          }
+        </Menu>
+      </div>
     );
   }
 }
