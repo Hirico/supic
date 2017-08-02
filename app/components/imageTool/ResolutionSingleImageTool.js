@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone';
 import SuperResolutionSlider from '../slider/SuperResolutionSlider';
 import { tempSr } from '../../utils/pyCommunicator';
 import styles from './ResolutionSingleImageTool.css';
-import MutipleSelector from './MutipleSelector';
+import MutipleSelector from '../Selector/MultipleSelector';
 
 
 const { Content, Footer } = Layout;

@@ -21,6 +21,7 @@ class MultipleSelector extends Component {
       raw_widths: [50, 50, 50],
       new_heights: [50, 50, 50],
       new_widths: [50, 50, 50],
+      pictureType: [0, 0, 0],
       out_dir: '',  // store all output images
       percent: 0,
       finish_number: 0 // complete number
@@ -49,7 +50,8 @@ class MultipleSelector extends Component {
       raw_heights: this.deleteOne(this.state.raw_heights, index),
       raw_widths: this.deleteOne(this.state.raw_widths, index),
       new_heights: this.deleteOne(this.state.new_heights, index),
-      new_widths: this.deleteOne(this.state.new_widths, index) });
+      new_widths: this.deleteOne(this.state.new_widths, index),
+      pictureType: this.deleteOne(this.state.pictureType, index) });
   }
 
   /**
@@ -80,6 +82,7 @@ class MultipleSelector extends Component {
     const list3 = this.state.raw_heights;
     const list4 = this.state.new_widths;
     const list5 = this.state.new_heights;
+    const list6 = this.state.pictureType;
 
     const img = new Image();
     img.src = file.path;
@@ -88,6 +91,7 @@ class MultipleSelector extends Component {
     list3.push(img.height);
     list4.push(img.width);
     list5.push(img.height);
+    list6.push(0)
 
 
     this.setState({
@@ -95,7 +99,8 @@ class MultipleSelector extends Component {
       raw_heights: list3,
       raw_widths: list2,
       new_heights: list5,
-      new_widths: list4
+      new_widths: list4,
+      pictureType: list6
     });
   }
   /**
