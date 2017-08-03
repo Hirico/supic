@@ -51,7 +51,7 @@ class RowView extends Component {
         <Col span={2} offset={1}>
           <img className={styles.pic} src={this.props.image_url} alt="NJU" />
         </Col>
-        <Col span={7} >
+        <Col span={12} >
           <SuperResolutionSlider
             handleSlider={this.handleSlider.bind(this)}
             min={1}
@@ -62,7 +62,7 @@ class RowView extends Component {
             pre_height={this.props.raw_height}
           />
         </Col>
-        <Col span={2} offset={5}>
+        <Col span={2} offset={0}>
           <Select
             defaultValue={TypeName[0]}
             className={styles.selector}
@@ -80,7 +80,7 @@ class RowView extends Component {
             <Icon onClick={this.deletePicture.bind(this)} className={styles.trigger} type="delete" />
           </Tooltip>
         </Col>
-        <Col span={1} offset={1}>
+        <Col span={2} offset={1}>
           <ProcessCircle message={this.props.message} state={this.props.status} />
         </Col>
       </Row>

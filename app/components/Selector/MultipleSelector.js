@@ -118,26 +118,36 @@ class MultipleSelector extends Component {
 
     const img = new Image();
     img.src = file.path;
-    list1.push(img.src);
-    list2.push(img.width);
-    list3.push(img.height);
-    list4.push(img.width);
-    list5.push(img.height);
-    list6.push(0);
-    list7.push('no');
-    list8.push('no');
-
-
-    this.setState({
-      image_urls: list1,
-      raw_heights: list3,
-      raw_widths: list2,
-      new_heights: list5,
-      new_widths: list4,
-      pictureType: list6,
-      dealState: list7,
-      backInfo: list8
-    });
+    img.onload = () => {
+      list1.push(img.src);
+      list2.push(img.width);
+      list3.push(img.height);
+      list4.push(img.width);
+      list5.push(img.height);
+      list6.push(0);
+      list7.push('no');
+      list8.push('no');
+      this.setState({
+        image_urls: list1,
+        raw_heights: list3,
+        raw_widths: list2,
+        new_heights: list5,
+        new_widths: list4,
+        pictureType: list6,
+        dealState: list7,
+        backInfo: list8
+      });
+      this.setState({
+        image_urls: list1,
+        raw_heights: list3,
+        raw_widths: list2,
+        new_heights: list5,
+        new_widths: list4,
+        pictureType: list6,
+        dealState: list7,
+        backInfo: list8
+      });
+    };
   }
   /**
    * make a fake uploader
@@ -232,11 +242,12 @@ class MultipleSelector extends Component {
       disabled: this.state.processing
 
     };
+    // noinspection JSAnnotator
     return (
-      <div>
-        <Content >
-          <Row type="flex" justify="start">
-            <Col span={19} className={styles.middle_select}>
+      <div style={{ margin: 0, width: '100%' }}>
+        <Content style={{ margin: 0, height: '100%', width: 'calc(100% - 180px)' }}>
+          <Row style={{ margin: 0, width: '100%', height: '10vh' }}>
+            <Col span={19} className={styles.middle_select} style={{ margin: 0, width: '100%' }}>
               <Dropzone
                 style={{ margin: 0, height: '100%', width: '100%' }}
                 onDrop={this.dropFile.bind(this)}
@@ -247,7 +258,7 @@ class MultipleSelector extends Component {
                 {
                   // lambda to get all element in list
                   this.state.image_urls.map((url, i) => (
-                    <div>
+                    <div style={{ width: '100%' }}>
                       <RowView
                         raw_width={this.state.raw_widths[i]}
                         raw_height={this.state.raw_heights[i]}

@@ -1,16 +1,6 @@
-.Row_content {
-  height: 80px;
-  width: 500px;
-}
-
 .pic {
-  height: 12.5vh;
-  width: 12.5vh;
-}
-
-.slider {
-  height: 100px;
-  width: 280px;
+  height: 12vh;
+  width: 8vw;
 }
 
 .trigger {

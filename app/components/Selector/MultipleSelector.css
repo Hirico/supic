@@ -1,6 +1,7 @@
 
 .row {
-  height: 50px;
+  height: 10vh;
+  width: 100%;
 }
 
 .picture {
@@ -27,6 +28,7 @@
 .middle_select {
   margin: 2% 3%;
   height: 65vh;
+  width: 80%;
   overflow: auto;
   text-align: center;
 }

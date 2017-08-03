@@ -71,16 +71,27 @@ class ResolutionSingleImageTool extends Component {
     // if user select multiple SR change layout totally
     if (this.props.modeSelect === 2) {
       return (
-        <MutipleSelector />
+        <div style={this.props.collapsed ? { height: 'calc(100vh - 64px)',
+          width: 'calc(100vw - 64px)' } : { height: 'calc(100vh - 64px)', width: 'calc(100vw - 150px)' }}
+        >
+          <MutipleSelector />
+        </div>
       );
     }
+
     return (
-      <div style={this.props.collapsed ? { height: 'calc(100vh - 45px)',
-        width: 'calc(100vw - 310px)' } : { height: 'calc(100vh - 45px)', width: 'calc(100vw - 390px)' }}
+      <div style={this.props.collapsed ? {
+        height: 'calc(100vh - 45px)',
+        width: 'calc(100vw - 310px)'
+      } : { height: 'calc(100vh - 45px)', width: 'calc(100vw - 390px)' }}
       >
         <Content style={{ height: 'calc(100% - 118px)' }}>
           <Row type="flex" justify="start" style={{ height: '100%' }}>
-            <Col span={this.state.resultFileUrl === '' ? 24 : 10} className={styles.middle_picture} style={{ height: '100%' }}>
+            <Col
+              span={this.state.resultFileUrl === '' ? 24 : 10}
+              className={styles.middle_picture}
+              style={{ height: '100%' }}
+            >
               <Dropzone
                 style={{ margin: 0, height: '100%', width: '100%' }}
                 onDrop={this.dropFile.bind(this)}
@@ -127,7 +138,7 @@ class ResolutionSingleImageTool extends Component {
                 htmlFor={`${styles.try}`}
                 className={`${styles.note} ${styles.note_label_reso}`}
               >Resize
-              Rate</label>
+                Rate</label>
               <Button
                 onClick={this.getSrPicture}
                 data-tclass="btn"
@@ -143,7 +154,11 @@ class ResolutionSingleImageTool extends Component {
               </Select>
             </Col>
             <Col span={1} className={styles.footer}>
-              <Icon type="loading" className={this.state.loading ? styles.loadingStart : styles.loadingStop} spin={this.state.loading} />
+              <Icon
+                type="loading"
+                className={this.state.loading ? styles.loadingStart : styles.loadingStop}
+                spin={this.state.loading}
+              />
             </Col>
           </Row>
         </Footer>
