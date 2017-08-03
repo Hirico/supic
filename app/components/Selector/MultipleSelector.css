@@ -58,3 +58,11 @@
 .selector {
   width: 8vw;
 }
+
+.dropWord {
+  position: absolute;
+  color: #d9d9d9;
+  font-size: 30px;
+  margin-top: 30vh;
+  margin-left: 18vw;
+}

@@ -336,6 +336,8 @@ class MultipleSelector extends Component {
                 disableClick
               >
                 {
+                  this.state.image_urls.length === 0 ?
+                    <div className={styles.dropWord} >Drop or click button to upload</div> :
                   // lambda to get all element in list
                   this.state.image_urls.map((url, i) => (
                     <div style={{ width: '100%', height: '15vh' }}>
