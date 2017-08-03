@@ -69,8 +69,8 @@
 
 .footer .selectCategory {
   position: absolute;
-  top: 0;
-  right: 75px;
+  top: 1px;
+  right: 6vw;
   width: 100px;
 }
 
