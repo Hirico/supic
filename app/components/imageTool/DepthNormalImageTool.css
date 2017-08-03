@@ -2,18 +2,34 @@
   margin: 1% 3%;
   height: 100%;
   text-align: center;
+  color: #d8d8d8;
 }
 
 .middle_picture .plus {
   position: absolute;
-  top: 40%;
-  left: 35%;
-  font-size: 10vw;
-  color: #d8d8d8;
+  top: 45%;
+  left: 40%;
+  font-size: 5vw;
 }
 
 .middle_picture .hide {
   font-size: 0;
+}
+
+/* css of left loading icon when loading, set loading icon visible */
+.middle_picture .loadingStart {
+  position: absolute;
+  top: 40%;
+  left: 35%;
+  font-size: 10vw;
+  color: #108ee9;
+}
+
+.middle_picture .RGB {
+  position: absolute;
+  top: 58%;
+  left: 37%;
+  font-size: 1.5vw;
 }
 
 .depth_picture_col {
@@ -21,6 +37,7 @@
   height: 100%;
   left: 0;
   text-align: center;
+  color: #d8d8d8;
 }
 
 .depth_picture_col .depthPicture {
@@ -29,10 +46,16 @@
 
 .depth_picture_col .plus {
   position: absolute;
-  top: 40%;
-  left: 35%;
-  font-size: 10vw;
+  top: 45%;
+  left: 40%;
+  font-size: 5vw;
   color: #d8d8d8;
+}
+.depth_picture_col .depthMap{
+  position: absolute;
+  top: 58%;
+  left: 37%;
+  font-size: 1.5vw;
 }
 
 .imageDropZone {
@@ -43,9 +66,6 @@
   text-align: center;
 }
 
-#try {
-}
-
 /* tool area */
 .footer {
   height: 10vh;
@@ -54,49 +74,37 @@
 
 /* css of minFocalDepth and maxFocalDepth */
 
+.footer .minMaxFocalLabel {
+  position: absolute;
+  top:-2vh;
+  font-size: 1.2vw;
+}
 /* range slider with min and maxFocalDepth */
-.minMaxSlider {
+.footer .minMaxSlider {
   position: absolute;
-  left: 0;
-  top: -2vh;
-  width: 28vw;
-}
-
-.footer .minFocalDepthLabel {
-  position: absolute;
-  left: 0;
-  top: 5vh;
-  font-size: 1.2vw;
-  color: #f6f6f6;
-}
-
-.footer .minFocalDepthInput {
-  position: absolute;
-  left: 2vw;
-  width: 4.5vw;
+  left: 1vw;
   top: 1vh;
+  width: 22vw;
 }
 
-.footer .maxFocalDepthInput {
+.footer .minLabel {
   position: absolute;
-  top: 1vh;
-  left: 20vw;
-  width: 4.5vw;
-}
-
-.footer .maxFocalDepthLabel {
-  position: absolute;
-  left: 18vw;
-  top: 5vh;
+  top: 2vh;
   font-size: 1.2vw;
-  color: #f6f6f6;
+}
+
+.footer .maxLabel {
+  position: absolute;
+  left: 24.5vw;
+  top: 2vh;
+  font-size: 1.2vw;
 }
 
 /* css of transition Slider/InputNumber component/Label */
 .footer .transitionSlider {
   position: absolute;
   left: 8vw;
-  top: 8.5vh;
+  top: 8vh;
   width: 14vw;
 }
 
@@ -110,7 +118,7 @@
 .footer .transitionLabel {
   position: absolute;
   left: 0;
-  top: 9vh;
+  top: 8.8vh;
   font-size: 1.2vw;
   color: #f6f6f6;
 }
@@ -127,7 +135,7 @@
   position: absolute;
   left: 23vw;
   width: 4.5vw;
-  top: -10px;
+  top: -1vh;
 }
 
 .footer .radiusLabel {
@@ -147,7 +155,7 @@
 
 .footer .brightnessInput {
   position: absolute;
-  top: 3.5vh;
+  top: 3.7vh;
   left: 23vw;
   width: 4.5vw;
 }
@@ -181,12 +189,12 @@
   color: #f6f6f6;
 }
 
-/* css of loading icon when stop loading, set loading icon invisible */
+/* css of depth loading icon when stop loading, set loading icon invisible */
 .depth_picture_col .hide {
   font-size: 0;
 }
 
-/* css of loading icon when loading, set loading icon visible */
+/* css of depth loading icon when loading, set loading icon visible */
 .depth_picture_col .loadingStart {
   position: absolute;
   top: 40%;

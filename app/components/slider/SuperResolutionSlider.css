@@ -2,7 +2,7 @@
   position: absolute;
   padding: 0;
   left: 40px;
-  top: 0px;
+  top: 0;
   height: 40px;
   width: 100px;
   color: #fff;
@@ -17,21 +17,21 @@
   font-size: 16px;
 }
 
-.SR_icon_wrapper .anticon1{
+.SR_icon_wrapper .anticon1 {
   position: absolute;
   left: -10px;
   top: 5px;
   color: #d9d9d9;
 }
 
-.SR_icon_wrapper .anticon2{
+.SR_icon_wrapper .anticon2 {
   position: absolute;
   left: 160px;
   top: 5px;
   color: #d9d9d9;
 }
 
-.anticon.anticon_highlight {
+.anticon .anticon_highlight {
   color: #666;
 }
 
@@ -41,40 +41,46 @@
   top: 10px;
 }
 
-.SR_icon_wrapper .inputWidth{
+.SR_icon_wrapper .inputWidth {
   position: absolute;
   left: 190px;
-  top:1px;
+  top: 1px;
   width: 55px;
 }
-.SR_icon_wrapper .inputHeight{
+
+.SR_icon_wrapper .inputHeight {
   position: absolute;
   left: 270px;
-  top:1px;
-  width:55px;
+  top: 1px;
+  width: 55px;
 }
-.SR_icon_wrapper .note_label{
+
+.SR_icon_wrapper .note_label {
   font-size: 13px;
-  color: #dddddd;
+  color: #ddd;
 }
-.SR_icon_wrapper .px1_label{
+
+.SR_icon_wrapper .px1_label {
   position: absolute;
   left: 246px;
-  top:2px;
+  top: 2px;
 }
-.SR_icon_wrapper .width_label{
+
+.SR_icon_wrapper .width_label {
   position: absolute;
   left: 197px;
   top: 32px;
 }
-.SR_icon_wrapper .height_label{
+
+.SR_icon_wrapper .height_label {
   position: absolute;
   left: 278px;
   top: 32px;
 }
-.SR_icon_wrapper .px2_label{
+
+.SR_icon_wrapper .px2_label {
   position: absolute;
   left: 330px;
-  top:2px;
+  top: 2px;
 }
 

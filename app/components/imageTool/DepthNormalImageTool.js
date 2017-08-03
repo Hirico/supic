@@ -20,20 +20,21 @@ const options = {
 class DepthNormalImageTool extends Component {
   state = {
     fileUrl: '',       /* img src show in middle left area */
-    rightURl: '',       /* depth src show in middle right area */
     imageWidth: 20,
     imageHeight: 20,
     minFocalDepth: 0,  /* [0,255] integer, the closest focal distance */
-    maxFocalDepth: 0,  /* [0,255] integer, the farthest focal distance */
+    maxFocalDepth: 255,  /* [0,255] integer, the farthest focal distance */
     transition: 0,     /* [0,255] integer, the transition part distance */
     radius: 0,         /* [0,50] integer, blur amount(boken radius) */
     brightness: 0,     /* [-1,1] float, boken brightness */
     speed: 1,          /* [1,10] int, the smaller, the slower and the more accurate */
     depthMapPath: '',  /* absolute depth map file path  */
     working: true,     /* slider and input field state, able or disabled */
-    loading: false,    /* loading icon state, visible or not visible  */
+    rightLoading: false,    /* depth img loading icon state, visible or not visible  */
+    leftLoading: false,   /* left(lens blur) img loading icon state, visible or not visible  */
     /* maximum value of transition, that is, minimum { minFocalDepth, 255-maxFocalDepth} */
     transMax: 0,
+    diaOn: false,
   };
 
   /**
@@ -46,14 +47,13 @@ class DepthNormalImageTool extends Component {
     const printFunction = (res) => {
       this.setState({
         depthMapPath: res, /* refresh depth map file path */
-        rightURl: res,
       });
       this.returnToDefault();
     };
 
     this.setState({
       fileUrl: files[0].path,  /* refresh img src in left area */
-      loading: true,
+      rightLoading: true,
       working: true,
     });
 
@@ -73,13 +73,14 @@ class DepthNormalImageTool extends Component {
   returnToDefault= () => {
     this.setState({
       minFocalDepth: 0,
-      maxFocalDepth: 0,
+      maxFocalDepth: 255,
       transition: 0,
       radius: 0,
       brightness: 0,
       speed: 1,
       working: false,
-      loading: false,
+      leftLoading: false,
+      rightLoading: false,
     });
   }
   /**
@@ -88,46 +89,47 @@ class DepthNormalImageTool extends Component {
   dropDepthFile=(files) => {
     const depthCallBack = (res) => {
       this.props.setResultImgSrc(res);
-      this.setState({
+      this.setState(() => ({
         fileUrl: res,              /* refresh src in left middle area */
         working: false,            /* set slider to workable */
-        loading: false,            /* set loading icon to not visible */
-      });
+        leftLoading: false,        /* set loading icon to not visible */
+      }));
     };
     this.setState({
-      depthMapPath: files[0].path, /* refresh depth map file path */
-      rightURl: files[0].path,
+      depthMapPath: files[0].path,    /* refresh depth map file path */
     });
     if (this.props.rawImageSrc === '') {
       this.setState({
         working: false,
-        loading: false,
+        leftLoading: false,
       });
     } else if (this.state.radius !== 0) {
+      this.setState({
+        leftLoading: true,
+        working: true,
+      });
       lensBlur(this.props.rawImageSrc, files[0].path, this.state.minFocalDepth,
-          this.state.maxFocalDepth, this.state.transition, this.state.radius,
-          this.state.brightness, this.state.speed, depthCallBack);
+        this.state.maxFocalDepth, this.state.transition, this.state.radius,
+        this.state.brightness, this.state.speed, depthCallBack);
     }
   }
   /**
    *  function to change state after calling function lensBlur according to return value
    */
   changeState=(res, type) => {
-    const printDepthFunction = (depthRes) => {
-      this.setState({
-        rightURl: depthRes,        /* refresh depth src in right middle area */
-        working: false,            /* set slider to workable */
-        loading: false,            /* set loading icon to not visible */
-      });
-    };
     console.log(`${type} change res: ${res}`);
-    if (res !== undefined) {       /* success to generate a img file */
+    if (res !== undefined) {       /* success to generate an img file */
       this.setState({
         fileUrl: res,              /* refresh img src in middle left area */
       });
       this.props.setResultImgSrc(res);
-      getDepth(res, printDepthFunction);
+    } else {
+      console.log(`Fail to ${type} change.`);
     }
+    this.setState({
+      working: false,            /* set slider to workable */
+      leftLoading: false,        /* set loading icon to not visible */
+    });
   }
 
   /**
@@ -145,57 +147,11 @@ class DepthNormalImageTool extends Component {
     if (this.state.radius !== 0) {
       this.setState({
         working: true,
-        loading: true,
+        leftLoading: true,
       });
       lensBlur(this.props.rawImageSrc, this.state.depthMapPath, value[0], value[1],
         this.state.transition, this.state.radius, this.state.brightness,
         this.state.speed, printMinFunction);
-    }
-  }
-
-  /**
-   *  function when changing InputNumber component which holds minFocalDepth value
-   */
-  onChangeMinFocalDepth=(value) => {
-    const printMinFunction = (res) => {
-      this.changeState(res, 'min');
-    };
-    this.setState({
-      minFocalDepth: value,
-      transMax: (value < (255 - this.state.maxFocalDepth)) ?
-        value : (255 - this.state.maxFocalDepth),
-    });
-    if (this.state.radius !== 0) {
-      this.setState({
-        working: true,
-        loading: true,
-      });
-      lensBlur(this.props.rawImageSrc, this.state.depthMapPath, value, this.state.maxFocalDepth,
-        this.state.transition, this.state.radius, this.state.brightness,
-        this.state.speed, printMinFunction);
-    }
-  }
-
-  /**
-   *  function when changing InputNumber component which holds maxFocalDepth value
-   */
-  onChangeMaxFocalDepth=(value) => {
-    const printMaxFunction = (res) => {
-      this.changeState(res, 'max');
-    };
-    this.setState({
-      maxFocalDepth: value,
-      transMax: (this.state.minFocalDepth < (255 - value)) ?
-        this.state.minFocalDepth : (255 - value),
-    });
-    if (this.state.radius !== 0) {
-      this.setState({
-        working: true,
-        loading: true,
-      });
-      lensBlur(this.props.rawImageSrc, this.state.depthMapPath, this.state.minFocalDepth,
-        value, this.state.transition, this.state.radius, this.state.brightness,
-        this.state.speed, printMaxFunction);
     }
   }
 
@@ -212,7 +168,7 @@ class DepthNormalImageTool extends Component {
     if (this.state.radius !== 0) {
       this.setState({
         working: true,
-        loading: true,
+        leftLoading: true,
       });
       lensBlur(this.props.rawImageSrc, this.state.depthMapPath, this.state.minFocalDepth,
         this.state.maxFocalDepth, value, this.state.radius, this.state.brightness,
@@ -230,7 +186,7 @@ class DepthNormalImageTool extends Component {
     this.setState({
       radius: value,
       working: true,
-      loading: true,
+      leftLoading: true,
     });
     lensBlur(this.props.rawImageSrc, this.state.depthMapPath, this.state.minFocalDepth,
       this.state.maxFocalDepth, this.state.transition, value, this.state.brightness,
@@ -250,7 +206,7 @@ class DepthNormalImageTool extends Component {
     if (this.state.radius !== 0) {
       this.setState({
         working: true,
-        loading: true,
+        leftLoading: true,
       });
       lensBlur(this.props.rawImageSrc, this.state.depthMapPath, this.state.minFocalDepth,
         this.state.maxFocalDepth, this.state.transition, this.state.radius, value,
@@ -271,32 +227,46 @@ class DepthNormalImageTool extends Component {
    * button clicked: upload left area picture
    */
   uploadLeftPic=() => {
+    if (this.state.leftLoading) return;
+    if (this.state.rightLoading) return;
+    if (this.state.diaOn) return;
+    this.setState({
+      diaOn: true,
+    });
     const self = this;
     const printFunction0 = (res) => {
       this.setState({
         depthMapPath: res, /* refresh depth map file path */
-        rightURl: res,
-        loading: false,
+        rightLoading: false,
         working: false,
+        diaOn: false,
       });
+      this.returnToDefault();
     };
-    self.returnToDefault();
+
     dialog.showOpenDialog({
       properties: ['openFile']
     }, (files) => {
-      self.setState({
-        fileUrl: files[0],  /* refresh img src in left area */
-        loading: true,
-        working: true,
-      });
-      self.props.setResultImgSrc('Not designed');  /* save function, pass parameter to parent component */
-      const img = new Image();
-      img.src = files[0];
-      // add image
-      self.props.addLeftItem(img.src);
-      self.state.imageWidth = img.width;
-      self.state.imageHeight = img.height;
-      getDepth(self.state.fileUrl, printFunction0);
+      if (files !== undefined) {
+        self.setState({
+          fileUrl: files[0],  /* refresh img src in left area */
+          rightLoading: true,
+          working: true,
+        });
+        self.props.setResultImgSrc('Not designed');  /* save function, pass parameter to parent component */
+        self.props.setRawImgSrc(files[0]);
+        const img = new Image();
+        img.src = files[0];
+        // add image
+        self.props.addLeftItem(img.src);
+        self.state.imageWidth = img.width;
+        self.state.imageHeight = img.height;
+        getDepth(files[0], printFunction0);
+      } else {
+        self.setState({
+          diaOn: false,
+        });
+      }
     });
   }
 
@@ -304,31 +274,47 @@ class DepthNormalImageTool extends Component {
    * button clicked: upload right area picture
    */
   uploadRightPic= () => {
+    if (this.state.leftLoading) return;
+    if (this.state.rightLoading) return;
+    if (this.state.diaOn) return;
+    this.setState({
+      diaOn: true,
+    });
     const depthCallBack2 = (res) => {
       this.props.setResultImgSrc(res);
-      this.setState({
-        fileUrl: res,              /* refresh src in left middle area */
-        working: false,            /* set slider to workable */
-        loading: false,            /* set loading icon to not visible */
-      });
+      this.setState(() => ({
+        fileUrl: res,                  /* refresh src in left middle area */
+        working: false,                /* set slider to workable */
+        leftLoading: false,            /* set loading icon to not visible */
+        diaOn: false,
+      }));
     };
     const self = this;
     dialog.showOpenDialog({
       properties: ['openFile']
     }, (files) => {
-      self.setState({
-        depthMapPath: files[0],     /* refresh depth map file path */
-        rightURl: files[0],
-      });
-      if (self.props.rawImageSrc === '') {
+      if (files !== undefined) {
         self.setState({
-          working: false,
-          loading: false,
+          depthMapPath: files[0],     /* refresh depth map file path */
         });
-      } else if (self.state.radius !== 0) {
-        lensBlur(self.props.rawImageSrc, self.state.depthMapPath, self.state.minFocalDepth,
+        if (self.props.rawImageSrc === '') {
+          self.setState({
+            working: false,
+            loading: false,
+            diaOn: false,
+          });
+        } else if (self.state.radius !== 0) {
+          self.setState({
+            leftLoading: true,
+          });
+          lensBlur(self.props.rawImageSrc, self.state.depthMapPath, self.state.minFocalDepth,
             self.state.maxFocalDepth, self.state.transition, self.state.radius,
             self.state.brightness, self.state.speed, depthCallBack2);
+        }
+      } else {
+        self.setState({
+          diaOn: false,
+        });
       }
     });
   }
@@ -337,16 +323,32 @@ class DepthNormalImageTool extends Component {
    * button clicked: save left area result picture
    */
   saveLeftPic = () => {
+    if (this.state.leftLoading) return;
+    if (this.state.rightLoading) return;
+    if (this.state.diaOn) return;
+    this.setState({
+      diaOn: true,
+    });
     const printFunction = (res) => {
+      this.setState({
+        diaOn: false,
+      });
       alert(`Save in ${res}`);
     };
     if (this.state.fileUrl === '') {
       alert('No image source. Please load an image first.');
+      this.setState({
+        diaOn: false,
+      });
     } else {
       const self = this;
       dialog.showSaveDialog(options, (filename) => {
-        if (self.state.fileUrl !== '') {
+        if (self.state.fileUrl !== '' && filename !== undefined) {
           saveResult(self.state.fileUrl, filename, printFunction);
+        } else {
+          self.setState({
+            diaOn: false,
+          });
         }
       });
     }
@@ -356,19 +358,41 @@ class DepthNormalImageTool extends Component {
    * button clicked: save right area result picture
    */
   saveRightPic = () => {
+    if (this.state.leftLoading) return;
+    if (this.state.rightLoading) return;
+    if (this.state.diaOn) return;
     const printFunction = (res) => {
+      this.setState({
+        diaOn: false,
+      });
       alert(`Save in ${res}`);
     };
     if (this.state.rightURl === '') {
       alert('No image source. Please load an image first.');
     } else {
+      this.setState({
+        diaOn: true,
+      });
       const self = this;
       dialog.showSaveDialog(options, (filename) => {
-        if (self.state.rightURl !== '') {
-          saveResult(self.state.rightURl, filename, printFunction);
+        if (self.state.rightURl !== '' && filename !== undefined) {
+          saveResult(self.state.depthMapPath, filename, printFunction);
+        } else {
+          self.setState({
+            diaOn: false,
+          });
         }
       });
     }
+  }
+  /**
+   *  min&max focal depth slider tooptip formatter
+   */
+  formatter = (value) => {
+    if (value < this.state.maxFocalDepth) {
+      return `Min Focal Depth : ${value}`;
+    }
+    return `Max Focal Depth : ${value}`;
   }
 
   /**
@@ -376,15 +400,15 @@ class DepthNormalImageTool extends Component {
    */
   render() {
     return (
-      <div style={{ height: 'calc(100vh - 64px)' }}>
+      <div style={{ height: 'calc(100vh - 64px)', width: 'calc(100vw - 180px)' }}>
         {/* middle img area */}
         <Content style={{ height: 'calc(100% - 118px)' }}>
           {/* import: import depth image */}
           <Row type="flex" justify="start">
             {/* left area */}
             <Col span={9} className={styles.middle_picture}>
-              <Button ghost icon="upload" onClick={this.uploadLeftPic} style={{ left: '-5.6vw', margin: '3%', width: '10vw', fontSize: '1.2vw' }}>Import</Button>
-              <Button ghost icon="download" onClick={this.saveLeftPic} style={{ left: '5.6vw', margin: '3%', width: '10vw', fontSize: '1.2vw' }}>Export</Button>
+              <Button ghost icon="upload" onClick={this.uploadLeftPic} style={{ left: '-4.7vw', margin: '3%', width: '10vw', fontSize: '1.2vw' }}>Import</Button>
+              <Button ghost icon="download" onClick={this.saveLeftPic} style={{ left: '4.7vw', margin: '3%', width: '10vw', fontSize: '1.2vw' }}>Export</Button>
               <Dropzone
                 style={{ margin: 0, height: 'calc(100vh - 300px)', width: '100%', border: '1px #fff dashed' }}
                 onDrop={this.dropFile.bind(this)}
@@ -402,30 +426,33 @@ class DepthNormalImageTool extends Component {
                 </div>}
               </Dropzone>
               <Icon type="plus" className={this.state.fileUrl === '' ? styles.plus : styles.hide} />
+              <p className={this.state.fileUrl === '' ? styles.RGB : styles.hide}>RGB File</p>
+              <Icon type="loading" className={this.state.leftLoading ? styles.loadingStart : styles.hide} spin={this.state.leftLoading} />
 
             </Col>
             {/* right area */}
             <Col span={9} className={styles.depth_picture_col}>
-              <Button ghost icon="upload" onClick={this.uploadRightPic} style={{ left: '-5.6vw', margin: '3%', width: '10vw', fontSize: '1.2vw' }}>Import</Button>
-              <Button ghost icon="download" onClick={this.saveRightPic} style={{ left: '5.6vw', margin: '3%', width: '10vw', fontSize: '1.2vw' }}>Export</Button>
+              <Button ghost icon="upload" onClick={this.uploadRightPic} style={{ left: '-4.7vw', margin: '3%', width: '10vw', fontSize: '1.2vw' }}>Import</Button>
+              <Button ghost icon="download" onClick={this.saveRightPic} style={{ left: '4.7vw', margin: '3%', width: '10vw', fontSize: '1.2vw' }}>Export</Button>
               <Dropzone
                 style={{ margin: 0, height: 'calc(100vh - 300px)', width: '100%', border: '1px #fff dashed' }}
                 onDrop={this.dropDepthFile.bind(this)}
                 multiple={false}
                 accept="image/*"
               >
-                {this.state.rightURl === '' ? null :
+                {this.state.depthMapPath === '' ? null :
                 <div className={styles.imageDropZone}>
                   <img
                     id="middle_img"
                     style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
-                    src={this.state.rightURl}
+                    src={this.state.depthMapPath}
                     alt="没有图片"
                   />
                 </div>}
               </Dropzone>
-              <Icon type="plus" className={this.state.rightURl === '' ? styles.plus : styles.hide} />
-              <Icon type="loading" className={this.state.loading ? styles.loadingStart : styles.hide} spin={this.state.loading} />
+              <Icon type="plus" className={this.state.depthMapPath === '' ? styles.plus : styles.hide} />
+              <p className={this.state.depthMapPath === '' ? styles.depthMap : styles.hide}>Depth Map</p>
+              <Icon type="loading" className={this.state.rightLoading ? styles.loadingStart : styles.hide} spin={this.state.rightLoading} />
             </Col>
 
           </Row>
@@ -434,6 +461,7 @@ class DepthNormalImageTool extends Component {
         <Row className={styles.footer}>
           <Col span={1} />
           <Col span={10} >
+            <p className={styles.minMaxFocalLabel}> Min & Max Focal Depth</p>
             {/* range slider which holds minFocalDepth and maxFocalDepth value */}
             <Slider
               range
@@ -444,28 +472,11 @@ class DepthNormalImageTool extends Component {
               onChange={this.onChangeMinMaxFocalDepth}
               disabled={this.state.working}
               className={styles.minMaxSlider}
+              tipFormatter={this.formatter}
             />
-            {/* InputNumber component with minFocalDepth value */}
-            <InputNumber
-              min={0}
-              max={this.state.maxFocalDepth}
-              onChange={this.onChangeMinFocalDepth}
-              value={this.state.minFocalDepth}
-              className={styles.minFocalDepthInput}
-              disabled={this.state.working}
-            />
-            <label htmlFor={`${styles.try}`} className={styles.minFocalDepthLabel}>Min Focal Depth</label>
-            {/* InputNumber component with maxFocalDepth value */}
-            <InputNumber
-              min={this.state.minFocalDepth}
-              max={255}
-              step={1}
-              onChange={this.onChangeMaxFocalDepth}
-              value={this.state.maxFocalDepth}
-              className={styles.maxFocalDepthInput}
-              disabled={this.state.working}
-            />
-            <label htmlFor={`${styles.try}`} className={styles.maxFocalDepthLabel}>Max Focal Depth</label>
+            <p className={styles.minLabel}>0</p>
+            <p className={styles.maxLabel}>255</p>
+
             {/* slider with transition value */}
             <Slider
               min={0}
@@ -486,7 +497,7 @@ class DepthNormalImageTool extends Component {
               className={styles.transitionInput}
               disabled={this.state.working}
             />
-            <label htmlFor={`${styles.try}`} className={styles.transitionLabel}>Transition</label>
+            <p className={styles.transitionLabel}>Transition</p>
           </Col>
           <Col span={10}>
             {/* slider with radius value */}
@@ -509,7 +520,7 @@ class DepthNormalImageTool extends Component {
               className={styles.radiusInput}
               disabled={this.state.working}
             />
-            <label htmlFor={`${styles.try}`} className={styles.radiusLabel}>Radius</label>
+            <p className={styles.radiusLabel}>Radius</p>
             {/* slider with brightness value */}
             <Slider
               min={-1}
@@ -530,7 +541,7 @@ class DepthNormalImageTool extends Component {
               className={styles.brightnessInput}
               disabled={this.state.working}
             />
-            <label htmlFor={`${styles.try}`} className={styles.brightnessLabel}>Brightness</label>
+            <p className={styles.brightnessLabel}>Brightness</p>
 
             {/* slider with speed value */}
             <Slider
@@ -552,7 +563,7 @@ class DepthNormalImageTool extends Component {
               className={styles.speedInput}
               disabled={this.state.working}
             />
-            <label htmlFor={`${styles.try}`} className={styles.speedLabel}>Speed</label>
+            <p className={styles.speedLabel}>Speed</p>
           </Col>
         </Row>
       </div>
@@ -560,6 +571,8 @@ class DepthNormalImageTool extends Component {
     );
   }
 }
+
+
 export default DepthNormalImageTool;
 DepthNormalImageTool.propTypes = {
   resizeNum: React.PropTypes.number.isRequired,

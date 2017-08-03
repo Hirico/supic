@@ -123,7 +123,7 @@ class App extends Component {
   clearAll= () => {
     this.setState({
       images: [],
-      rawImageSrc: null,
+      rawImageSrc: '',
       selectedIndex: 0
     });
   }
