@@ -9,6 +9,12 @@ import RowView from './RowView';
 import SingleSlider from '../slider/SingleSlider';
 import batchSr from '../../utils/testBatch';
 import picType from '../../utils/PicType';
+// eslint-disable-next-line import/no-unresolved
+
+
+const fs = require('fs');
+
+const filename = './multiples.txt';
 
 const TypeName = Object.keys(picType);
 const Option = Select.Option;
@@ -41,7 +47,26 @@ class MultipleSelector extends Component {
 
     };
   }
-
+  /**
+   * load state before mount
+   */
+  componentWillMount() {
+    fs.exists(filename, () => {
+      const log = fs.readFileSync(filename);
+      const sta = JSON.parse(log);
+      this.setState(sta);
+    });
+  }
+  /**
+   * save state before out
+   */
+  componentWillUnmount() {
+    if (this.state.processing) {
+      return;
+    }
+    const log = JSON.stringify(this.state);
+    fs.writeFileSync(filename, log);
+  }
   /**
    * calback function
    * @param v   scale by slider
@@ -276,6 +301,13 @@ class MultipleSelector extends Component {
             dealState: listState,
             backInfo: listMessage
           });
+          if (finishNumber === totalNumber) {
+            this.state.processing = false;
+            this.state.finish_number = finishNumber;
+            this.state.percent = ((finishNumber * 100) / totalNumber);
+            const log = JSON.stringify(this.state);
+            fs.writeFileSync(filename, log);
+          }
         });
     });
   }
