@@ -1,0 +1,47 @@
+.SR_icon_wrapper {
+  position: relative;
+  padding: 0;
+  left: 0;
+  top: 5px;
+  height: 8vh;
+  width: 100%;
+  color: #fff;
+}
+
+.SR_icon_wrapper .anticon {
+  position: absolute;
+  top: -500%;
+  left: 18%;
+  width: 150%;
+  line-height: 1;
+}
+
+.SR_icon_wrapper .anticon1 {
+  position: absolute;
+  top: 500%;
+  left: 110%;
+  color: #d9d9d9;
+}
+
+.SR_icon_wrapper .anticon2 {
+  position: absolute;
+  left: 800%;
+  top: 600%;
+  color: #d9d9d9;
+}
+
+.anticon.anticon_highlight {
+  color: #666;
+}
+
+.note_label {
+  font-size: calc(1vw * 1vh);
+  color: #ddd;
+}
+
+.px1_label {
+  position: absolute;
+  left: 63%;
+  top: 25%;
+}
+

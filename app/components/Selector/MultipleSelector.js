@@ -2,11 +2,16 @@
  * Created by wshwbluebird on 2017/8/1.
  */
 import React, { Component } from 'react';
-import { Col, Layout, Row, Upload, Button, Icon, Progress } from 'antd';
+import { Col, Layout, Row, Upload, Button, Icon, Progress, Select } from 'antd';
 import Dropzone from 'react-dropzone';
 import styles from './MultipleSelector.css';
 import RowView from './RowView';
+import SingleSlider from '../slider/SingleSlider';
 import batchSr from '../../utils/testBatch';
+import picType from '../../utils/PicType';
+
+const TypeName = Object.keys(picType);
+const Option = Select.Option;
 
 const assert = require('assert');
 
@@ -284,6 +289,27 @@ class MultipleSelector extends Component {
     this.state.pictureType[index] = value;
   }
 
+  /**
+   * function when the user drag the common slider
+   * @param value
+   */
+  commonSlider = (value) => {
+    const list = this.state.sliderValues.map(() => value);
+    this.setState({
+      sliderValues: list
+    });
+  }
+  /**
+   * unction when the user select the common chooser
+   * @param value
+   */
+  commonChange = (value) => {
+    const list = this.state.pictureType.map(() => value);
+    this.setState({
+      pictureType: list
+    });
+  }
+
   render() {
     // some property of file uploader
     const props = {
@@ -326,6 +352,7 @@ class MultipleSelector extends Component {
                         item_index={i}
                         status={this.state.dealState[i]}
                         message={this.state.backInfo[i]}
+                        picType={this.state.pictureType[i]}
                       />
                     </div>
                   ))
@@ -345,12 +372,35 @@ class MultipleSelector extends Component {
                 </Upload>
               </div>
             </Col>
-            <Col span={3} offset={1}>
+            <Col span={3} >
               <div>
                 <Button onClick={this.exportAll.bind(this)}>
                   <Icon type="save" /> export
                 </Button>
               </div>
+            </Col>
+            <Col span={1} offset={2}>
+              <label className={`${styles.note_label} ${styles.px1_label}`} htmlFor={`${styles.try}`} >ALL</label>
+            </Col>
+            <Col span={5}>
+              <SingleSlider
+                handleSlider={this.commonSlider.bind(this)}
+                min={1}
+                max={2}
+              />
+            </Col>
+            <Col span={2}>
+              <Select
+                defaultValue={TypeName[0]}
+                className={styles.selector}
+                onChange={this.commonChange.bind(this)}
+              >
+                {
+                  TypeName.map(key => (
+                    <Option value={picType[key]}>{key}</Option>
+                  ))
+                }
+              </Select>
             </Col>
           </Row>
           <Row>

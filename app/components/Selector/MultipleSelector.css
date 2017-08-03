@@ -38,3 +38,23 @@
   color: #ddd;
 }
 
+.commonAll {
+  font-size: 1.8vh;
+  color: #f6f6f6;
+}
+
+.note_label {
+  font-size: calc(2vw * 2vh);
+  color: #ddd;
+}
+
+.px1_label {
+  position: absolute;
+  left: 50%;
+  top: 700%;
+  padding-left: 2%;
+}
+
+.selector {
+  width: 8vw;
+}

@@ -58,8 +58,9 @@ class RowView extends Component {
         </Col>
         <Col span={2} offset={0}>
           <Select
-            defaultValue={TypeName[0]}
+            defaultValue={TypeName[this.props.picType]}
             className={styles.selector}
+            value={TypeName[this.props.picType]}
             onChange={this.handleChange.bind(this)}
           >
             {
@@ -97,6 +98,7 @@ RowView.propTypes = {
   type_change: React.PropTypes.func.isRequired,
   status: React.PropTypes.string.isRequired,
   message: React.PropTypes.string.isRequired,
-  slider_value: React.PropTypes.number.isRequired
+  slider_value: React.PropTypes.number.isRequired,
+  picType: React.PropTypes.number.isRequired
 };
 
