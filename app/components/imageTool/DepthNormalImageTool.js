@@ -32,7 +32,7 @@ class DepthNormalImageTool extends Component {
     working: true,     /* slider and input field state, able or disabled */
     rightLoading: false,    /* depth img loading icon state, visible or not visible  */
     leftLoading: false,   /* left(lens blur) img loading icon state, visible or not visible  */
-    /* maximum value of transition, that is, minimum { minFocalDepth, 255-maxFocalDepth} */
+    /* maximum value of transition, that is,  max { minFocalDepth, 255-maxFocalDepth} */
     transMax: 0,
     diaOn: false,
   };
@@ -133,22 +133,34 @@ class DepthNormalImageTool extends Component {
   }
 
   /**
-   *  function when moving slider which holds minFocalDepth and maxFocalDepth value
+   *  function when moving slider (minFocalDepth and maxFocalDepth)
    */
-  onChangeMinMaxFocalDepth=(value) => {
+  onChangeMinMaxFocalDepth = (value) => {
+    this.setState({
+      minFocalDepth: value[0],
+      maxFocalDepth: value[1],
+      transMax: (value[0] > (255 - value[1])) ? value[0] : (255 - value[1]),
+    });
+  }
+  /**
+   *  function after moving slider (minFocalDepth and maxFocalDepth )
+   */
+  onAfterChangeMinMaxFocalDepth=(value) => {
     const printMinFunction = (res) => {
       this.changeState(res, 'minMax');
     };
     this.setState({
       minFocalDepth: value[0],
       maxFocalDepth: value[1],
-      transMax: (value[0] < (255 - value[1])) ? value[0] : (255 - value[1]),
+      transMax: (value[0] > (255 - value[1])) ? value[0] : (255 - value[1]),
     });
     if (this.state.radius !== 0) {
       this.setState({
         working: true,
         leftLoading: true,
       });
+      console.log(value[0]);
+      console.log(value[1]);
       lensBlur(this.props.rawImageSrc, this.state.depthMapPath, value[0], value[1],
         this.state.transition, this.state.radius, this.state.brightness,
         this.state.speed, printMinFunction);
@@ -156,9 +168,17 @@ class DepthNormalImageTool extends Component {
   }
 
   /**
-   *  function when moving slider and InputNumber component which holds transition value
+   *  function when moving slider and InputNumber (transition)
    */
   onChangeTransition=(value) => {
+    this.setState({
+      transition: value,
+    });
+  }
+  /**
+   *  function after moving slider and InputNumber (transition)
+   */
+  onAfterChangeTransition=(value) => {
     const printTransitionFunction = (res) => {
       this.changeState(res, 'transition');
     };
@@ -177,9 +197,17 @@ class DepthNormalImageTool extends Component {
   }
 
   /**
-   *  function when moving slider and InputNumber component which holds radius value
+   *  function when moving slider and InputNumber(radius)
    */
   onChangeRadius=(value) => {
+    this.setState({
+      radius: value,
+    });
+  }
+  /**
+   *  function after moving slider (radius)
+   */
+  onAfterChangeRadius=(value) => {
     const printRadiusFunction = (res) => {
       this.changeState(res, 'radius');
     };
@@ -188,15 +216,32 @@ class DepthNormalImageTool extends Component {
       working: true,
       leftLoading: true,
     });
-    lensBlur(this.props.rawImageSrc, this.state.depthMapPath, this.state.minFocalDepth,
-      this.state.maxFocalDepth, this.state.transition, value, this.state.brightness,
-      this.state.speed, printRadiusFunction);
+    if (value === 0) {
+      this.setState({
+        fileUrl: this.props.rawImageSrc,
+        working: false,
+        leftLoading: false,
+      });
+    } else {
+      lensBlur(this.props.rawImageSrc, this.state.depthMapPath, this.state.minFocalDepth,
+        this.state.maxFocalDepth, this.state.transition, value, this.state.brightness,
+        this.state.speed, printRadiusFunction);
+    }
   }
 
   /**
-   *  function when moving slider and InputNumber component which holds brightness value
+   *  function when moving slider and InputNumber (brightness)
    */
   onChangeBrightness=(value) => {
+    this.setState({
+      brightness: value,
+    });
+  }
+
+  /**
+   *  function after moving slider (brightness)
+   */
+  onAfterChangeBrightness=(value) => {
     const printBrightnessFunction = (res) => {
       this.changeState(res, 'brightness');
     };
@@ -367,7 +412,7 @@ class DepthNormalImageTool extends Component {
       });
       alert(`Save in ${res}`);
     };
-    if (this.state.rightURl === '') {
+    if (this.state.depthMapPath === '') {
       alert('No image source. Please load an image first.');
     } else {
       this.setState({
@@ -375,7 +420,7 @@ class DepthNormalImageTool extends Component {
       });
       const self = this;
       dialog.showSaveDialog(options, (filename) => {
-        if (self.state.rightURl !== '' && filename !== undefined) {
+        if (self.state.depthMapPath !== '' && filename !== undefined) {
           saveResult(self.state.depthMapPath, filename, printFunction);
         } else {
           self.setState({
@@ -470,6 +515,7 @@ class DepthNormalImageTool extends Component {
               max={255}
               step={1}
               onChange={this.onChangeMinMaxFocalDepth}
+              onAfterChange={this.onAfterChangeMinMaxFocalDepth}
               disabled={this.state.working}
               className={styles.minMaxSlider}
               tipFormatter={this.formatter}
@@ -483,6 +529,7 @@ class DepthNormalImageTool extends Component {
               max={this.state.transMax}
               step={1}
               onChange={this.onChangeTransition}
+              onAfterChange={this.onAfterChangeTransition}
               value={this.state.transition}
               className={styles.transitionSlider}
               disabled={this.state.working}
@@ -506,6 +553,7 @@ class DepthNormalImageTool extends Component {
               max={50}
               step={1}
               onChange={this.onChangeRadius}
+              onAfterChange={this.onAfterChangeRadius}
               value={this.state.radius}
               className={styles.radiusSlider}
               disabled={this.state.working}
@@ -527,6 +575,7 @@ class DepthNormalImageTool extends Component {
               max={1}
               step={0.1}
               onChange={this.onChangeBrightness}
+              onAfterChange={this.onAfterChangeBrightness}
               value={this.state.brightness}
               className={styles.brightnessSlider}
               disabled={this.state.working}
