@@ -1,8 +1,8 @@
 .SR_icon_wrapper {
   position: absolute;
   padding: 0;
-  left: 40px;
-  top: 0;
+  left: 0;
+  top: 25px;
   height: 40px;
   width: 100px;
   color: #fff;
@@ -10,8 +10,8 @@
 
 .SR_icon_wrapper .anticon {
   position: absolute;
-  top: -5px;
-  width: 150px;
+  top: -2px;
+  width: 15vw;
   height: 16px;
   line-height: 1;
   font-size: 16px;
@@ -20,14 +20,14 @@
 .SR_icon_wrapper .anticon1 {
   position: absolute;
   left: -10px;
-  top: 5px;
+  top: 8px;
   color: #d9d9d9;
 }
 
 .SR_icon_wrapper .anticon2 {
   position: absolute;
-  left: 160px;
-  top: 5px;
+  left: 16vw;
+  top: 8px;
   color: #d9d9d9;
 }
 
@@ -43,16 +43,18 @@
 
 .SR_icon_wrapper .inputWidth {
   position: absolute;
-  left: 190px;
+  left: 18vw;
   top: 1px;
-  width: 55px;
+  font-size: 12px;
+  width: 50px;
 }
 
 .SR_icon_wrapper .inputHeight {
   position: absolute;
-  left: 270px;
+  left: 26vw;
   top: 1px;
-  width: 55px;
+  font-size: 12px;
+  width: 50px;
 }
 
 .SR_icon_wrapper .note_label {
@@ -62,8 +64,8 @@
 
 .SR_icon_wrapper .px1_label {
   position: absolute;
-  left: 246px;
-  top: 2px;
+  left: calc(18vw + 55px);
+  top: 4px;
 }
 
 .SR_icon_wrapper .width_label {
@@ -80,7 +82,7 @@
 
 .SR_icon_wrapper .px2_label {
   position: absolute;
-  left: 330px;
-  top: 2px;
+  left: calc(26vw + 55px);
+  top: 4px;
 }
 

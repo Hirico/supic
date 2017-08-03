@@ -37,6 +37,7 @@ class ResolutionSingleImageTool extends Component {
         loading: false,
       });
       alert(`New picture save in ${message} temporarily. Click SAVE BUTTON to designated route if you like it.`);
+      alert(this.state.resultFileUrl);
     };
     this.setState({
       loading: true,
@@ -81,14 +82,14 @@ class ResolutionSingleImageTool extends Component {
 
     return (
       <div style={this.props.collapsed ? {
-        height: 'calc(100vh - 45px)',
+        height: 'calc(100vh - 85px)',
         width: 'calc(100vw - 310px)'
-      } : { height: 'calc(100vh - 45px)', width: 'calc(100vw - 390px)' }}
+      } : { height: 'calc(100vh - 85px)', width: 'calc(100vw - 390px)', margin: 20 }}
       >
         <Content style={{ height: 'calc(100% - 118px)' }}>
           <Row type="flex" justify="start" style={{ height: '100%' }}>
             <Col
-              span={this.state.resultFileUrl === '' ? 24 : 10}
+              span={this.state.resultFileUrl === '' ? 24 : 12}
               className={styles.middle_picture}
               style={{ height: '100%' }}
             >
@@ -98,9 +99,7 @@ class ResolutionSingleImageTool extends Component {
                 multiple={false}
                 accept="image/*"
               >
-                {this.props.rawImageSrc !== '' ? null :
-                <div style={{ color: '#d9d9d9', fontSize: '15px' }}>Drop or click to upload.</div>}
-                {this.props.rawImageSrc === '' ? null :
+                {this.props.rawImageSrc === '' ? <div className={styles.dropWord} >Drop or click to upload</div> :
                 <div className={styles.imageDropZone}>
                   <img
                     id="middle_img"
@@ -113,7 +112,7 @@ class ResolutionSingleImageTool extends Component {
             </Col>
 
             {this.state.resultFileUrl === '' ? null :
-            <Col span={10} className={styles.middle_picture} style={{ height: '100%' }}>
+            <Col span={12} className={styles.middle_picture} style={{ height: '100%' }}>
               <img
                 id="middle_img"
                 style={{ margin: 0, height: ((450 * this.props.resizeNum) / 4) }}
@@ -134,11 +133,7 @@ class ResolutionSingleImageTool extends Component {
                 value={1}
                 pre_width={this.state.imageWidth}
                 pre_height={this.state.imageHeight}
-              /><label
-                htmlFor={`${styles.try}`}
-                className={`${styles.note} ${styles.note_label_reso}`}
-              >Resize
-                Rate</label>
+              />
               <Button
                 onClick={this.getSrPicture}
                 data-tclass="btn"
@@ -146,7 +141,6 @@ class ResolutionSingleImageTool extends Component {
                 className={`${styles.check_btn}`}
                 icon="check"
               />
-              <label htmlFor={`${styles.try}`} className={`${styles.note} ${styles.note_label_check}`}>check</label>
               <Select defaultValue="TEXT" className={`${styles.selectCategory}`} onChange={this.selectPicType}>
                 <Option value="ANIME">ANIME</Option>
                 <Option value="TEXT">TEXT</Option>

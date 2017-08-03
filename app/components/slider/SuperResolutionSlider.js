@@ -69,8 +69,6 @@ class SRSlider extends Component {
           onChange={this.handleHeightChange}
         />
         <label className={`${styles.note_label} ${styles.px1_label}`} htmlFor={`${styles.try}`} >px</label>
-        <label className={`${styles.note_label} ${styles.width_label}`} htmlFor={`${styles.try}`} >width</label>
-        <label className={`${styles.note_label} ${styles.height_label}`} htmlFor={`${styles.try}`} >height</label>
         <label className={`${styles.note_label} ${styles.px2_label}`} htmlFor={`${styles.try}`} >px</label>
       </div>
     );
