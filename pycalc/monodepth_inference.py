@@ -94,7 +94,7 @@ def test_simple(params, image_path, out_dir_path):
     disp = sess.run(model.disp_left_est[0], feed_dict={left: input_images})
     disp_pp = post_process_disparity(disp.squeeze()).astype(np.float32)
 
-    depth = params.focal_length * params.baseline / disp_pp
+    depth = 1 - disp_pp
     depth = depth / np.amax(depth)
 
     output_name = os.path.splitext(os.path.basename(args.image_path))[0]

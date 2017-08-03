@@ -2,6 +2,8 @@ import time
 from PIL import Image
 from PIL import ImageFilter
 from PIL import ImageEnhance
+import numpy as np
+
 
 def lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radius, brightness, output_dir, speed=1):
     """ lens blur """
@@ -20,12 +22,12 @@ def lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radiu
     copy_box = (0, 0, im.width, im.height)
 
     for i in range(radius):
-        gradient_filters.append(ImageFilter.GaussianBlur(i + 1))
+        gradient_filters.append(ImageFilter.Kernel((3,3), np.ones(9)))
         image_i = im.crop(copy_box)
-        enhancer = ImageEnhance.Brightness(image_i)
-        image_i = enhancer.enhance(power)
+        for j in range(i):
+            image_i = image_i.filter(gradient_filters[i])
 
-        filtered_images.append(image_i.filter(gradient_filters[i]))
+        filtered_images.append(image_i)
 
     # manipulate pixel
     for i in range(0, im.width, speed):
@@ -42,6 +44,8 @@ def lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radiu
             im.paste(pixel, box)
 
     # output image
+    enhancer = ImageEnhance.Brightness(im)
+    im = enhancer.enhance(power)
     name = hex(int(time.time() * 100000))[2:]
     path = output_dir + '/' + str(name) + '.' + format
     im.save(path)
