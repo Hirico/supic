@@ -22,7 +22,7 @@ def lens_blur(input_path, depthmap_path, min_focal, max_focal, transition, radiu
     copy_box = (0, 0, im.width, im.height)
 
     for i in range(radius):
-        gradient_filters.append(ImageFilter.Kernel((3,3), np.ones(9)))
+        gradient_filters.append(ImageFilter.GaussianBlur(1))
         image_i = im.crop(copy_box)
         for j in range(i):
             image_i = image_i.filter(gradient_filters[i])
