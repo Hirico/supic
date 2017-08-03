@@ -74,11 +74,7 @@ class RightMenuList extends Component {
             key="sub2"
             title={<span><Icon type="appstore" /><span>FocusDepth&nbsp;&nbsp;&nbsp;&nbsp;</span></span>}
           >
-            <Menu.Item key="3">Normal</Menu.Item>
-            <Menu.Item key="4">For Expert</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub3" title={<span><Icon type="setting" /><span>Stylize&nbsp;</span></span>}>
-            <Menu.Item key="5">Stylize Export</Menu.Item>
+            <Menu.Item key="3">For Expert</Menu.Item>
           </SubMenu>
         </Menu>
       </div>
