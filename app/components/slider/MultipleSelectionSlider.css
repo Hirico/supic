@@ -49,7 +49,7 @@
 }
 
 .SR_icon_wrapper .note_label {
-  font-size: 1vw;
+  font-size: calc(1vw * 1vh);
   color: #ddd;
 }
 
@@ -63,12 +63,14 @@
   position: absolute;
   left: 52%;
   top: calc((100vh - 64px) * 0.06);
+  padding-top: 1px;
 }
 
 .SR_icon_wrapper .height_label {
   position: absolute;
   left: 74%;
   top: calc((100vh - 64px) * 0.06);
+  padding-top: 1px;
 }
 
 .SR_icon_wrapper .px2_label {

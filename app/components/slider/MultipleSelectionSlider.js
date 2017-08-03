@@ -6,7 +6,7 @@
  * copy from lyq 因为我不会复用css
  */
 import React, { Component } from 'react';
-import { Slider, Icon, InputNumber,Row , Col } from 'antd';
+import { Slider, Icon, InputNumber, Row, Col } from 'antd';
 import styles from './MultipleSelectionSlider.css';
 
 class SRSlider extends Component {
@@ -24,7 +24,7 @@ class SRSlider extends Component {
       sliderValue: v,
       cHeight: v * this.props.pre_height,
     });
-    this.props.handleSlider(v * this.props.pre_width, v * this.props.pre_height);
+    this.props.handleSlider(v, this.props.slider_index);
   }
   handleWidthChange=(v) => {
     this.setState({
@@ -32,7 +32,7 @@ class SRSlider extends Component {
       sliderValue: (v / this.props.pre_width),
       cHeight: ((v / this.props.pre_width) * this.props.pre_height),
     });
-    this.props.handleSlider(v, ((v / this.props.pre_width) * this.props.pre_height));
+    this.props.handleWidth(v, this.props.slider_index);
   }
   handleHeightChange=(v) => {
     this.setState({
@@ -40,7 +40,7 @@ class SRSlider extends Component {
       sliderValue: (v / this.props.pre_height),
       cWidth: ((v / this.props.pre_height) * this.props.pre_width),
     });
-    this.props.handleSlider(((v / this.props.pre_height) * this.props.pre_width), v);
+    this.props.handleHeight(v, this.props.slider_index);
   }
 
   render() {
@@ -55,7 +55,7 @@ class SRSlider extends Component {
               {...this.props}
               className={styles.anticon}
               tipFormatter={formatter}
-              value={this.state.sliderValue}
+              value={this.props.value}
               onChange={this.handleChange}
               step={0.1}
             />
@@ -68,8 +68,8 @@ class SRSlider extends Component {
           {...this.props}
           className={styles.inputWidth}
           min={this.props.pre_width}
-          max={this.props.pre_height * 2}
-          value={this.state.cWidth}
+          max={this.props.pre_width * 2}
+          value={this.props.pre_width * this.props.value}
           onChange={this.handleWidthChange}
         />
         <InputNumber
@@ -77,7 +77,7 @@ class SRSlider extends Component {
           className={styles.inputHeight}
           min={this.props.pre_height}
           max={this.props.pre_height * 2}
-          value={this.state.cHeight}
+          value={this.props.pre_height * this.props.value}
           onChange={this.handleHeightChange}
         />
         <label className={`${styles.note_label} ${styles.px1_label}`} htmlFor={`${styles.try}`} >px</label>
@@ -97,6 +97,9 @@ SRSlider.propTypes = {
   pre_width: React.PropTypes.number.isRequired,
   pre_height: React.PropTypes.number.isRequired,
   value: React.PropTypes.number.isRequired,
+  slider_index: React.PropTypes.number.isRequired,
   handleSlider: React.PropTypes.func.isRequired,
+  handleWidth: React.PropTypes.func.isRequired,
+  handleHeight: React.PropTypes.func.isRequired
 };
 

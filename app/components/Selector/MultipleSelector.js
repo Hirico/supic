@@ -14,7 +14,6 @@ const dialog = require('electron').remote.dialog;
 
 const { Content, Footer } = Layout;
 
-// TODO cannot prevent to open multiple dialog
 
 class MultipleSelector extends Component {
   constructor(props) {
@@ -28,24 +27,64 @@ class MultipleSelector extends Component {
       pictureType: [],
       dealState: [],
       backInfo: [],
+      sliderValues: [],
       percent: 0,
       finish_number: 0, // complete number
       processing: false, // is python runtime on?
-      exporting: false   // is export dialog open
+      exporting: false,   // is export dialog open
+      // slider_value: 1    // common sliderValue
 
     };
   }
 
   /**
    * calback function
-   * @param valWidth   scale by slider
-   * @param valHeight  scale by slider
+   * @param v   scale by slider
    * @param index
    */
-  handleSlider = (valWidth, valHeight, index) => {
+
+  handleSlider = (v, index) => {
     if (this.state.processing) return;
-    this.state.new_heights[index] = valHeight;
-    this.state.new_widths[index] = valWidth;
+    this.state.sliderValues[index] = v;
+    this.state.new_heights[index] = v * this.state.raw_heights[index];
+    this.state.new_widths[index] = v * this.state.raw_widths[index];
+    this.setState({
+      sliderValues: this.state.sliderValues,
+      new_heights: this.state.new_heights,
+      new_widths: this.state.new_widths
+    });
+  }
+  /**
+   * handle width change
+   * @param v    new width
+   * @param index
+   */
+  handleWidthChange=(v, index) => {
+    if (this.state.processing) return;
+    this.state.new_widths[index] = v;
+    this.state.sliderValues[index] = v / this.state.raw_widths[index];
+    this.state.new_heights[index] = this.state.sliderValues[index] * this.state.raw_heights[index];
+    this.setState({
+      sliderValues: this.state.sliderValues,
+      new_heights: this.state.new_heights,
+      new_widths: this.state.new_widths
+    });
+  }
+  /**
+   * handle height change
+   * @param v    new height
+   * @param index
+   */
+  handleHeightChange=(v, index) => {
+    if (this.state.processing) return;
+    this.state.new_heights[index] = v;
+    this.state.sliderValues[index] = v / this.state.raw_heights[index];
+    this.state.new_widths[index] = this.state.sliderValues[index] * this.state.raw_widths[index];
+    this.setState({
+      sliderValues: this.state.sliderValues,
+      new_heights: this.state.new_heights,
+      new_widths: this.state.new_widths
+    });
   }
 
   /**
@@ -55,6 +94,9 @@ class MultipleSelector extends Component {
   // TODO reuse
   deleteItem = (index) => {
     if (this.state.processing) return;
+    let finishNumber = this.state.finish_number;
+    finishNumber -= 1;
+    alert(this.state.sliderValues);
     this.setState({ image_urls: this.deleteOne(this.state.image_urls, index),
       raw_heights: this.deleteOne(this.state.raw_heights, index),
       raw_widths: this.deleteOne(this.state.raw_widths, index),
@@ -62,7 +104,10 @@ class MultipleSelector extends Component {
       new_widths: this.deleteOne(this.state.new_widths, index),
       pictureType: this.deleteOne(this.state.pictureType, index),
       dealState: this.deleteOne(this.state.dealState, index),
-      backInfo: this.deleteOne(this.state.backInfo, index) });
+      backInfo: this.deleteOne(this.state.backInfo, index),
+      sliderValues: this.deleteOne(this.state.sliderValues, index),
+      finish_number: finishNumber
+    });
   }
 
   /**
@@ -100,6 +145,10 @@ class MultipleSelector extends Component {
         i -= 1;
       }
     }
+    this.setState({
+      percent: 0,
+      finish_number: 0
+    });
   }
 
   /**
@@ -115,6 +164,7 @@ class MultipleSelector extends Component {
     const list6 = this.state.pictureType;
     const list7 = this.state.dealState;
     const list8 = this.state.backInfo;
+    const list9 = this.state.sliderValues;
 
     const img = new Image();
     img.src = file.path;
@@ -127,6 +177,7 @@ class MultipleSelector extends Component {
       list6.push(0);
       list7.push('no');
       list8.push('no');
+      list9.push(1);
       this.setState({
         image_urls: list1,
         raw_heights: list3,
@@ -135,7 +186,8 @@ class MultipleSelector extends Component {
         new_widths: list4,
         pictureType: list6,
         dealState: list7,
-        backInfo: list8
+        backInfo: list8,
+        sliderValues: list9
       });
       this.setState({
         image_urls: list1,
@@ -145,7 +197,8 @@ class MultipleSelector extends Component {
         new_widths: list4,
         pictureType: list6,
         dealState: list7,
-        backInfo: list8
+        backInfo: list8,
+        sliderValues: list9
       });
     };
   }
@@ -174,6 +227,11 @@ class MultipleSelector extends Component {
         'openDirectory'
       ]
     };
+    alert(this.state.image_urls);
+    alert(this.state.new_widths);
+    alert(this.state.new_heights);
+
+
     // select dir dialog
     dialog.showOpenDialog(chooseOption, (dir) => {
       // reset the exporting
@@ -258,12 +316,15 @@ class MultipleSelector extends Component {
                 {
                   // lambda to get all element in list
                   this.state.image_urls.map((url, i) => (
-                    <div style={{ width: '100%' ,height: '15vh' }}>
+                    <div style={{ width: '100%', height: '15vh' }}>
                       <RowView
                         raw_width={this.state.raw_widths[i]}
                         raw_height={this.state.raw_heights[i]}
                         image_url={url}
                         handleSlider={this.handleSlider}
+                        handleWidth={this.handleWidthChange}
+                        handleHeight={this.handleHeightChange}
+                        slider_value={this.state.sliderValues[i]}
                         deleteItem={this.deleteItem}
                         type_change={this.selectChange}
                         item_index={i}

@@ -17,15 +17,6 @@ const Option = Select.Option;
 class RowView extends Component {
 
   /**
-   * callback handle slider function with index
-   * @param val1
-   * @param val2
-   */
-  handleSlider = (val1, val2) => {
-    this.props.handleSlider(val1, val2, this.props.item_index);
-  }
-
-  /**
    * delete this view when user click it
    */
   deletePicture = () => {
@@ -53,13 +44,16 @@ class RowView extends Component {
         </Col>
         <Col span={12} >
           <SuperResolutionSlider
-            handleSlider={this.handleSlider.bind(this)}
+            handleSlider={this.props.handleSlider}
+            handleHeight={this.props.handleHeight}
+            handleWidth={this.props.handleWidth}
             min={1}
             max={2}
             step={0.1}
-            value={1}
+            value={this.props.slider_value}
             pre_width={this.props.raw_width}
             pre_height={this.props.raw_height}
+            slider_index={this.props.item_index}
           />
         </Col>
         <Col span={2} offset={0}>
@@ -94,12 +88,15 @@ RowView.propTypes = {
   raw_height: React.PropTypes.number.isRequired,
   image_url: React.PropTypes.string.isRequired,
   handleSlider: React.PropTypes.func.isRequired,
+  handleWidth: React.PropTypes.func.isRequired,
+  handleHeight: React.PropTypes.func.isRequired,
   deleteItem: React.PropTypes.func.isRequired,
   // index of the row
   item_index: React.PropTypes.number.isRequired,
   // callback when select a type
   type_change: React.PropTypes.func.isRequired,
   status: React.PropTypes.string.isRequired,
-  message: React.PropTypes.string.isRequired
+  message: React.PropTypes.string.isRequired,
+  slider_value: React.PropTypes.number.isRequired
 };
 
