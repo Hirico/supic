@@ -6,7 +6,7 @@
  * copy from lyq 因为我不会复用css
  */
 import React, { Component } from 'react';
-import { Slider, Icon, InputNumber } from 'antd';
+import { Slider, Icon, InputNumber,Row , Col } from 'antd';
 import styles from './MultipleSelectionSlider.css';
 
 class SRSlider extends Component {
@@ -46,21 +46,29 @@ class SRSlider extends Component {
   render() {
     return (
       <div className={styles.SR_icon_wrapper}>
-        <Icon className={styles.anticon1} type="minus-circle" />
-        <Slider
-          {...this.props}
-          className={styles.anticon}
-          tipFormatter={formatter}
-          value={this.state.sliderValue}
-          onChange={this.handleChange}
-          step={0.1}
-        />
-        <Icon className={styles.anticon2} type="plus-circle" />
+        <Row type={'flex'} align={'bottom'}>
+          <Col span={1} >
+            <Icon className={styles.anticon1} type="minus-circle" />
+          </Col>
+          <Col span={10}>
+            <Slider
+              {...this.props}
+              className={styles.anticon}
+              tipFormatter={formatter}
+              value={this.state.sliderValue}
+              onChange={this.handleChange}
+              step={0.1}
+            />
+          </Col>
+          <Col span={1}>
+            <Icon className={styles.anticon2} type="plus-circle" />
+          </Col>
+        </Row>
         <InputNumber
           {...this.props}
           className={styles.inputWidth}
           min={this.props.pre_width}
-          max={this.props.pre_height * 8}
+          max={this.props.pre_height * 2}
           value={this.state.cWidth}
           onChange={this.handleWidthChange}
         />
@@ -68,7 +76,7 @@ class SRSlider extends Component {
           {...this.props}
           className={styles.inputHeight}
           min={this.props.pre_height}
-          max={this.props.pre_height * 8}
+          max={this.props.pre_height * 2}
           value={this.state.cHeight}
           onChange={this.handleHeightChange}
         />

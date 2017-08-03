@@ -246,7 +246,7 @@ class MultipleSelector extends Component {
     return (
       <div style={{ margin: 0, width: '100%' }}>
         <Content style={{ margin: 0, height: '100%', width: 'calc(100% - 180px)' }}>
-          <Row style={{ margin: 0, width: '100%', height: '10vh' }}>
+          <Row style={{ margin: 0, width: '100%' }}>
             <Col span={19} className={styles.middle_select} style={{ margin: 0, width: '100%' }}>
               <Dropzone
                 style={{ margin: 0, height: '100%', width: '100%' }}
@@ -258,7 +258,7 @@ class MultipleSelector extends Component {
                 {
                   // lambda to get all element in list
                   this.state.image_urls.map((url, i) => (
-                    <div style={{ width: '100%' }}>
+                    <div style={{ width: '100%' ,height: '15vh' }}>
                       <RowView
                         raw_width={this.state.raw_widths[i]}
                         raw_height={this.state.raw_heights[i]}
