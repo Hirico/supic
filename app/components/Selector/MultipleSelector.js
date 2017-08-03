@@ -96,7 +96,6 @@ class MultipleSelector extends Component {
     if (this.state.processing) return;
     let finishNumber = this.state.finish_number;
     finishNumber -= 1;
-    alert(this.state.sliderValues);
     this.setState({ image_urls: this.deleteOne(this.state.image_urls, index),
       raw_heights: this.deleteOne(this.state.raw_heights, index),
       raw_widths: this.deleteOne(this.state.raw_widths, index),
@@ -216,7 +215,7 @@ class MultipleSelector extends Component {
   /**
    * select dir when click the choose button
    */
-  exportAll= () => {
+  exportAll = () => {
     // check is running
     if (this.state.exporting) return;
     if (this.state.processing) return;
@@ -227,9 +226,6 @@ class MultipleSelector extends Component {
         'openDirectory'
       ]
     };
-    alert(this.state.image_urls);
-    alert(this.state.new_widths);
-    alert(this.state.new_heights);
 
 
     // select dir dialog
