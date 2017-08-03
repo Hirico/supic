@@ -75,8 +75,8 @@ class ResolutionSingleImageTool extends Component {
       );
     }
     return (
-      <div style={this.props.collapsed ? { height: 'calc(100vh - 64px)',
-        width: 'calc(100vw - 250px)' } : { height: 'calc(100vh - 64px)', width: 'calc(100vw - 320px)' }}
+      <div style={this.props.collapsed ? { height: 'calc(100vh - 45px)',
+        width: 'calc(100vw - 310px)' } : { height: 'calc(100vh - 45px)', width: 'calc(100vw - 390px)' }}
       >
         <Content style={{ height: 'calc(100% - 118px)' }}>
           <Row type="flex" justify="start" style={{ height: '100%' }}>

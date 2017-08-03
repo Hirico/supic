@@ -20,17 +20,17 @@ body {
 
 ::-webkit-scrollbar {
   background-color: #1b1b1b;
-  width: .8em;
+  width: 0.8em;
 }
 
 ::-webkit-scrollbar:horizontal {
   background-color: #1b1b1b;
-  height: .8em;
+  height: 0.8em;
 }
 
 ::-webkit-scrollbar-thumb:window-inactive,
 ::-webkit-scrollbar-thumb {
-  background:  #6d6d6d
+  background: #6d6d6d;
 }
 
 ::-webkit-scrollbar-corner {
