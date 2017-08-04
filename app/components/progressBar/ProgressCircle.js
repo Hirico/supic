@@ -49,7 +49,6 @@ class ProgressCircle extends Component {
           percent={percent}
           status={sta}
           format={() => formatShow}
-          spin
         />
       </Tooltip>
     );
