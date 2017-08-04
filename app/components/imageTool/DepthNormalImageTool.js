@@ -8,7 +8,12 @@ import styles from './DepthNormalImageTool.css';
 import { getDepth, lensBlur, saveResult } from '../../utils/pyCommunicator';
 
 const { Content } = Layout;
-const dialog = require('electron').remote.dialog;
+
+const electron = require('electron');
+
+const dialog = electron.remote.dialog;
+
+const prePath = `${electron.remote.app.getPath('userData')}/pic_temp`;
 
 const options = {
   title: 'Save an Image',
@@ -16,6 +21,11 @@ const options = {
     { name: 'Images', extensions: ['jpg', 'png', 'gif', 'ico', 'icns'] }
   ]
 };
+
+
+const fs = require('fs');
+
+const depthFilename = `${prePath}/depth.txt`;
 
 class DepthNormalImageTool extends Component {
   state = {
@@ -36,6 +46,27 @@ class DepthNormalImageTool extends Component {
     transMax: 0,
     diaOn: false,
   };
+
+  /**
+   * load state before mount (copy from wsw)
+   */
+  componentWillMount() {
+    fs.exists(depthFilename, () => {
+      const log = fs.readFileSync(depthFilename);
+      const sta = JSON.parse(log);
+      this.setState(sta);
+    });
+  }
+  /**
+   * save state before out  (copy from wsw)
+   */
+  componentWillUnmount() {
+    if (this.state.working) {
+      return;
+    }
+    const log = JSON.stringify(this.state);
+    fs.writeFileSync(depthFilename, log);
+  }
 
   /**
    *  function load picture to left area
