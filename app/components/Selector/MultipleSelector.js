@@ -7,7 +7,7 @@ import Dropzone from 'react-dropzone';
 import styles from './MultipleSelector.css';
 import RowView from './RowView';
 import SingleSlider from '../slider/SingleSlider';
-import batchSr from '../../utils/testBatch';
+import batchSr from '../../utils/pyCommunicator';
 import picType from '../../utils/PicType';
 // eslint-disable-next-line import/no-unresolved
 
