@@ -274,9 +274,11 @@ class MultipleSelector extends Component {
         dealState: list,
         processing: true
       });
+      const imageUrls = this.state.image_urls.map(t => t.slice(7));
+      // alert(imageUrls)
       // call python interface
-      batchSr(this.state.image_urls, dir, widths, heights, this.state.pictureType,
-        (err, doc, finishNumber, totalNumber) => {
+      batchSr(imageUrls, dir[0], widths, heights, this.state.pictureType,
+        (doc, err, finishNumber, totalNumber) => {
           // get state and backlog from callabck
           const listState = this.state.dealState;
           const listMessage = this.state.backInfo;

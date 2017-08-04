@@ -39,6 +39,7 @@ export function saveResult(inputFilePath, outputFilePath, callback) {
 export function tempSr(inputFilePath, outWidth, outHeight, picType, callback) {
   ipcRenderer.once('asynchronous-reply', (event, arg) => {
     const tempDir = arg;
+    console.log(inputFilePath);
     client.invoke('predict_sr', inputFilePath, tempDir, outWidth, outHeight, picType, (error, res) => {
       console.log(res);
       console.log(`err: ${error}`);
@@ -74,6 +75,7 @@ export default function batchSr(images, outDir, outWidths, outHeights, picTypes,
   };
 
   for (let i = 0; i < totalNum; i += 1) {
+    console.log(images[i]);
     client.invoke('predict_sr', images[i], outDir, outWidths[i], outHeights[i], picTypes[i], response);
   }
 }
