@@ -277,6 +277,8 @@ class MultipleSelector extends Component {
       const imageUrls = this.state.image_urls.map(t => t.slice(7));
       // alert(imageUrls)
       // call python interface
+      // alert(widths);
+      // alert(heights);
       batchSr(imageUrls, dir[0], widths, heights, this.state.pictureType,
         (doc, err, finishNumber, totalNumber) => {
           // get state and backlog from callabck
@@ -328,10 +330,8 @@ class MultipleSelector extends Component {
    * @param value
    */
   commonSlider = (value) => {
-    const list = this.state.sliderValues.map(() => value);
-    this.setState({
-      sliderValues: list
-    });
+    // TODO check speed
+    for (let i = 0; i < this.state.sliderValues.length; i += 1) { this.handleSlider(value, i); }
   }
   /**
    * unction when the user select the common chooser

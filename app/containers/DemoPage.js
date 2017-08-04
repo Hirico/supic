@@ -12,9 +12,6 @@ import styles from './DemoPage.css';
 
 import ResolutionSingleImageTool from '../components/imageTool/ResolutionSingleImageTool';
 import DepthNormalImageTool from '../components/imageTool/DepthNormalImageTool';
-import pic1 from '../asset/picture/beach.jpg';
-import pic2 from '../asset/picture/city.jpg';
-import pic3 from '../asset/picture/water.jpg';
 import { saveResult } from '../utils/pyCommunicator';
 
 const { Header, Sider } = Layout;
@@ -38,7 +35,7 @@ class App extends Component {
     rawImageSrc: '', // 原图像的路径
     resultImageSrc: 'Not designed', // 产出结果图像的路径
     resizeNum: 4,
-    images: [pic1, pic2, pic3], // images in left menu
+    images: [], // images in left menu
     selectedIndex: 0,          // selected index in left menu
     rightChildSelect: 1    // right submenu index SR:Single:1,Multiple:2 FD:Normal:1,Expert:2
   };
