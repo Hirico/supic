@@ -129,5 +129,5 @@ def predict_depth(input_path, out_dir_path):
     return test_simple(params, input_path, out_dir_path)
 
 if __name__ == '__main__':
-    args.checkpoint_path = './depth/monodepth'
+    args.checkpoint_path = './depth/model_city2kitti'
     predict_depth('./1.jpg', './')

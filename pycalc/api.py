@@ -1,6 +1,6 @@
 # This python file need to be run on the zerorpc server. Call the member method through zerorpc
 from __future__ import print_function
-from inference_sr import predict_SR as real_predict_sr
+from enhance import supic_process as real_predict_sr
 import sys
 import zerorpc
 import argument_sr
@@ -16,7 +16,7 @@ class PredictApi(object):
     def predict_sr(self, input_path, output_dir, out_width, out_height, pic_type):
         """ render and store temp sr images in output_dir """
         try:
-            result = real_predict_sr(input_path, output_dir, int(out_width), int(out_height), pic_type)
+            result = real_predict_sr(input_path, output_dir, int(out_width), int(out_height))
             reset_default_graph()
             return result
         except Exception as e:
