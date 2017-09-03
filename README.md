@@ -1,4 +1,6 @@
 # supic
+![image](https://travis-ci.org/Hirico/supic.svg?branch=master)
+
 Neural network based image processing tool  
 
 
@@ -22,11 +24,15 @@ The real big problem is lots of CV paper authors not releasing their code or tra
 
 * [Neural Enhance](https://github.com/alexjc/neural-enhance)
 
+Upsample selected images to specific resolution
+
 [Theano](http://deeplearning.net/software/theano/index.html) is used
 
 ### 2. Depth Estimation
 * [Unsupervised Monocular Depth Estimation
 with Left-Right Consistency](http://visual.cs.ucl.ac.uk/pubs/monoDepth/)
+
+Get the estimated depth map of a single chosen image, and feel free to add some built-in DOF effect
 
 [Tensorflow](https://www.tensorflow.org/) is used
 
@@ -42,3 +48,6 @@ cd to the project root directory in your terminal, then:
 6. `./download.sh`
 
 Now you can open the app via `npm start`
+
+## Screenshot
+![Depth estimation](/resources/img/depth_screenshot.png)
