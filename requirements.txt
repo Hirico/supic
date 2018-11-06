@@ -1,0 +1,7 @@
+tensorflow # you might have to install this from its official site.
+numpy
+scipy
+Pillow
+theano
+lasagne # please run `pip3 install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip` to upgrade this 
+zerorpc
