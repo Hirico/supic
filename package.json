@@ -213,7 +213,7 @@
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react-dom": "^16.0.1",
     "react-dropzone": "^3.13.3",
     "react-hot-loader": "3.0.0-beta.6",
     "react-redux": "^5.0.5",
